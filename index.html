@@ -2925,6 +2925,23 @@ flex-direction:column;
 
 <script>
 
+async function cargarProductosDesdeSupabase() {
+    try {
+        const respuesta = await fetch("/api/products");
+
+        if (!respuesta.ok) {
+            throw new Error("No se pudieron cargar los productos");
+        }
+
+        const productos = await respuesta.json();
+
+        console.log("Productos desde Supabase:", productos);
+
+    } catch (error) {
+        console.error("Error cargando productos:", error);
+    }
+}
+
 function openProduct(){
 
     document
@@ -2944,6 +2961,8 @@ function closeProduct(){
     document.body.style.overflow="";
 
 }
+
+cargarProductosDesdeSupabase();
 
 </script>
 
