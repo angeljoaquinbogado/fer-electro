@@ -2775,7 +2775,11 @@ flex-direction:column;
 <script>
 
 async function cargarProductosDesdeSupabase() {
+
+    const contenedor = document.getElementById("products-grid");
+
     try {
+
         const respuesta = await fetch("/api/products");
 
         if (!respuesta.ok) {
@@ -2784,10 +2788,110 @@ async function cargarProductosDesdeSupabase() {
 
         const productos = await respuesta.json();
 
-        console.log("Productos desde Supabase:", productos);
+        contenedor.innerHTML = "";
+
+        if (productos.length === 0) {
+
+            contenedor.innerHTML = `
+                <div class="products-loading">
+                    No hay productos disponibles.
+                </div>
+            `;
+
+            return;
+        }
+
+        productos.forEach(producto => {
+
+            const tarjeta = document.createElement("article");
+
+            tarjeta.className = "product";
+
+            const precio = Number(producto.precio)
+                .toLocaleString("es-AR");
+
+            const imagen = producto.imagen
+                ? producto.imagen
+                : "logo-2.PNG";
+
+            const sinStock = Number(producto.stock) <= 0;
+
+            tarjeta.innerHTML = `
+
+                <div class="product-img">
+
+                    <div class="badge">
+                        ${producto.categoria || "PRODUCTO"}
+                    </div>
+
+                    <img
+                        src="${imagen}"
+                        alt="${producto.nombre}"
+                        class="product-real-image"
+                    >
+
+                </div>
+
+                <div class="product-info">
+
+                    <h3>
+                        ${producto.nombre}
+                    </h3>
+
+                    <p>
+                        ${producto.descripcion || ""}
+                    </p>
+
+                    <div class="product-price">
+                        $${precio}
+                    </div>
+
+                    <div class="product-stock">
+                        ${
+                            sinStock
+                            ? "SIN STOCK"
+                            : `${producto.stock} disponibles`
+                        }
+                    </div>
+
+                    <div class="product-actions">
+
+                        <button
+                            type="button"
+                            class="view-product"
+                            onclick='verProducto(${JSON.stringify(producto)})'
+                        >
+                            VER PRODUCTO →
+                        </button>
+
+                        <button
+                            type="button"
+                            class="gold-btn"
+                            onclick='agregarAlCarrito(${JSON.stringify(producto)})'
+                            ${sinStock ? "disabled" : ""}
+                        >
+                            🛒 AGREGAR
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+
+            contenedor.appendChild(tarjeta);
+
+        });
 
     } catch (error) {
-        console.error("Error cargando productos:", error);
+
+        console.error("Error:", error);
+
+        contenedor.innerHTML = `
+            <div class="products-loading">
+                No pudimos cargar los productos.
+            </div>
+        `;
+
     }
 }
 
@@ -2809,6 +2913,56 @@ function closeProduct(){
 
     document.body.style.overflow="";
 
+}
+
+function verProducto(producto) {
+
+    const precio = Number(producto.precio)
+        .toLocaleString("es-AR");
+
+    alert(
+        `${producto.nombre}\n\n` +
+        `${producto.descripcion || ""}\n\n` +
+        `Precio: $${precio}\n` +
+        `Stock: ${producto.stock}`
+    );
+}
+
+
+function agregarAlCarrito(producto) {
+
+    let carrito = JSON.parse(
+        localStorage.getItem("ferCarrito")
+    ) || [];
+
+    const existente = carrito.find(
+        item => item.id === producto.id
+    );
+
+    if (existente) {
+
+        if (existente.cantidad < producto.stock) {
+            existente.cantidad++;
+        }
+
+    } else {
+
+        carrito.push({
+            id: producto.id,
+            nombre: producto.nombre,
+            precio: Number(producto.precio),
+            imagen: producto.imagen,
+            cantidad: 1
+        });
+
+    }
+
+    localStorage.setItem(
+        "ferCarrito",
+        JSON.stringify(carrito)
+    );
+
+    alert("Producto agregado al carrito 🛒");
 }
 
 cargarProductosDesdeSupabase();
