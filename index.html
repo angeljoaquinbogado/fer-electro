@@ -2917,15 +2917,70 @@ function closeProduct(){
 
 function verProducto(producto) {
 
+    const modal = document.getElementById("producto-dinamico");
+
+    if (!modal) return;
+
     const precio = Number(producto.precio)
         .toLocaleString("es-AR");
 
-    alert(
-        `${producto.nombre}\n\n` +
-        `${producto.descripcion || ""}\n\n` +
-        `Precio: $${precio}\n` +
-        `Stock: ${producto.stock}`
-    );
+    const imagen = producto.imagen
+        ? producto.imagen
+        : "logo-2.PNG";
+
+    const stock = Number(producto.stock);
+
+    modal.querySelector(".dynamic-product-image").src = imagen;
+    modal.querySelector(".dynamic-product-image").alt = producto.nombre;
+
+    modal.querySelector(".dynamic-product-category").textContent =
+        producto.categoria || "PRODUCTO";
+
+    modal.querySelector(".dynamic-product-name").textContent =
+        producto.nombre;
+
+    modal.querySelector(".dynamic-product-description").textContent =
+        producto.descripcion || "Consultá las características de este producto.";
+
+    modal.querySelector(".dynamic-product-price").textContent =
+        `$${precio}`;
+
+    modal.querySelector(".dynamic-product-stock").textContent =
+        stock > 0
+            ? `${stock} disponibles`
+            : "SIN STOCK";
+
+    const boton = modal.querySelector(".dynamic-add-cart");
+
+    boton.disabled = stock <= 0;
+
+    boton.textContent =
+        stock > 0
+            ? "🛒 AGREGAR AL CARRITO"
+            : "SIN STOCK";
+
+    boton.onclick = () => {
+        if (stock > 0) {
+            agregarAlCarrito(producto);
+            cerrarProductoDinamico();
+        }
+    };
+
+    modal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function cerrarProductoDinamico() {
+
+    const modal = document.getElementById("producto-dinamico");
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
 }
 
 
