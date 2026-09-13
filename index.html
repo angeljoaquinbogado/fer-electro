@@ -2044,139 +2044,6 @@ VER EN GOOGLE MAPS
 </section>
 
 <!-- =========================
-     FICHA - AURICULARES
-========================= -->
-
-<section
-class="product-detail"
-id="producto-auriculares"
->
-
-<button
-type="button"
-class="close-product"
-onclick="closeProduct()"
-aria-label="Cerrar"
->
-×
-</button>
-
-<div class="product-detail-inner">
-
-
-<!-- FOTO -->
-
-<div class="product-detail-image">
-
-<img
-src="auriculares 2.PNG"
-alt="Auriculares Inalámbricos Sport FER⚡ELECTRO"
->
-
-</div>
-
-
-<!-- INFORMACIÓN -->
-
-<div class="product-detail-info">
-
-<div class="detail-kicker">
-FER⚡ELECTRO · AUDIO
-</div>
-
-
-<h2>
-Auriculares Inalámbricos Sport
-</h2>
-
-
-<p class="detail-description">
-
-<strong>Los auriculares inalámbricos Sport Pro combinan comodidad, excelente sonido y total libertad de movimiento para acompañarte en tu día a día o durante tus entrenamientos.</strong>
-
-<br><br>
-
-<strong>• Sonido envolvente:</strong>
-Audio estéreo de alta calidad con sistema de reducción de ruido ambiental.
-
-<br><br>
-
-<strong>• Diseño ultrapráctico:</strong>
-Estructura plegable y ligera, ideal para llevar en la mochila o bolso sin ocupar espacio.
-
-<br><br>
-
-<strong>• Batería de larga duración:</strong>
-Hasta 100 horas en modo de espera para que no te quedes sin música.
-
-<br><br>
-
-<strong>• Control al alcance de la mano:</strong>
-Botones integrados para atender llamadas y cambiar de canción sin sacar el teléfono.
-
-</p>
-
-
-<!-- CARACTERÍSTICAS -->
-
-<div class="detail-features">
-
-<div>
-<span>✓</span>
-Sonido estéreo de alta calidad
-</div>
-
-<div>
-<span>✓</span>
-Diseño plegable y ligero
-</div>
-
-<div>
-<span>✓</span>
-Hasta 100 horas de autonomía en espera
-</div>
-
-<div>
-<span>✓</span>
-Controles integrados para música y llamadas
-</div>
-
-</div>
-
-<!-- BOTONES -->
-
-<div class="detail-buttons">
-
-<a
-class="gold-btn"
-href="https://wa.me/543764863227?text=Hola%20FER%20ELECTRO%2C%20quiero%20consultar%20por%20los%20Auriculares%20Bluetooth."
-target="_blank"
->
-
-CONSULTAR POR WHATSAPP ◔
-
-</a>
-
-
-<button
-type="button"
-class="back-products"
-onclick="closeProduct()"
->
-
-← VOLVER A PRODUCTOS
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- =========================
      PRODUCTO DINÁMICO
 ========================= -->
 
@@ -2977,15 +2844,6 @@ async function cargarProductosDesdeSupabase() {
     }
 }
 
-function openProduct(){
-
-    document
-    .getElementById("producto-auriculares")
-    .classList
-    .add("active");
-
-}
-
 function verProducto(producto) {
 
     const modal = document.getElementById("producto-dinamico");
@@ -3055,32 +2913,85 @@ function cerrarProductoDinamico() {
 }
 
 
+function mostrarToastCarrito(
+    titulo = "Producto agregado",
+    mensaje = "Se agregó al carrito correctamente."
+) {
+
+    const toast = document.getElementById("cart-toast");
+
+    if (!toast) return;
+
+    const tituloToast = toast.querySelector("strong");
+    const mensajeToast = toast.querySelector("div span");
+
+    if (tituloToast) tituloToast.textContent = titulo;
+    if (mensajeToast) mensajeToast.textContent = mensaje;
+
+    toast.classList.remove("active");
+
+    // Reinicia suavemente la animación si se agrega varias veces seguido.
+    void toast.offsetWidth;
+
+    toast.classList.add("active");
+
+    clearTimeout(window.toastCarritoTimeout);
+
+    window.toastCarritoTimeout = setTimeout(() => {
+        toast.classList.remove("active");
+    }, 2500);
+}
+
 function agregarAlCarrito(producto) {
 
-    let carrito = JSON.parse(
-        localStorage.getItem("ferCarrito")
-    ) || [];
+    let carrito;
+
+    try {
+        carrito = JSON.parse(localStorage.getItem("ferCarrito")) || [];
+    } catch (error) {
+        carrito = [];
+    }
+
+    if (!Array.isArray(carrito)) {
+        carrito = [];
+    }
+
+    const stock = Math.max(0, Number(producto.stock) || 0);
 
     const existente = carrito.find(
         item => item.id === producto.id
     );
 
+    let agregado = false;
+
     if (existente) {
 
-        if (existente.cantidad < producto.stock) {
-            existente.cantidad++;
+        const cantidadActual = Number(existente.cantidad) || 0;
+
+        if (cantidadActual < stock) {
+            existente.cantidad = cantidadActual + 1;
+            agregado = true;
         }
 
-    } else {
+    } else if (stock > 0) {
 
         carrito.push({
             id: producto.id,
             nombre: producto.nombre,
             precio: Number(producto.precio),
-            imagen: producto.imagen,
+            imagen: producto.imagen || "logo-2.PNG",
             cantidad: 1
         });
 
+        agregado = true;
+    }
+
+    if (!agregado) {
+        mostrarToastCarrito(
+            "Stock máximo alcanzado",
+            "Ya agregaste todas las unidades disponibles."
+        );
+        return;
     }
 
     localStorage.setItem(
@@ -3088,13 +2999,17 @@ function agregarAlCarrito(producto) {
         JSON.stringify(carrito)
     );
 
+    mostrarToastCarrito(
+        "Producto agregado",
+        `${producto.nombre} se agregó al carrito.`
+    );
 }
 
 cargarProductosDesdeSupabase();
 
 </script>
 
-<div id="cart-toast" class="cart-toast">
+<div id="cart-toast" class="cart-toast" role="status" aria-live="polite" aria-atomic="true">
     <span class="cart-toast-icon">✓</span>
     <div>
         <strong>Producto agregado</strong>
