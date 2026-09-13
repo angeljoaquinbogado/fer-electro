@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
 
 <meta name="description" content="FER⚡ELECTRO — Tecnología premium, audio, gadgets y accesorios en Itaembé Guazú, Posadas, Misiones.">
 
@@ -1568,7 +1569,7 @@ INICIO
 PRODUCTOS
 </a>
 
-<a href="#categorias">
+<a href="#productos">
 CATEGORÍAS
 </a>
 
@@ -1583,19 +1584,35 @@ CONTACTO
 </nav>
 
 
+<div class="nav-actions">
+
 <a
 class="nav-cta"
 href="https://wa.me/543764863227"
-target="_blank">
+target="_blank"
+rel="noopener">
 
 CONSULTAR POR WHATSAPP ◔
 
 </a>
 
-
-<div class="menu">
-
-☰
+<button
+type="button"
+class="cart-trigger"
+id="cart-trigger"
+onclick="abrirCarrito()"
+aria-label="Abrir carrito de compras"
+aria-controls="cart-drawer"
+aria-expanded="false"
+>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M3 3h2l2.1 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 7H7"/>
+<circle cx="10" cy="19" r="1.5"/>
+<circle cx="17" cy="19" r="1.5"/>
+</svg>
+<span class="cart-trigger-label">CARRITO</span>
+<span class="cart-count" id="cart-count" aria-live="polite">0</span>
+</button>
 
 </div>
 
@@ -1647,6 +1664,7 @@ ACCESORIOS
 class="gold-btn hero-btn"
 href="https://wa.me/543764863227"
 target="_blank"
+rel="noopener"
 >
 
 CONSULTAR POR WHATSAPP ◔
@@ -2047,7 +2065,7 @@ VER EN GOOGLE MAPS
      PRODUCTO DINÁMICO
 ========================= -->
 
-<div class="product-detail" id="producto-dinamico">
+<div class="product-detail" id="producto-dinamico" aria-hidden="true">
 
     <div class="product-detail-inner">
 
@@ -2090,6 +2108,37 @@ VER EN GOOGLE MAPS
 
             <div class="dynamic-product-stock">
                 Consultando stock...
+            </div>
+
+            <div class="quantity-block">
+                <div class="quantity-label-row">
+                    <label for="dynamic-product-qty">CANTIDAD</label>
+                    <span class="dynamic-qty-help">Elegí cuántas unidades querés.</span>
+                </div>
+
+                <div class="quantity-selector">
+                    <button
+                        type="button"
+                        class="qty-btn dynamic-qty-minus"
+                        aria-label="Restar una unidad"
+                    >−</button>
+
+                    <input
+                        id="dynamic-product-qty"
+                        class="qty-input dynamic-qty-input"
+                        type="number"
+                        min="1"
+                        value="1"
+                        inputmode="numeric"
+                        aria-label="Cantidad de unidades"
+                    >
+
+                    <button
+                        type="button"
+                        class="qty-btn dynamic-qty-plus"
+                        aria-label="Sumar una unidad"
+                    >+</button>
+                </div>
             </div>
 
             <button
@@ -2234,11 +2283,12 @@ VER EN GOOGLE MAPS
 class="float-wa"
 href="https://wa.me/543764863227"
 target="_blank"
-aria-label="WhatsApp"
+rel="noopener"
+aria-label="Abrir WhatsApp de FER ELECTRO"
 >
-
-◔
-
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"/>
+</svg>
 </a>
 
 
@@ -2312,6 +2362,630 @@ aria-label="WhatsApp"
         bottom:16px;
         min-width:0;
         max-width:none;
+    }
+}
+
+
+
+/* =========================
+   DETALLES DE CALIDAD
+========================= */
+
+:focus-visible{
+    outline:3px solid rgba(212,175,55,.42);
+    outline-offset:3px;
+}
+
+.products-loading{
+    grid-column:1 / -1;
+    min-height:180px;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    padding:30px;
+    border:1px dashed #e1d7b8;
+    border-radius:18px;
+    background:#fffdf7;
+    color:#8a7338;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.3px;
+}
+
+.float-wa{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:70;
+    width:54px;
+    height:54px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:#25D366;
+    color:#fff;
+    box-shadow:0 14px 34px rgba(37,211,102,.3);
+    transition:.25s ease;
+}
+
+.float-wa:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 18px 40px rgba(37,211,102,.38);
+}
+
+.float-wa svg{
+    width:27px;
+    height:27px;
+    fill:currentColor;
+}
+
+body.cart-open .float-wa,
+body.modal-open .float-wa{
+    opacity:0;
+    pointer-events:none;
+}
+
+@media(max-width:1100px){
+    .navlinks{
+        gap:20px;
+    }
+
+    .nav-cta{
+        padding:12px 16px;
+    }
+
+    .cart-trigger-label{
+        display:none;
+    }
+}
+
+@media(max-width:520px){
+    .topbar{
+        padding:0 12px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+
+    .float-wa{
+        right:16px;
+        bottom:16px;
+        width:50px;
+        height:50px;
+    }
+}
+
+/* =========================
+   CARRITO PREMIUM
+========================= */
+
+body.cart-open,
+body.modal-open{
+    overflow:hidden;
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.cart-trigger{
+    position:relative;
+    min-height:44px;
+    padding:10px 14px;
+    border:1px solid #e7d08a;
+    border-radius:24px;
+    background:#fff;
+    color:#171717;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    transition:.25s ease;
+    box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.cart-trigger:hover{
+    transform:translateY(-2px);
+    border-color:#d4af37;
+    box-shadow:0 10px 24px rgba(0,0,0,.08);
+}
+
+.cart-trigger svg{
+    width:20px;
+    height:20px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.cart-trigger-label{
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.7px;
+}
+
+.cart-count{
+    min-width:20px;
+    height:20px;
+    padding:0 6px;
+    display:grid;
+    place-items:center;
+    border-radius:999px;
+    background:linear-gradient(135deg,#e1c45d,#b98a18);
+    color:#fff;
+    font-size:10px;
+    font-weight:900;
+    line-height:1;
+}
+
+.product-price{
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:-.5px;
+    color:#171717;
+    margin:0 0 7px;
+}
+
+.product-stock{
+    min-height:17px;
+    margin-bottom:15px;
+    color:#777;
+    font-size:10px;
+    font-weight:700;
+}
+
+.product-actions{
+    display:grid;
+    gap:10px;
+}
+
+.card-quantity-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:10px 12px;
+    border:1px solid #ececec;
+    border-radius:14px;
+    background:#fafafa;
+}
+
+.card-quantity-row > span{
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.8px;
+    color:#666;
+}
+
+.quantity-selector{
+    display:inline-grid;
+    grid-template-columns:38px 50px 38px;
+    align-items:center;
+    min-height:40px;
+    border:1px solid #e1e1e1;
+    border-radius:13px;
+    overflow:hidden;
+    background:#fff;
+}
+
+.qty-btn{
+    width:38px;
+    height:40px;
+    border:0;
+    background:#fff;
+    color:#222;
+    font-size:19px;
+    font-weight:500;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.qty-btn:hover:not(:disabled){
+    background:#f7f2e2;
+    color:#9c7414;
+}
+
+.qty-btn:disabled{
+    opacity:.3;
+    cursor:not-allowed;
+}
+
+.qty-input{
+    width:50px;
+    height:40px;
+    border:0;
+    border-left:1px solid #eee;
+    border-right:1px solid #eee;
+    background:#fff;
+    color:#111;
+    text-align:center;
+    font-size:13px;
+    font-weight:900;
+    outline:none;
+    appearance:textfield;
+    -moz-appearance:textfield;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button{
+    -webkit-appearance:none;
+    margin:0;
+}
+
+.quantity-block{
+    margin:0 0 20px;
+}
+
+.quantity-label-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:9px;
+}
+
+.quantity-label-row label{
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.quantity-label-row span{
+    color:#888;
+    font-size:10px;
+    text-align:right;
+}
+
+.gold-btn:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+    transform:none !important;
+    box-shadow:none;
+}
+
+.cart-overlay{
+    position:fixed;
+    inset:0;
+    z-index:180;
+    background:rgba(17,17,17,.48);
+    backdrop-filter:blur(5px);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s ease;
+}
+
+.cart-overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.cart-drawer{
+    position:fixed;
+    top:0;
+    right:0;
+    z-index:190;
+    width:min(455px,100%);
+    height:100dvh;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    box-shadow:-24px 0 70px rgba(0,0,0,.2);
+    transform:translateX(102%);
+    visibility:hidden;
+    transition:transform .35s cubic-bezier(.22,.8,.25,1), visibility .35s;
+}
+
+.cart-drawer.active{
+    transform:translateX(0);
+    visibility:visible;
+}
+
+.cart-head{
+    min-height:82px;
+    padding:18px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    border-bottom:1px solid #eee;
+}
+
+.cart-head-copy strong{
+    display:block;
+    font-size:18px;
+    letter-spacing:-.3px;
+}
+
+.cart-head-copy span{
+    display:block;
+    margin-top:4px;
+    color:#888;
+    font-size:10px;
+}
+
+.cart-close{
+    width:42px;
+    height:42px;
+    flex:none;
+    border:1px solid #e6e6e6;
+    border-radius:50%;
+    background:#fff;
+    color:#111;
+    font-size:25px;
+    line-height:1;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.cart-close:hover{
+    background:#f6f6f4;
+    transform:rotate(5deg);
+}
+
+.cart-items{
+    flex:1;
+    overflow:auto;
+    overscroll-behavior:contain;
+    padding:12px 20px 24px;
+}
+
+.cart-item{
+    display:grid;
+    grid-template-columns:82px 1fr;
+    gap:14px;
+    padding:16px 0;
+    border-bottom:1px solid #eee;
+}
+
+.cart-item-image{
+    width:82px;
+    height:82px;
+    border-radius:15px;
+    background:linear-gradient(145deg,#fafafa,#f0f0ee);
+    border:1px solid #eee;
+    object-fit:contain;
+    padding:7px;
+}
+
+.cart-item-top{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.cart-item-name{
+    font-size:13px;
+    font-weight:900;
+    line-height:1.35;
+}
+
+.cart-item-category{
+    margin-top:3px;
+    color:#999;
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+}
+
+.cart-remove{
+    flex:none;
+    align-self:flex-start;
+    border:0;
+    background:transparent;
+    color:#999;
+    font-size:18px;
+    cursor:pointer;
+    padding:0 2px;
+    transition:.2s;
+}
+
+.cart-remove:hover{
+    color:#a42020;
+}
+
+.cart-item-bottom{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:12px;
+}
+
+.cart-item .quantity-selector{
+    grid-template-columns:32px 42px 32px;
+    min-height:34px;
+}
+
+.cart-item .qty-btn{
+    width:32px;
+    height:34px;
+    font-size:16px;
+}
+
+.cart-item .qty-input{
+    width:42px;
+    height:34px;
+    font-size:12px;
+}
+
+.cart-item-prices{
+    text-align:right;
+}
+
+.cart-item-unit{
+    color:#888;
+    font-size:9px;
+}
+
+.cart-item-subtotal{
+    margin-top:3px;
+    font-size:13px;
+    font-weight:900;
+}
+
+.cart-empty{
+    min-height:100%;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    padding:45px 24px;
+}
+
+.cart-empty-inner{
+    max-width:280px;
+}
+
+.cart-empty-icon{
+    width:74px;
+    height:74px;
+    margin:0 auto 18px;
+    border:1px solid #ead795;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    color:#b1841e;
+    background:#fffaf0;
+    font-size:28px;
+}
+
+.cart-empty h3{
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.cart-empty p{
+    color:#888;
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.cart-footer{
+    flex:none;
+    padding:18px 20px max(18px,env(safe-area-inset-bottom));
+    border-top:1px solid #eaeaea;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(12px);
+}
+
+.cart-summary-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:6px;
+    color:#777;
+    font-size:11px;
+}
+
+.cart-total-row{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    gap:20px;
+    margin:10px 0 14px;
+}
+
+.cart-total-row span{
+    font-size:12px;
+    font-weight:800;
+}
+
+.cart-total-row strong{
+    font-size:25px;
+    letter-spacing:-.7px;
+}
+
+.cart-checkout{
+    width:100%;
+    min-height:50px;
+    font-size:11px;
+}
+
+.cart-checkout-note{
+    margin-top:9px;
+    color:#888;
+    font-size:9px;
+    line-height:1.45;
+    text-align:center;
+}
+
+.cart-footer-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:11px;
+}
+
+.cart-link-button{
+    border:0;
+    background:transparent;
+    color:#777;
+    font-size:9px;
+    font-weight:800;
+    cursor:pointer;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+.cart-link-button:hover{
+    color:#111;
+}
+
+@media(max-width:850px){
+    .nav-actions{
+        margin-left:auto;
+    }
+
+    .cart-trigger{
+        min-width:46px;
+        width:auto;
+        padding:9px 10px;
+    }
+
+    .cart-trigger-label{
+        display:none;
+    }
+}
+
+@media(max-width:520px){
+    .cart-drawer{
+        width:100%;
+    }
+
+    .cart-head{
+        min-height:74px;
+        padding:15px 16px;
+    }
+
+    .cart-items{
+        padding:8px 16px 20px;
+    }
+
+    .cart-footer{
+        padding-left:16px;
+        padding-right:16px;
+    }
+
+    .card-quantity-row{
+        padding:9px 10px;
+    }
+
+    .quantity-label-row{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:4px;
+    }
+
+    .quantity-label-row span{
+        text-align:left;
     }
 }
 
@@ -2722,14 +3396,144 @@ flex-direction:column;
 </style>
 
 <script>
+const FER_CART_KEY = "ferCarrito";
+const FER_WHATSAPP = "543764863227";
+
+const catalogoProductos = new Map();
+let productoModalActual = null;
+
+const formatoPesos = new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    maximumFractionDigits: 0
+});
+
+function formatearPrecio(valor) {
+    const numero = Number(valor);
+    return formatoPesos.format(Number.isFinite(numero) ? numero : 0);
+}
+
+function textoSeguro(valor) {
+    return String(valor ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function imagenSegura(valor) {
+    const imagen = String(valor || "").trim();
+
+    if (!imagen) return "logo-2.PNG";
+
+    if (
+        imagen.startsWith("https://") ||
+        imagen.startsWith("http://") ||
+        imagen.startsWith("/") ||
+        imagen.startsWith("./") ||
+        imagen.startsWith("../") ||
+        !imagen.includes(":")
+    ) {
+        return imagen;
+    }
+
+    return "logo-2.PNG";
+}
+
+function leerCarrito() {
+    try {
+        const guardado = JSON.parse(localStorage.getItem(FER_CART_KEY));
+        return Array.isArray(guardado) ? guardado : [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function guardarCarrito(carrito) {
+    localStorage.setItem(FER_CART_KEY, JSON.stringify(carrito));
+    renderCarrito();
+}
+
+function cantidadTotal(carrito = leerCarrito()) {
+    return carrito.reduce(
+        (total, item) => total + Math.max(0, Number(item.cantidad) || 0),
+        0
+    );
+}
+
+function obtenerCantidad(input, maximo) {
+    const max = Math.max(1, Number(maximo) || 1);
+    const valor = Math.floor(Number(input?.value) || 1);
+    const cantidad = Math.min(max, Math.max(1, valor));
+
+    if (input) input.value = cantidad;
+
+    return cantidad;
+}
+
+function actualizarBotonesCantidad(contenedor, maximo) {
+    if (!contenedor) return;
+
+    const input = contenedor.querySelector(".qty-input");
+    const menos = contenedor.querySelector('[data-qty-action="minus"]');
+    const mas = contenedor.querySelector('[data-qty-action="plus"]');
+
+    if (!input) return;
+
+    const max = Math.max(1, Number(maximo) || 1);
+    const cantidad = obtenerCantidad(input, max);
+
+    if (menos) menos.disabled = cantidad <= 1;
+    if (mas) mas.disabled = cantidad >= max;
+}
+
+function configurarSelectorCantidad(contenedor, maximo, alCambiar = null) {
+    if (!contenedor) return;
+
+    const input = contenedor.querySelector(".qty-input");
+    const menos = contenedor.querySelector('[data-qty-action="minus"]');
+    const mas = contenedor.querySelector('[data-qty-action="plus"]');
+
+    if (!input) return;
+
+    const max = Math.max(1, Number(maximo) || 1);
+    input.min = "1";
+    input.max = String(max);
+
+    const aplicar = (nuevaCantidad) => {
+        input.value = Math.min(max, Math.max(1, Math.floor(nuevaCantidad || 1)));
+        actualizarBotonesCantidad(contenedor, max);
+        if (typeof alCambiar === "function") {
+            alCambiar(Number(input.value));
+        }
+    };
+
+    if (menos) {
+        menos.onclick = () => aplicar(Number(input.value) - 1);
+    }
+
+    if (mas) {
+        mas.onclick = () => aplicar(Number(input.value) + 1);
+    }
+
+    input.onchange = () => aplicar(Number(input.value));
+    input.onblur = () => aplicar(Number(input.value));
+
+    actualizarBotonesCantidad(contenedor, max);
+}
 
 async function cargarProductosDesdeSupabase() {
-
     const contenedor = document.getElementById("products-grid");
 
-    try {
+    if (!contenedor) return;
 
-        const respuesta = await fetch("/api/products");
+    try {
+        const respuesta = await fetch("/api/products", {
+            headers: {
+                "Accept": "application/json"
+            }
+        });
 
         if (!respuesta.ok) {
             throw new Error("No se pudieron cargar los productos");
@@ -2737,187 +3541,313 @@ async function cargarProductosDesdeSupabase() {
 
         const productos = await respuesta.json();
 
+        if (!Array.isArray(productos)) {
+            throw new Error("Respuesta de productos inválida");
+        }
+
+        catalogoProductos.clear();
+
+        productos.forEach(producto => {
+            catalogoProductos.set(String(producto.id), producto);
+        });
+
+        sincronizarCarritoConCatalogo();
+
         contenedor.innerHTML = "";
 
         if (productos.length === 0) {
-
             contenedor.innerHTML = `
                 <div class="products-loading">
                     No hay productos disponibles.
                 </div>
             `;
-
             return;
         }
 
         productos.forEach(producto => {
-
             const tarjeta = document.createElement("article");
-
             tarjeta.className = "product";
 
-            const precio = Number(producto.precio)
-                .toLocaleString("es-AR");
-
-            const imagen = producto.imagen
-                ? producto.imagen
-                : "logo-2.PNG";
-
-            const sinStock = Number(producto.stock) <= 0;
+            const stock = Math.max(0, Number(producto.stock) || 0);
+            const sinStock = stock <= 0;
+            const imagen = imagenSegura(producto.imagen);
 
             tarjeta.innerHTML = `
-
                 <div class="product-img">
-
                     <div class="badge">
-                        ${producto.categoria || "PRODUCTO"}
+                        ${textoSeguro(producto.categoria || "PRODUCTO")}
                     </div>
 
                     <img
-                        src="${imagen}"
-                        alt="${producto.nombre}"
+                        src="${textoSeguro(imagen)}"
+                        alt="${textoSeguro(producto.nombre || "Producto")}"
                         class="product-real-image"
+                        loading="lazy"
                     >
-
                 </div>
 
                 <div class="product-info">
+                    <h3>${textoSeguro(producto.nombre || "Producto")}</h3>
 
-                    <h3>
-                        ${producto.nombre}
-                    </h3>
-
-                    <p>
-                        ${producto.descripcion || ""}
-                    </p>
+                    <p>${textoSeguro(producto.descripcion || "")}</p>
 
                     <div class="product-price">
-                        $${precio}
+                        ${textoSeguro(formatearPrecio(producto.precio))}
                     </div>
 
                     <div class="product-stock">
-                        ${
-                            sinStock
-                            ? "SIN STOCK"
-                            : `${producto.stock} disponibles`
-                        }
+                        ${sinStock ? "SIN STOCK" : `${stock} disponibles`}
                     </div>
 
                     <div class="product-actions">
-
                         <button
                             type="button"
                             class="view-product"
-                            onclick='verProducto(${JSON.stringify(producto)})'
                         >
                             VER PRODUCTO →
                         </button>
 
+                        <div class="card-quantity-row">
+                            <span>CANTIDAD</span>
+
+                            <div class="quantity-selector card-quantity-selector">
+                                <button
+                                    type="button"
+                                    class="qty-btn"
+                                    data-qty-action="minus"
+                                    aria-label="Restar una unidad"
+                                    ${sinStock ? "disabled" : ""}
+                                >−</button>
+
+                                <input
+                                    class="qty-input"
+                                    type="number"
+                                    min="1"
+                                    max="${Math.max(1, stock)}"
+                                    value="1"
+                                    inputmode="numeric"
+                                    aria-label="Cantidad de unidades"
+                                    ${sinStock ? "disabled" : ""}
+                                >
+
+                                <button
+                                    type="button"
+                                    class="qty-btn"
+                                    data-qty-action="plus"
+                                    aria-label="Sumar una unidad"
+                                    ${sinStock ? "disabled" : ""}
+                                >+</button>
+                            </div>
+                        </div>
+
                         <button
                             type="button"
-                            class="gold-btn"
-                            onclick='agregarAlCarrito(${JSON.stringify(producto)})'
+                            class="gold-btn add-card-product"
                             ${sinStock ? "disabled" : ""}
                         >
-                            🛒 AGREGAR
+                            ${sinStock ? "SIN STOCK" : "🛒 AGREGAR AL CARRITO"}
                         </button>
-
                     </div>
-
                 </div>
             `;
 
-            contenedor.appendChild(tarjeta);
+            const botonVer = tarjeta.querySelector(".view-product");
+            const botonAgregar = tarjeta.querySelector(".add-card-product");
+            const selector = tarjeta.querySelector(".card-quantity-selector");
+            const input = selector?.querySelector(".qty-input");
 
+            botonVer?.addEventListener("click", () => verProducto(producto));
+
+            if (!sinStock && selector && input) {
+                configurarSelectorCantidad(selector, stock);
+
+                botonAgregar?.addEventListener("click", () => {
+                    const cantidad = obtenerCantidad(input, stock);
+                    agregarAlCarrito(producto, cantidad);
+                    input.value = "1";
+                    actualizarBotonesCantidad(selector, stock);
+                });
+            }
+
+            contenedor.appendChild(tarjeta);
         });
 
     } catch (error) {
-
-        console.error("Error:", error);
+        console.error("Error cargando productos:", error);
 
         contenedor.innerHTML = `
             <div class="products-loading">
-                No pudimos cargar los productos.
+                No pudimos cargar los productos. Intentá nuevamente en unos minutos.
             </div>
         `;
-
     }
 }
 
-function verProducto(producto) {
+function sincronizarCarritoConCatalogo() {
+    if (catalogoProductos.size === 0) {
+        renderCarrito();
+        return;
+    }
 
+    const carrito = leerCarrito();
+    let cambio = false;
+
+    const actualizado = carrito
+        .map(item => {
+            const producto = catalogoProductos.get(String(item.id));
+
+            if (!producto) {
+                cambio = true;
+                return null;
+            }
+
+            const stock = Math.max(0, Number(producto.stock) || 0);
+
+            if (stock <= 0) {
+                cambio = true;
+                return null;
+            }
+
+            const cantidadActual = Math.max(1, Number(item.cantidad) || 1);
+            const cantidad = Math.min(cantidadActual, stock);
+
+            const nuevo = {
+                id: producto.id,
+                nombre: producto.nombre || "Producto",
+                precio: Number(producto.precio) || 0,
+                imagen: imagenSegura(producto.imagen),
+                categoria: producto.categoria || "Producto",
+                stock,
+                cantidad
+            };
+
+            if (
+                String(item.nombre) !== String(nuevo.nombre) ||
+                Number(item.precio) !== nuevo.precio ||
+                String(item.imagen) !== String(nuevo.imagen) ||
+                Number(item.stock) !== nuevo.stock ||
+                Number(item.cantidad) !== nuevo.cantidad ||
+                String(item.categoria || "") !== String(nuevo.categoria)
+            ) {
+                cambio = true;
+            }
+
+            return nuevo;
+        })
+        .filter(Boolean);
+
+    if (cambio) {
+        localStorage.setItem(FER_CART_KEY, JSON.stringify(actualizado));
+    }
+
+    renderCarrito();
+}
+
+function verProducto(producto) {
     const modal = document.getElementById("producto-dinamico");
 
     if (!modal) return;
 
-    const precio = Number(producto.precio)
-        .toLocaleString("es-AR");
+    productoModalActual = producto;
 
-    const imagen = producto.imagen
-        ? producto.imagen
-        : "logo-2.PNG";
+    const stock = Math.max(0, Number(producto.stock) || 0);
+    const imagen = imagenSegura(producto.imagen);
 
-    const stock = Number(producto.stock);
+    const imagenElemento = modal.querySelector(".dynamic-product-image");
+    if (imagenElemento) {
+        imagenElemento.src = imagen;
+        imagenElemento.alt = producto.nombre || "Producto";
+    }
 
-    modal.querySelector(".dynamic-product-image").src = imagen;
-    modal.querySelector(".dynamic-product-image").alt = producto.nombre;
+    const categoria = modal.querySelector(".dynamic-product-category");
+    if (categoria) categoria.textContent = producto.categoria || "PRODUCTO";
 
-    modal.querySelector(".dynamic-product-category").textContent =
-        producto.categoria || "PRODUCTO";
+    const nombre = modal.querySelector(".dynamic-product-name");
+    if (nombre) nombre.textContent = producto.nombre || "Producto";
 
-    modal.querySelector(".dynamic-product-name").textContent =
-        producto.nombre;
+    const descripcion = modal.querySelector(".dynamic-product-description");
+    if (descripcion) {
+        descripcion.textContent =
+            producto.descripcion || "Consultá las características de este producto.";
+    }
 
-    modal.querySelector(".dynamic-product-description").textContent =
-        producto.descripcion || "Consultá las características de este producto.";
+    const precio = modal.querySelector(".dynamic-product-price");
+    if (precio) precio.textContent = formatearPrecio(producto.precio);
 
-    modal.querySelector(".dynamic-product-price").textContent =
-        `$${precio}`;
+    const stockElemento = modal.querySelector(".dynamic-product-stock");
+    if (stockElemento) {
+        stockElemento.textContent =
+            stock > 0 ? `${stock} disponibles` : "SIN STOCK";
+    }
 
-    modal.querySelector(".dynamic-product-stock").textContent =
-        stock > 0
-            ? `${stock} disponibles`
-            : "SIN STOCK";
-
+    const bloqueCantidad = modal.querySelector(".quantity-block");
+    const selector = modal.querySelector(".quantity-selector");
+    const input = modal.querySelector(".dynamic-qty-input");
     const boton = modal.querySelector(".dynamic-add-cart");
+    const ayuda = modal.querySelector(".dynamic-qty-help");
 
-    boton.disabled = stock <= 0;
+    if (input) {
+        input.value = "1";
+        input.disabled = stock <= 0;
+    }
 
-    boton.textContent =
-        stock > 0
-            ? "🛒 AGREGAR AL CARRITO"
-            : "SIN STOCK";
+    if (bloqueCantidad) {
+        bloqueCantidad.style.opacity = stock > 0 ? "1" : ".45";
+    }
 
-    boton.onclick = () => {
-        if (stock > 0) {
-            agregarAlCarrito(producto);
+    if (ayuda) {
+        ayuda.textContent =
+            stock > 0
+                ? `Podés elegir entre 1 y ${stock}.`
+                : "Este producto no tiene stock.";
+    }
+
+    if (selector && stock > 0) {
+        configurarSelectorCantidad(selector, stock);
+    }
+
+    if (selector && stock <= 0) {
+        selector.querySelectorAll("button").forEach(btn => btn.disabled = true);
+    }
+
+    if (boton) {
+        boton.disabled = stock <= 0;
+        boton.textContent =
+            stock > 0 ? "🛒 AGREGAR AL CARRITO" : "SIN STOCK";
+
+        boton.onclick = () => {
+            if (stock <= 0) return;
+
+            const cantidad = obtenerCantidad(input, stock);
+            agregarAlCarrito(producto, cantidad);
             cerrarProductoDinamico();
-        }
-    };
+        };
+    }
 
     modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
 
-    
+    setTimeout(() => {
+        modal.querySelector(".product-detail-close")?.focus();
+    }, 50);
 }
 
-
 function cerrarProductoDinamico() {
-
     const modal = document.getElementById("producto-dinamico");
 
     if (!modal) return;
 
     modal.classList.remove("active");
-
-    
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    productoModalActual = null;
 }
-
 
 function mostrarToastCarrito(
     titulo = "Producto agregado",
     mensaje = "Se agregó al carrito correctamente."
 ) {
-
     const toast = document.getElementById("cart-toast");
 
     if (!toast) return;
@@ -2929,10 +3859,7 @@ function mostrarToastCarrito(
     if (mensajeToast) mensajeToast.textContent = mensaje;
 
     toast.classList.remove("active");
-
-    // Reinicia suavemente la animación si se agrega varias veces seguido.
     void toast.offsetWidth;
-
     toast.classList.add("active");
 
     clearTimeout(window.toastCarritoTimeout);
@@ -2942,51 +3869,27 @@ function mostrarToastCarrito(
     }, 2500);
 }
 
-function agregarAlCarrito(producto) {
-
-    let carrito;
-
-    try {
-        carrito = JSON.parse(localStorage.getItem("ferCarrito")) || [];
-    } catch (error) {
-        carrito = [];
-    }
-
-    if (!Array.isArray(carrito)) {
-        carrito = [];
-    }
-
+function agregarAlCarrito(producto, cantidadSolicitada = 1) {
+    const carrito = leerCarrito();
     const stock = Math.max(0, Number(producto.stock) || 0);
 
-    const existente = carrito.find(
-        item => item.id === producto.id
-    );
-
-    let agregado = false;
-
-    if (existente) {
-
-        const cantidadActual = Number(existente.cantidad) || 0;
-
-        if (cantidadActual < stock) {
-            existente.cantidad = cantidadActual + 1;
-            agregado = true;
-        }
-
-    } else if (stock > 0) {
-
-        carrito.push({
-            id: producto.id,
-            nombre: producto.nombre,
-            precio: Number(producto.precio),
-            imagen: producto.imagen || "logo-2.PNG",
-            cantidad: 1
-        });
-
-        agregado = true;
+    if (stock <= 0) {
+        mostrarToastCarrito(
+            "Producto sin stock",
+            "Este producto no está disponible en este momento."
+        );
+        return;
     }
 
-    if (!agregado) {
+    const existente = carrito.find(
+        item => String(item.id) === String(producto.id)
+    );
+
+    const actual = existente ? Math.max(0, Number(existente.cantidad) || 0) : 0;
+    const disponible = Math.max(0, stock - actual);
+    const solicitada = Math.max(1, Math.floor(Number(cantidadSolicitada) || 1));
+
+    if (disponible <= 0) {
         mostrarToastCarrito(
             "Stock máximo alcanzado",
             "Ya agregaste todas las unidades disponibles."
@@ -2994,20 +3897,450 @@ function agregarAlCarrito(producto) {
         return;
     }
 
-    localStorage.setItem(
-        "ferCarrito",
-        JSON.stringify(carrito)
+    const agregar = Math.min(solicitada, disponible);
+
+    if (existente) {
+        existente.cantidad = actual + agregar;
+        existente.nombre = producto.nombre || existente.nombre;
+        existente.precio = Number(producto.precio) || 0;
+        existente.imagen = imagenSegura(producto.imagen);
+        existente.categoria = producto.categoria || existente.categoria || "Producto";
+        existente.stock = stock;
+    } else {
+        carrito.push({
+            id: producto.id,
+            nombre: producto.nombre || "Producto",
+            precio: Number(producto.precio) || 0,
+            imagen: imagenSegura(producto.imagen),
+            categoria: producto.categoria || "Producto",
+            stock,
+            cantidad: agregar
+        });
+    }
+
+    guardarCarrito(carrito);
+
+    if (agregar < solicitada) {
+        mostrarToastCarrito(
+            "Stock limitado",
+            `Se agregaron ${agregar} de ${solicitada} unidades solicitadas.`
+        );
+    } else {
+        mostrarToastCarrito(
+            agregar === 1 ? "Producto agregado" : "Productos agregados",
+            agregar === 1
+                ? `${producto.nombre} se agregó al carrito.`
+                : `Se agregaron ${agregar} unidades de ${producto.nombre}.`
+        );
+    }
+}
+
+function cambiarCantidadCarrito(id, nuevaCantidad) {
+    const carrito = leerCarrito();
+    const item = carrito.find(
+        producto => String(producto.id) === String(id)
     );
 
+    if (!item) return;
+
+    const stock = Math.max(1, Number(item.stock) || 1);
+    const cantidad = Math.min(
+        stock,
+        Math.max(1, Math.floor(Number(nuevaCantidad) || 1))
+    );
+
+    item.cantidad = cantidad;
+    guardarCarrito(carrito);
+}
+
+function eliminarDelCarrito(id) {
+    const carrito = leerCarrito().filter(
+        item => String(item.id) !== String(id)
+    );
+
+    guardarCarrito(carrito);
+
     mostrarToastCarrito(
-        "Producto agregado",
-        `${producto.nombre} se agregó al carrito.`
+        "Producto eliminado",
+        "Se quitó el producto del carrito."
     );
 }
 
-cargarProductosDesdeSupabase();
+function vaciarCarrito() {
+    const carrito = leerCarrito();
 
+    if (carrito.length === 0) return;
+
+    localStorage.removeItem(FER_CART_KEY);
+    renderCarrito();
+
+    mostrarToastCarrito(
+        "Carrito vacío",
+        "Se eliminaron todos los productos del carrito."
+    );
+}
+
+function renderCarrito() {
+    const carrito = leerCarrito();
+    const contenedor = document.getElementById("cart-items");
+    const contador = document.getElementById("cart-count");
+    const contadorCabecera = document.getElementById("cart-head-count");
+    const unidadesTexto = document.getElementById("cart-units");
+    const totalTexto = document.getElementById("cart-total");
+    const footer = document.getElementById("cart-footer");
+    const checkout = document.getElementById("cart-checkout");
+
+    const unidades = cantidadTotal(carrito);
+    const total = carrito.reduce(
+        (suma, item) =>
+            suma +
+            (Number(item.precio) || 0) *
+            Math.max(0, Number(item.cantidad) || 0),
+        0
+    );
+
+    if (contador) {
+        contador.textContent = unidades > 99 ? "99+" : String(unidades);
+        contador.setAttribute(
+            "aria-label",
+            `${unidades} ${unidades === 1 ? "producto" : "productos"} en el carrito`
+        );
+    }
+
+    if (contadorCabecera) {
+        contadorCabecera.textContent =
+            `${unidades} ${unidades === 1 ? "producto" : "productos"}`;
+    }
+
+    if (unidadesTexto) {
+        unidadesTexto.textContent =
+            `${unidades} ${unidades === 1 ? "unidad" : "unidades"}`;
+    }
+
+    if (totalTexto) totalTexto.textContent = formatearPrecio(total);
+
+    if (checkout) checkout.disabled = carrito.length === 0;
+    if (footer) footer.style.display = carrito.length === 0 ? "none" : "block";
+
+    if (!contenedor) return;
+
+    contenedor.innerHTML = "";
+
+    if (carrito.length === 0) {
+        contenedor.innerHTML = `
+            <div class="cart-empty">
+                <div class="cart-empty-inner">
+                    <div class="cart-empty-icon">🛒</div>
+                    <h3>Tu carrito está vacío</h3>
+                    <p>
+                        Elegí tus productos, seleccioná la cantidad y agregalos al carrito.
+                    </p>
+                    <button
+                        type="button"
+                        class="gold-btn"
+                        onclick="cerrarCarrito(); document.getElementById('productos')?.scrollIntoView({behavior:'smooth'});"
+                    >
+                        VER PRODUCTOS
+                    </button>
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    carrito.forEach(item => {
+        const stock = Math.max(1, Number(item.stock) || 1);
+        const cantidad = Math.min(
+            stock,
+            Math.max(1, Number(item.cantidad) || 1)
+        );
+        const precio = Number(item.precio) || 0;
+
+        const elemento = document.createElement("article");
+        elemento.className = "cart-item";
+
+        elemento.innerHTML = `
+            <img
+                class="cart-item-image"
+                src="${textoSeguro(imagenSegura(item.imagen))}"
+                alt="${textoSeguro(item.nombre || "Producto")}"
+            >
+
+            <div class="cart-item-content">
+                <div class="cart-item-top">
+                    <div>
+                        <div class="cart-item-name">
+                            ${textoSeguro(item.nombre || "Producto")}
+                        </div>
+                        <div class="cart-item-category">
+                            ${textoSeguro(item.categoria || "Producto")}
+                        </div>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="cart-remove"
+                        aria-label="Eliminar ${textoSeguro(item.nombre || "producto")} del carrito"
+                    >
+                        ×
+                    </button>
+                </div>
+
+                <div class="cart-item-bottom">
+                    <div class="quantity-selector cart-item-quantity">
+                        <button
+                            type="button"
+                            class="qty-btn"
+                            data-qty-action="minus"
+                            aria-label="Restar una unidad"
+                        >−</button>
+
+                        <input
+                            class="qty-input"
+                            type="number"
+                            min="1"
+                            max="${stock}"
+                            value="${cantidad}"
+                            inputmode="numeric"
+                            aria-label="Cantidad de ${textoSeguro(item.nombre || "producto")}"
+                        >
+
+                        <button
+                            type="button"
+                            class="qty-btn"
+                            data-qty-action="plus"
+                            aria-label="Sumar una unidad"
+                        >+</button>
+                    </div>
+
+                    <div class="cart-item-prices">
+                        <div class="cart-item-unit">
+                            ${textoSeguro(formatearPrecio(precio))} c/u
+                        </div>
+                        <div class="cart-item-subtotal">
+                            ${textoSeguro(formatearPrecio(precio * cantidad))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const selector = elemento.querySelector(".cart-item-quantity");
+        const input = selector?.querySelector(".qty-input");
+
+        if (selector && input) {
+            configurarSelectorCantidad(
+                selector,
+                stock,
+                nuevaCantidad => cambiarCantidadCarrito(item.id, nuevaCantidad)
+            );
+        }
+
+        elemento.querySelector(".cart-remove")?.addEventListener(
+            "click",
+            () => eliminarDelCarrito(item.id)
+        );
+
+        contenedor.appendChild(elemento);
+    });
+}
+
+function abrirCarrito() {
+    const drawer = document.getElementById("cart-drawer");
+    const overlay = document.getElementById("cart-overlay");
+    const trigger = document.getElementById("cart-trigger");
+
+    if (!drawer || !overlay) return;
+
+    renderCarrito();
+
+    overlay.classList.add("active");
+    drawer.classList.add("active");
+
+    overlay.setAttribute("aria-hidden", "false");
+    drawer.setAttribute("aria-hidden", "false");
+    trigger?.setAttribute("aria-expanded", "true");
+
+    document.body.classList.add("cart-open");
+
+    setTimeout(() => {
+        drawer.querySelector(".cart-close")?.focus();
+    }, 50);
+}
+
+function cerrarCarrito() {
+    const drawer = document.getElementById("cart-drawer");
+    const overlay = document.getElementById("cart-overlay");
+    const trigger = document.getElementById("cart-trigger");
+
+    if (!drawer || !overlay) return;
+
+    overlay.classList.remove("active");
+    drawer.classList.remove("active");
+
+    overlay.setAttribute("aria-hidden", "true");
+    drawer.setAttribute("aria-hidden", "true");
+    trigger?.setAttribute("aria-expanded", "false");
+
+    document.body.classList.remove("cart-open");
+}
+
+function finalizarPorWhatsApp() {
+    const carrito = leerCarrito();
+
+    if (carrito.length === 0) {
+        mostrarToastCarrito(
+            "Carrito vacío",
+            "Agregá al menos un producto antes de finalizar."
+        );
+        return;
+    }
+
+    const unidades = cantidadTotal(carrito);
+    const total = carrito.reduce(
+        (suma, item) =>
+            suma +
+            (Number(item.precio) || 0) *
+            Math.max(0, Number(item.cantidad) || 0),
+        0
+    );
+
+    const detalle = carrito
+        .map((item, indice) => {
+            const cantidad = Math.max(1, Number(item.cantidad) || 1);
+            const subtotal = (Number(item.precio) || 0) * cantidad;
+
+            return `${indice + 1}. ${item.nombre}\n   Cantidad: ${cantidad}\n   Subtotal: ${formatearPrecio(subtotal)}`;
+        })
+        .join("\n\n");
+
+    const mensaje = [
+        "Hola FER⚡ELECTRO 👋",
+        "",
+        "Quiero realizar este pedido:",
+        "",
+        detalle,
+        "",
+        `Unidades: ${unidades}`,
+        `TOTAL: ${formatearPrecio(total)}`,
+        "",
+        "¿Me indican formas de pago y entrega?"
+    ].join("\n");
+
+    const url = `https://wa.me/${FER_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url, "_blank", "noopener,noreferrer");
+}
+
+document.addEventListener("keydown", evento => {
+    if (evento.key === "Escape") {
+        if (document.getElementById("cart-drawer")?.classList.contains("active")) {
+            cerrarCarrito();
+            return;
+        }
+
+        if (document.getElementById("producto-dinamico")?.classList.contains("active")) {
+            cerrarProductoDinamico();
+        }
+    }
+});
+
+document.getElementById("producto-dinamico")?.addEventListener(
+    "click",
+    evento => {
+        if (evento.target.id === "producto-dinamico") {
+            cerrarProductoDinamico();
+        }
+    }
+);
+
+window.addEventListener("storage", evento => {
+    if (evento.key === FER_CART_KEY) {
+        renderCarrito();
+    }
+});
+
+renderCarrito();
+cargarProductosDesdeSupabase();
 </script>
+
+
+<!-- =========================
+     CARRITO DE COMPRAS
+========================= -->
+
+<div
+    id="cart-overlay"
+    class="cart-overlay"
+    onclick="cerrarCarrito()"
+    aria-hidden="true"
+></div>
+
+<aside
+    id="cart-drawer"
+    class="cart-drawer"
+    aria-label="Carrito de compras"
+    aria-hidden="true"
+>
+    <div class="cart-head">
+        <div class="cart-head-copy">
+            <strong>Tu carrito</strong>
+            <span id="cart-head-count">0 productos</span>
+        </div>
+
+        <button
+            type="button"
+            class="cart-close"
+            onclick="cerrarCarrito()"
+            aria-label="Cerrar carrito"
+        >×</button>
+    </div>
+
+    <div class="cart-items" id="cart-items"></div>
+
+    <div class="cart-footer" id="cart-footer">
+        <div class="cart-summary-row">
+            <span>Productos</span>
+            <strong id="cart-units">0 unidades</strong>
+        </div>
+
+        <div class="cart-total-row">
+            <span>TOTAL</span>
+            <strong id="cart-total">$0</strong>
+        </div>
+
+        <button
+            type="button"
+            class="gold-btn cart-checkout"
+            id="cart-checkout"
+            onclick="finalizarPorWhatsApp()"
+        >
+            FINALIZAR POR WHATSAPP →
+        </button>
+
+        <div class="cart-checkout-note">
+            Te llevamos a WhatsApp con el detalle completo de tu pedido para coordinar pago y entrega.
+        </div>
+
+        <div class="cart-footer-actions">
+            <button
+                type="button"
+                class="cart-link-button"
+                onclick="cerrarCarrito()"
+            >
+                SEGUIR COMPRANDO
+            </button>
+
+            <button
+                type="button"
+                class="cart-link-button"
+                onclick="vaciarCarrito()"
+            >
+                VACIAR CARRITO
+            </button>
+        </div>
+    </div>
+</aside>
 
 <div id="cart-toast" class="cart-toast" role="status" aria-live="polite" aria-atomic="true">
     <span class="cart-toast-icon">✓</span>
