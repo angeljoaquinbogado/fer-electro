@@ -1852,6 +1852,53 @@ body::before{
   .hero-stage,.stage-product-wrap{transform:none!important;}
 }
 </style>
+
+<style id="fe-premium-100">
+:root{--fe-ink:#11110f;--fe-paper:#f6f3ec;--fe-paper-2:#fbfaf6;--fe-gold:#c39a2e;--fe-gold-2:#e0c56b;--fe-line:rgba(17,17,15,.12);--fe-soft:#706d64;--fe-radius:28px;}
+html{scroll-padding-top:104px;}
+body{background:var(--fe-paper-2);color:var(--fe-ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+::selection{background:#111;color:#fff;}
+.topbar{height:30px;background:#11110f;color:#f8f4e8;font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:650;}
+.fe-nav{height:auto;position:sticky;top:0;padding:12px 18px;background:linear-gradient(to bottom,rgba(251,250,246,.94),rgba(251,250,246,.78));border:0;backdrop-filter:blur(20px) saturate(145%);z-index:100;}
+.fe-nav-inner{width:min(1280px,100%);height:70px;margin:auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 22px;border:1px solid rgba(17,17,15,.09);border-radius:999px;background:rgba(255,255,255,.78);box-shadow:0 12px 38px rgba(23,20,14,.07);}
+.fe-nav-left{display:flex;align-items:center;gap:24px;}
+.fe-nav-left a{font-size:11px;font-weight:720;letter-spacing:.04em;color:#5e5a51;position:relative;transition:.25s ease;}
+.fe-nav-left a:hover,.fe-nav-left a.active{color:#111;}
+.fe-nav-left a::after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--fe-gold);transition:right .3s ease;}.fe-nav-left a:hover::after,.fe-nav-left a.active::after{right:0;}
+.fe-brand-center{justify-self:center;display:flex;align-items:center;justify-content:center;}.fe-brand-center .nav-logo{width:148px;height:44px;object-fit:contain;display:block;margin:0 auto;}
+.fe-nav-right{justify-self:end;display:flex;align-items:center;gap:16px;}.fe-nav-whatsapp{font-size:11px;font-weight:720;color:#5e5a51;white-space:nowrap}.fe-nav-whatsapp span{color:var(--fe-gold);margin-left:4px}.fe-nav-whatsapp:hover{color:#111}
+.fe-nav .cart-trigger{height:42px;min-width:112px;padding:0 15px;border:0;border-radius:999px;background:#111;color:#fff;gap:8px;box-shadow:none}.fe-nav .cart-trigger:hover{transform:translateY(-1px);background:#201f1b}.fe-nav .cart-count{background:var(--fe-gold);color:#111;min-width:20px;height:20px;line-height:20px;font-size:10px}.fe-nav .cart-trigger svg{width:17px;height:17px;stroke:#fff}
+
+.fe-hero{position:relative;min-height:calc(100svh - 100px);padding:18px 18px 32px;overflow:hidden;background:var(--fe-paper-2);isolation:isolate;}
+.fe-hero-shell{position:relative;width:min(1380px,100%);min-height:calc(100svh - 150px);margin:auto;border:1px solid rgba(17,17,15,.10);border-radius:38px;background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(243,238,226,.72));overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;box-shadow:0 30px 90px rgba(31,26,17,.08);}
+.fe-hero-gridlines{position:absolute;inset:0;background-image:linear-gradient(rgba(17,17,15,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,15,.035) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,transparent,black 20%,black 75%,transparent);z-index:-2;}
+.fe-hero-glow{position:absolute;border-radius:50%;filter:blur(75px);opacity:.32;z-index:-1;pointer-events:none}.fe-glow-a{width:520px;height:520px;background:#e7ca70;top:-180px;left:-100px}.fe-glow-b{width:430px;height:430px;background:#fff0bf;right:-120px;bottom:5%}
+.fe-hero-topline{display:flex;justify-content:space-between;gap:20px;padding:26px 34px 0;font-size:9px;font-weight:700;letter-spacing:.16em;color:#777267}.fe-live-dot{display:flex;align-items:center;gap:8px}.fe-live-dot i{width:7px;height:7px;background:#78a86b;border-radius:50%;box-shadow:0 0 0 5px rgba(120,168,107,.12)}
+.fe-hero-center{text-align:center;max-width:880px;margin:0 auto;padding:44px 24px 20px;position:relative;z-index:3}.fe-hero-eyebrow{font-size:10px;letter-spacing:.22em;color:#8d876f;margin-bottom:20px}.fe-hero-logo{width:clamp(150px,16vw,225px);height:auto;display:block;margin:0 auto 24px;filter:drop-shadow(0 10px 28px rgba(25,21,13,.08));}.fe-hero h1{font-size:clamp(64px,9.6vw,154px);line-height:.78;letter-spacing:-.075em;font-weight:850;margin:0;color:#111}.fe-hero h1 span,.fe-hero h1 em{display:block}.fe-hero h1 em{font-size:.58em;line-height:1.05;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-style:italic;letter-spacing:-.045em;color:#9c7a21;margin-top:12px}.fe-hero-center>p{max-width:610px;margin:30px auto 0;font-size:clamp(15px,1.35vw,19px);line-height:1.7;color:#625e55}.fe-hero-cta-row{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:28px;flex-wrap:wrap}.fe-btn-primary,.fe-btn-ghost{height:52px;padding:0 22px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:18px;font-size:11px;font-weight:800;letter-spacing:.04em;transition:transform .28s ease,box-shadow .28s ease,background .28s ease}.fe-btn-primary{background:#111;color:#fff;box-shadow:0 16px 32px rgba(17,17,15,.15)}.fe-btn-primary b{font-size:17px;color:var(--fe-gold-2)}.fe-btn-primary:hover{transform:translateY(-3px);box-shadow:0 22px 40px rgba(17,17,15,.20)}.fe-btn-ghost{border:1px solid rgba(17,17,15,.16);background:rgba(255,255,255,.58);color:#26231d}.fe-btn-ghost:hover{transform:translateY(-3px);background:#fff}
+.fe-product-stage{position:relative;width:min(920px,82vw);height:330px;margin:-6px auto 8px;display:grid;grid-template-columns:1fr 330px 1fr;align-items:center;gap:22px;perspective:1100px;--rx:0deg;--ry:0deg;}.fe-stage-product-card{position:relative;height:300px;border-radius:34px;background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(229,222,203,.64));border:1px solid rgba(17,17,15,.10);display:flex;align-items:center;justify-content:center;box-shadow:0 35px 70px rgba(42,34,19,.12);transform:rotateX(var(--rx)) rotateY(var(--ry)) translateZ(0);transition:transform .18s ease-out;overflow:hidden}.fe-stage-product-card::before{content:"";position:absolute;inset:18px;border:1px solid rgba(17,17,15,.07);border-radius:24px}.fe-stage-product-img{width:82%;height:72%;object-fit:contain;filter:drop-shadow(0 26px 28px rgba(0,0,0,.18));position:relative;z-index:2;animation:feFloat 5.5s ease-in-out infinite}.fe-stage-badge{position:absolute;top:22px;left:24px;font-size:8px;letter-spacing:.18em;font-weight:800;border:1px solid rgba(17,17,15,.13);padding:7px 10px;border-radius:999px;z-index:3;background:rgba(255,255,255,.7)}.fe-stage-caption{position:absolute;left:26px;right:26px;bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;z-index:3}.fe-stage-caption span{font-size:11px;font-weight:800;letter-spacing:.06em}.fe-stage-caption small{font-size:9px;color:#777267}.fe-stage-copy{display:flex;flex-direction:column;gap:6px;color:#5c584f}.fe-stage-copy span{font-size:9px;color:#b18a22;font-weight:800;letter-spacing:.16em}.fe-stage-copy strong{font-size:11px;letter-spacing:.12em;color:#2a2822}.fe-stage-copy small{font-size:10px;line-height:1.5}.fe-stage-copy-left{text-align:right;align-items:flex-end}.fe-stage-copy-right{text-align:left;align-items:flex-start}.fe-stage-orbit{position:absolute;border:1px solid rgba(178,140,40,.16);border-radius:50%;pointer-events:none;left:50%;top:50%;transform:translate(-50%,-50%);animation:feOrbit 22s linear infinite}.fe-stage-orbit-1{width:430px;height:430px}.fe-stage-orbit-2{width:580px;height:210px;animation-direction:reverse;animation-duration:28s}
+.fe-hero-bottom{display:grid;grid-template-columns:repeat(3,1fr) auto;align-items:end;gap:26px;padding:0 34px 28px}.fe-hero-bottom>div{display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--fe-line);padding-top:13px}.fe-hero-bottom strong{font-size:10px;letter-spacing:.12em;text-transform:uppercase}.fe-hero-bottom span{font-size:11px;color:#777267}.fe-scroll-pill{width:86px;height:86px;border-radius:50%;background:#111;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;justify-self:end;transition:.3s ease}.fe-scroll-pill span{font-size:7px;letter-spacing:.16em;color:#fff}.fe-scroll-pill i{font-style:normal;color:var(--fe-gold-2);font-size:17px}.fe-scroll-pill:hover{transform:translateY(-5px) rotate(3deg)}
+.fe-marquee{overflow:hidden;border-top:1px solid var(--fe-line);border-bottom:1px solid var(--fe-line);background:#111;color:#f7f1df}.fe-marquee-track{width:max-content;display:flex;align-items:center;gap:28px;padding:13px 0;animation:feMarquee 26s linear infinite}.fe-marquee span{font-size:10px;font-weight:750;letter-spacing:.18em}.fe-marquee i{font-style:normal;color:var(--fe-gold-2);font-size:8px}
+.fe-trust{width:min(1320px,calc(100% - 36px));margin:18px auto 0;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--fe-line);border-radius:24px;overflow:hidden;background:#fff}.fe-trust-item{padding:22px;display:flex;gap:14px;align-items:flex-start;border-right:1px solid var(--fe-line)}.fe-trust-item:last-child{border-right:0}.fe-trust-item>span{font-size:9px;font-weight:800;color:#b18a22;letter-spacing:.12em}.fe-trust-item div{display:flex;flex-direction:column;gap:5px}.fe-trust-item strong{font-size:12px}.fe-trust-item small{font-size:10px;color:#777267;line-height:1.45}
+
+#productos.section{padding:130px 5.5% 120px;background:var(--fe-paper-2);}.fe-products-head{max-width:1040px;margin:0 auto 56px;text-align:center}.fe-section-index{font-size:9px;letter-spacing:.18em;color:#9b968b;margin-bottom:18px}.fe-products-head .kicker{display:inline-flex;padding:8px 12px;border:1px solid var(--fe-line);border-radius:999px;background:#fff;margin-bottom:24px}.fe-products-head .section-title{font-size:clamp(46px,6vw,84px);line-height:.92;letter-spacing:-.055em;max-width:1000px;margin:0 auto}.fe-products-head .section-title span{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-weight:400;color:#a57d17}.fe-products-head .section-desc{max-width:620px;margin:26px auto 0;font-size:15px;line-height:1.7;color:#6c685e}.fe-head-rule{display:flex;align-items:center;gap:14px;margin-top:30px}.fe-head-rule span{height:1px;background:var(--fe-line);flex:1}.fe-head-rule small{font-size:8px;letter-spacing:.17em;color:#9b968b}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:24px;max-width:1320px;margin:0 auto}.product{border:1px solid var(--fe-line)!important;border-radius:30px!important;background:#fff!important;overflow:hidden!important;box-shadow:none!important;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .4s!important;min-width:0}.product:hover{transform:translateY(-8px)!important;box-shadow:0 30px 70px rgba(31,26,17,.11)!important;border-color:rgba(185,138,24,.26)!important}.product-img{height:380px!important;background:linear-gradient(145deg,#f4f0e6,#ede8dc)!important;position:relative!important;overflow:hidden!important}.product-img::after{content:"";position:absolute;inset:16px;border:1px solid rgba(17,17,15,.07);border-radius:22px;pointer-events:none}.product-real-image{width:82%!important;height:82%!important;object-fit:contain!important;transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .55s!important;filter:drop-shadow(0 24px 22px rgba(0,0,0,.12))}.product:hover .product-real-image{transform:scale(1.055) rotate(-1deg)!important;filter:drop-shadow(0 30px 28px rgba(0,0,0,.16))}.product .badge{top:22px!important;left:22px!important;background:rgba(255,255,255,.82)!important;color:#29261f!important;border:1px solid rgba(17,17,15,.10)!important;backdrop-filter:blur(10px);font-size:8px!important;letter-spacing:.13em!important;border-radius:999px!important;padding:8px 11px!important}.product-info{padding:26px 26px 28px!important}.product-info h3{font-size:21px!important;letter-spacing:-.025em!important;line-height:1.15!important;margin-bottom:10px!important}.product-card-description{font-size:12px!important;line-height:1.6!important;color:#777267!important;min-height:38px}.product-price{font-size:28px!important;font-weight:800!important;letter-spacing:-.035em!important;margin:22px 0 4px!important;color:#14130f!important}.product-stock{font-size:9px!important;letter-spacing:.12em!important;color:#8a856f!important;text-transform:uppercase!important;margin-bottom:20px!important}.product-actions{display:grid!important;gap:11px!important}.view-product{height:44px!important;border-radius:999px!important;border:1px solid var(--fe-line)!important;background:#fff!important;font-size:10px!important;letter-spacing:.08em!important;font-weight:780!important}.view-product:hover{background:#f6f2e8!important;border-color:#d5bf76!important}.card-quantity-row{border-top:1px solid var(--fe-line)!important;padding-top:15px!important}.card-quantity-row>span{font-size:8px!important;letter-spacing:.14em!important}.quantity-selector{border-radius:999px!important}.add-card-product{height:48px!important;border-radius:999px!important;background:#111!important;color:#fff!important;border:0!important;font-size:10px!important;letter-spacing:.05em!important}.add-card-product:hover{background:#8c6c1b!important;color:#fff!important;transform:translateY(-1px)!important}
+
+.fe-about{padding:120px 5.5%;background:#111;color:#f5f0e4;overflow:hidden}.fe-about-inner{max-width:1320px;margin:auto}.fe-about-label{font-size:9px;letter-spacing:.18em;color:#a9a395;border-bottom:1px solid rgba(255,255,255,.14);padding-bottom:18px}.fe-about-main{display:grid;grid-template-columns:minmax(320px,.9fr) 1.1fr;gap:80px;align-items:center;padding:72px 0}.fe-about-logo-wrap{height:480px;position:relative;border:1px solid rgba(255,255,255,.12);border-radius:36px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,rgba(216,179,67,.14),transparent 45%)}.fe-about-logo-wrap img{width:min(60%,310px);height:auto;filter:brightness(1.08) drop-shadow(0 18px 35px rgba(0,0,0,.25));position:relative;z-index:3}.fe-about-logo-wrap>span{position:absolute;bottom:26px;font-size:8px;letter-spacing:.18em;color:#9d978b}.fe-about-ring{position:absolute;border:1px solid rgba(224,197,107,.22);border-radius:50%;animation:feOrbit 24s linear infinite}.fe-ring-a{width:300px;height:300px}.fe-ring-b{width:390px;height:170px;animation-direction:reverse}.fe-about-copy .kicker{color:#d8bb60;margin-bottom:22px}.fe-about-copy h2{font-size:clamp(46px,5.2vw,76px);line-height:.95;letter-spacing:-.055em;margin:0 0 28px}.fe-about-copy h2 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:#d8bb60}.fe-about-copy>p{font-size:16px;line-height:1.75;color:#b8b1a2;max-width:650px}.fe-about-points{margin-top:36px;border-top:1px solid rgba(255,255,255,.14)}.fe-about-points>div{display:grid;grid-template-columns:45px 1fr;gap:10px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.11)}.fe-about-points b{font-size:9px;color:#d8bb60;letter-spacing:.12em}.fe-about-points span{display:flex;justify-content:space-between;gap:30px}.fe-about-points strong{font-size:12px}.fe-about-points small{font-size:10px;color:#8f897e;text-align:right}.fe-manifesto{border-top:1px solid rgba(255,255,255,.14);padding-top:28px;display:flex;gap:18px;flex-wrap:wrap;font-size:clamp(22px,3vw,46px);font-weight:800;letter-spacing:-.035em}.fe-manifesto i{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:#d8bb60}
+
+.fe-experience{padding:120px 5.5%;background:#f0ece2;display:grid;grid-template-columns:.78fr 1.22fr;gap:70px}.fe-exp-side>span{font-size:9px;letter-spacing:.18em;color:#918b7e}.fe-exp-side h2{font-size:clamp(52px,6vw,90px);line-height:.88;letter-spacing:-.06em;margin-top:20px;position:sticky;top:150px}.fe-exp-side h2 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:#a47e1e}.fe-exp-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--fe-line);border-left:1px solid var(--fe-line)}.fe-exp-grid article{min-height:260px;padding:30px;border-right:1px solid var(--fe-line);border-bottom:1px solid var(--fe-line);display:flex;flex-direction:column}.fe-exp-grid article>span{font-size:9px;letter-spacing:.16em;color:#a47e1e}.fe-exp-grid h3{font-size:25px;letter-spacing:-.03em;margin-top:auto;margin-bottom:12px}.fe-exp-grid p{font-size:12px;line-height:1.65;color:#6e695f;max-width:280px}
+
+.location{background:#fbfaf6!important;padding:120px 5.5%!important}.location-box{max-width:1320px!important;margin:auto!important;display:grid!important;grid-template-columns:.72fr 1.28fr!important;gap:18px!important;background:transparent!important;border:0!important}.location-copy{border:1px solid var(--fe-line)!important;border-radius:30px!important;padding:44px!important;background:#fff!important}.location-copy h2{font-size:clamp(38px,4.4vw,62px)!important;letter-spacing:-.055em!important;line-height:.94!important}.location-copy h2 span{font-family:Georgia,"Times New Roman",serif;font-weight:400!important;font-style:italic;color:#a47e1e!important}.location-copy p{font-size:13px!important;line-height:1.7!important;color:#6f6a5f!important}.address{border-radius:999px!important;background:#f3efe5!important;border:1px solid var(--fe-line)!important}.map{min-height:430px!important;border-radius:30px!important;overflow:hidden!important;border:1px solid var(--fe-line)!important;box-shadow:none!important}.contact-socials{grid-column:1/-1!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:18px!important}.social-card{border-radius:24px!important;border:1px solid var(--fe-line)!important;min-height:92px!important;background:#fff!important;transition:.3s ease!important}.social-card:hover{transform:translateY(-4px)!important;box-shadow:0 22px 44px rgba(31,26,17,.08)!important}
+
+.footer{background:#111!important;color:#f6f0e2!important}.footer-main{border-color:rgba(255,255,255,.12)!important}.footer a,.footer p,.footer span{color:inherit}.footer-bottom{border-color:rgba(255,255,255,.12)!important}
+
+.fe-reveal-100{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}.fe-reveal-100.fe-in{opacity:1;transform:none}.fe-progress{position:fixed;left:0;top:0;height:2px;width:100%;transform-origin:left center;transform:scaleX(0);background:linear-gradient(90deg,#a77a18,#e2c964);z-index:999;pointer-events:none}.fe-cursor-glow{position:fixed;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.08),transparent 68%);pointer-events:none;z-index:1;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s}.has-fine-pointer .fe-cursor-glow{opacity:1}
+@keyframes feFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(-.7deg)}}@keyframes feOrbit{to{transform:translate(-50%,-50%) rotate(360deg)}}@keyframes feMarquee{to{transform:translateX(-50%)}}
+
+@media(max-width:900px){.fe-nav{padding:9px 10px}.fe-nav-inner{height:62px;padding:0 14px;grid-template-columns:1fr auto 1fr}.fe-nav-left{display:none}.fe-brand-center{grid-column:2}.fe-brand-center .nav-logo{width:132px;height:40px}.fe-nav-right{grid-column:3}.fe-nav-whatsapp,.cart-trigger-label{display:none!important}.fe-nav .cart-trigger{min-width:44px;width:44px;height:44px;padding:0;position:relative}.fe-nav .cart-count{position:absolute;top:-3px;right:-3px}.fe-hero{padding:8px 10px 24px;min-height:auto}.fe-hero-shell{min-height:auto;border-radius:28px}.fe-hero-topline{padding:20px 20px 0;font-size:7px}.fe-live-dot{display:none}.fe-hero-center{padding:52px 18px 16px}.fe-hero-logo{width:150px;margin-bottom:22px}.fe-hero h1{font-size:clamp(56px,16vw,86px);line-height:.8}.fe-hero h1 em{font-size:.56em;margin-top:10px}.fe-hero-center>p{font-size:14px;max-width:500px;margin-top:24px}.fe-hero-cta-row{display:grid;grid-template-columns:1fr;width:100%;max-width:380px;margin:24px auto 0}.fe-btn-primary,.fe-btn-ghost{width:100%;height:50px}.fe-product-stage{width:calc(100% - 26px);height:330px;grid-template-columns:1fr;margin:8px auto 10px}.fe-stage-product-card{height:300px;border-radius:28px}.fe-stage-copy{display:none}.fe-stage-orbit-1{width:350px;height:350px}.fe-stage-orbit-2{width:420px;height:170px}.fe-hero-bottom{grid-template-columns:repeat(3,1fr);gap:7px;padding:0 18px 20px}.fe-hero-bottom>div{padding-top:10px}.fe-hero-bottom strong{font-size:8px}.fe-hero-bottom span{font-size:8px}.fe-scroll-pill{display:none}.fe-trust{grid-template-columns:1fr 1fr}.fe-trust-item:nth-child(2){border-right:0}.fe-trust-item:nth-child(-n+2){border-bottom:1px solid var(--fe-line)}#productos.section{padding:90px 18px 90px}.fe-products-head{margin-bottom:38px}.fe-products-head .section-title{font-size:clamp(40px,10vw,68px)}.products{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}.product-img{height:330px!important}.fe-about{padding:90px 18px}.fe-about-main{grid-template-columns:1fr;gap:38px;padding:44px 0}.fe-about-logo-wrap{height:340px}.fe-about-copy h2{font-size:clamp(44px,11vw,70px)}.fe-about-points span{display:block}.fe-about-points small{display:block;text-align:left;margin-top:5px}.fe-experience{padding:90px 18px;grid-template-columns:1fr;gap:40px}.fe-exp-side h2{position:static}.location{padding:90px 18px!important}.location-box{grid-template-columns:1fr!important}.contact-socials{grid-template-columns:1fr 1fr!important}}
+@media(max-width:560px){.topbar{font-size:7px;letter-spacing:.11em;text-align:center;padding:0 8px}.fe-hero-topline{justify-content:center}.fe-hero-topline>span:first-child{font-size:7px}.fe-hero-center{padding-top:42px}.fe-hero h1{font-size:clamp(48px,15.2vw,66px)}.fe-product-stage{height:285px}.fe-stage-product-card{height:260px}.fe-stage-product-img{width:88%;height:76%}.fe-stage-caption small{display:none}.fe-hero-bottom{grid-template-columns:1fr;gap:0;padding:0 18px 18px}.fe-hero-bottom>div{flex-direction:row;justify-content:space-between;padding:9px 0;border-top:1px solid var(--fe-line)}.fe-trust{grid-template-columns:1fr;border-radius:20px}.fe-trust-item,.fe-trust-item:nth-child(2){border-right:0;border-bottom:1px solid var(--fe-line)}.fe-trust-item:last-child{border-bottom:0}.fe-products-head{text-align:left}.fe-products-head .section-title{font-size:clamp(40px,12vw,56px)}.fe-products-head .section-desc{margin-left:0}.fe-products-head .kicker{margin-left:0}.product{border-radius:24px!important}.product-img{height:300px!important}.product-info{padding:22px!important}.fe-about-logo-wrap{height:280px}.fe-manifesto{font-size:24px}.fe-exp-grid{grid-template-columns:1fr}.fe-exp-grid article{min-height:210px}.location-copy{padding:28px!important}.map{min-height:320px!important}.contact-socials{grid-template-columns:1fr!important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}.fe-reveal-100{opacity:1!important;transform:none!important}.fe-cursor-glow{display:none!important}}
+</style>
+
 </head>
 <body>
 <!-- =========================
@@ -1873,170 +1920,81 @@ Atención personalizada por WhatsApp
 <!-- =========================
      NAVEGACIÓN
 ========================= -->
-<header class="nav">
-<a class="brand" href="#inicio">
+<header class="nav fe-nav" id="site-nav">
+<div class="fe-nav-inner">
+<nav class="fe-nav-left" aria-label="Navegación principal">
+<a class="active" href="#inicio">Inicio</a>
+<a href="#productos">Productos</a>
+<a href="#nosotros">Nosotros</a>
+</nav>
+<a class="brand fe-brand-center" href="#inicio" aria-label="FER Electro - Inicio">
 <img alt="FER⚡ELECTRO" class="nav-logo" src="logo.PNG"/>
 </a>
-<nav class="navlinks">
-<a class="active" href="#inicio">
-INICIO
-</a>
-<a href="#productos">
-PRODUCTOS
-</a>
-<a href="#productos">
-CATEGORÍAS
-</a>
-<a href="#nosotros">
-NOSOTROS
-</a>
-<a href="#contacto">
-CONTACTO
-</a>
-</nav>
-<div class="nav-actions">
-<a class="nav-cta" href="https://wa.me/543764863227" rel="noopener" target="_blank">
-
-CONSULTAR POR WHATSAPP ◔
-
-</a>
+<div class="nav-actions fe-nav-right">
+<a class="fe-nav-whatsapp" href="https://wa.me/543764863227" rel="noopener" target="_blank">WhatsApp <span>↗</span></a>
 <button aria-controls="cart-drawer" aria-expanded="false" aria-label="Abrir carrito de compras" class="cart-trigger" id="cart-trigger" onclick="abrirCarrito()" type="button">
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M3 3h2l2.1 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 7H7"></path>
-<circle cx="10" cy="19" r="1.5"></circle>
-<circle cx="17" cy="19" r="1.5"></circle>
-</svg>
-<span class="cart-trigger-label">CARRITO</span>
-<span aria-live="polite" class="cart-count" id="cart-count">0</span>
+<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3h2l2.1 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 7H7"></path><circle cx="10" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>
+<span class="cart-trigger-label">Carrito</span><span aria-live="polite" class="cart-count" id="cart-count">0</span>
 </button>
+</div>
 </div>
 </header>
 <!-- =========================
      HERO
 ========================= -->
 <main>
-<section class="hero motion-hero" id="inicio">
-<div class="hero-ambient hero-ambient-one"></div>
-<div class="hero-ambient hero-ambient-two"></div>
-<div class="hero-grid">
-<div class="hero-content hero-copy-block">
-<div class="eyebrow hero-eyebrow"><span></span> TECNOLOGÍA · CALIDAD · CONFIANZA</div>
-<img alt="FER⚡ELECTRO Itaembé Guazú" class="real-logo hero-brandmark" src="logo-2.PNG"/>
-<h1>TECNOLOGÍA<br/><span>QUE SE SIENTE.</span></h1>
-<p class="hero-lead">Audio, gadgets y accesorios elegidos para acompañarte todos los días. Atención cercana, compra simple y una experiencia cuidada de principio a fin.</p>
-<div class="hero-actions">
-<a class="gold-btn hero-btn" href="#productos">VER PRODUCTOS <b>↘</b></a>
-<a class="hero-link" href="https://wa.me/543764863227" rel="noopener" target="_blank">HABLAR POR WHATSAPP <span>↗</span></a>
-</div>
-<div class="hero-proof">
-<div><strong>01</strong><span>Atención<br/>personalizada</span></div>
-<div><strong>02</strong><span>Envíos a<br/>todo el país</span></div>
-<div><strong>03</strong><span>Compra<br/>segura</span></div>
+<section class="fe-hero" id="inicio">
+<div class="fe-hero-gridlines" aria-hidden="true"></div>
+<div class="fe-hero-glow fe-glow-a" aria-hidden="true"></div>
+<div class="fe-hero-glow fe-glow-b" aria-hidden="true"></div>
+<div class="fe-hero-shell">
+<div class="fe-hero-topline"><span>CURATED TECH · POSADAS, MISIONES</span><span class="fe-live-dot"><i></i> COMPRA ONLINE</span></div>
+<div class="fe-hero-center">
+<div class="fe-hero-eyebrow">FER⚡ELECTRO / 2026</div>
+<img alt="FER⚡ELECTRO" class="fe-hero-logo" src="logo-2.PNG"/>
+<h1><span>TECNOLOGÍA</span><em>que se siente.</em></h1>
+<p>Audio, accesorios y gadgets seleccionados con criterio. Una experiencia simple, rápida y cuidada de principio a fin.</p>
+<div class="fe-hero-cta-row">
+<a class="fe-btn-primary" href="#productos"><span>Explorar productos</span><b>↘</b></a>
+<a class="fe-btn-ghost" href="https://wa.me/543764863227" rel="noopener" target="_blank">Hablar por WhatsApp <span>↗</span></a>
 </div>
 </div>
-<div aria-label="Selección destacada de FER Electro" class="hero-stage">
-<div class="stage-label"><span>DESTACADO</span><small>FER⚡ELECTRO / 2026</small></div>
-<div class="stage-orbit stage-orbit-one"></div>
-<div class="stage-orbit stage-orbit-two"></div>
-<div class="stage-product-wrap">
-<div class="stage-shadow"></div>
-<img alt="Auriculares destacados FER Electro" class="stage-product" src="auriculares 2.PNG"/>
+<div class="fe-product-stage" data-parallax-stage>
+<div class="fe-stage-orbit fe-stage-orbit-1" aria-hidden="true"></div>
+<div class="fe-stage-orbit fe-stage-orbit-2" aria-hidden="true"></div>
+<div class="fe-stage-copy fe-stage-copy-left"><span>01</span><strong>SELECCIÓN</strong><small>Productos elegidos,<br/>sin relleno.</small></div>
+<div class="fe-stage-product-card">
+<div class="fe-stage-badge">DESTACADO</div>
+<img alt="Auriculares destacados FER Electro" class="fe-stage-product-img" src="auriculares 2.PNG"/>
+<div class="fe-stage-caption"><span>RD SPORT</span><small>Audio · Diseño · Comodidad</small></div>
 </div>
-<div class="stage-note stage-note-left"><b>SONIDO</b><span>para todos los días</span></div>
-<div class="stage-note stage-note-right"><b>DISEÑO</b><span>simple · funcional</span></div>
-<div class="stage-index">FE / 01</div>
+<div class="fe-stage-copy fe-stage-copy-right"><span>02</span><strong>CONFIANZA</strong><small>Atención real antes<br/>y después de comprar.</small></div>
 </div>
-</div>
-<a aria-label="Ir a productos" class="scroll-cue" href="#productos"><span>SCROLL</span><i></i></a>
-</section><div aria-hidden="true" class="motion-strip">
-<div class="motion-track">
-<span>FER⚡ELECTRO</span><i>✦</i><span>AUDIO</span><i>✦</i><span>GADGETS</span><i>✦</i><span>ACCESORIOS</span><i>✦</i><span>POSADAS · MISIONES</span><i>✦</i>
-<span>FER⚡ELECTRO</span><i>✦</i><span>AUDIO</span><i>✦</i><span>GADGETS</span><i>✦</i><span>ACCESORIOS</span><i>✦</i><span>POSADAS · MISIONES</span><i>✦</i>
+<div class="fe-hero-bottom">
+<div><strong>Envíos</strong><span>A todo Argentina</span></div>
+<div><strong>Pago</strong><span>Seguro y simple</span></div>
+<div><strong>Atención</strong><span>Directa por WhatsApp</span></div>
+<a class="fe-scroll-pill" href="#productos"><span>DESCUBRIR</span><i>↓</i></a>
 </div>
 </div>
-<!-- =========================
-     BENEFICIOS
-========================= -->
-<section class="features">
-<div class="feature">
-<div class="icon">
-
-⚡
-
-</div>
-<div>
-<strong>
-CALIDAD PREMIUM
-</strong>
-<span>
-Productos seleccionados
-</span>
-</div>
-</div>
-<div class="feature">
-<div class="icon">
-
-♢
-
-</div>
-<div>
-<strong>
-ENVÍOS A TODO EL PAÍS
-</strong>
-<span>
-Coordinamos la entrega
-</span>
-</div>
-</div>
-<div class="feature">
-<div class="icon">
-
-♧
-
-</div>
-<div>
-<strong>
-ATENCIÓN PERSONALIZADA
-</strong>
-<span>
-Te asesoramos siempre
-</span>
-</div>
-</div>
-<div class="feature">
-<div class="icon">
-
-✓
-
-</div>
-<div>
-<strong>
-COMPRA SEGURA
-</strong>
-<span>
-Confianza en cada compra
-</span>
-</div>
-</div>
+</section>
+<div class="fe-marquee" aria-hidden="true"><div class="fe-marquee-track"><span>FER⚡ELECTRO</span><i>✦</i><span>AUDIO</span><i>✦</i><span>GADGETS</span><i>✦</i><span>ACCESORIOS</span><i>✦</i><span>POSADAS · MISIONES</span><i>✦</i><span>FER⚡ELECTRO</span><i>✦</i><span>AUDIO</span><i>✦</i><span>GADGETS</span><i>✦</i><span>ACCESORIOS</span><i>✦</i><span>POSADAS · MISIONES</span><i>✦</i></div></div>
+<section class="fe-trust" aria-label="Beneficios de comprar en FER Electro">
+<div class="fe-trust-item"><span>01</span><div><strong>Compra clara</strong><small>Precio, stock y detalles visibles.</small></div></div>
+<div class="fe-trust-item"><span>02</span><div><strong>Atención humana</strong><small>Te respondemos de verdad.</small></div></div>
+<div class="fe-trust-item"><span>03</span><div><strong>Selección cuidada</strong><small>Menos ruido, mejores opciones.</small></div></div>
+<div class="fe-trust-item"><span>04</span><div><strong>Entrega coordinada</strong><small>Seguimiento simple y directo.</small></div></div>
 </section>
 <!-- =========================
      PRODUCTOS
 ========================= -->
 <section class="section" id="productos">
-<div class="section-head">
-<div class="kicker">
-NUESTROS PRODUCTOS
-</div>
-<h2 class="section-title">
-LO MEJOR EN <span>TECNOLOGÍA</span>
-</h2>
-<p class="section-desc">
-
-Conocé nuestra selección de productos.
-Consultá disponibilidad, características
-y formas de entrega directamente por WhatsApp.
-
-</p>
+<div class="section-head fe-products-head">
+<div class="fe-section-index">01 / CATÁLOGO</div>
+<div class="kicker">SELECCIÓN FER⚡ELECTRO</div>
+<h2 class="section-title">PRODUCTOS QUE <span>VALE LA PENA</span> TENER.</h2>
+<p class="section-desc">Una selección corta, clara y pensada para usar todos los días. Sin catálogo infinito: solo lo que realmente recomendamos.</p>
+<div class="fe-head-rule"><span></span><small>STOCK EN TIEMPO REAL</small></div>
 </div>
 <div class="products" id="products-grid">
 <div class="products-loading">
@@ -2047,57 +2005,27 @@ y formas de entrega directamente por WhatsApp.
 <!-- =========================
      SOBRE FER ELECTRO
 ========================= -->
-<section class="section about" id="nosotros">
-<div class="about-grid">
-<!-- VISUAL -->
-<div class="about-visual">
-<div class="about-ring">
-<img alt="FER⚡ELECTRO" class="about-real-logo" src="logo.PNG"/>
+<section class="fe-about" id="nosotros">
+<div class="fe-about-inner">
+<div class="fe-about-label">02 / NUESTRA FORMA DE HACERLO</div>
+<div class="fe-about-main">
+<div class="fe-about-logo-wrap">
+<div class="fe-about-ring fe-ring-a"></div><div class="fe-about-ring fe-ring-b"></div>
+<img alt="FER⚡ELECTRO" src="logo.PNG"/>
+<span>POSADAS · MISIONES</span>
 </div>
-</div>
-<!-- TEXTO -->
-<div class="about-copy">
-<div class="kicker">
-SOBRE NOSOTROS
-</div>
-<h2>
-
-TECNOLOGÍA QUE
-<span>ELEVA</span>
-TU DÍA.
-
-</h2>
-<p>
-
-En FER⚡ELECTRO seleccionamos
-tecnología, audio y accesorios
-pensando en lo que realmente buscás:
-buenos productos, atención cercana
-y una experiencia de compra simple
-y segura.
-
-</p>
-<div class="points">
-<div class="point">
-<i>✓</i>
-
-Productos seleccionados
-
-</div>
-<div class="point">
-<i>✓</i>
-
-Atención directa por WhatsApp
-
-</div>
-<div class="point">
-<i>✓</i>
-
-Envíos a todo Argentina
-
+<div class="fe-about-copy">
+<div class="kicker">SOBRE FER⚡ELECTRO</div>
+<h2>Comprar tecnología debería sentirse <em>simple.</em></h2>
+<p>Elegimos productos útiles, explicamos lo importante y mantenemos una atención cercana. La idea es que puedas decidir rápido, comprar tranquilo y volver porque la experiencia fue buena.</p>
+<div class="fe-about-points">
+<div><b>01</b><span><strong>Selección</strong><small>Productos con sentido, no por llenar catálogo.</small></span></div>
+<div><b>02</b><span><strong>Claridad</strong><small>Información concreta antes de comprar.</small></span></div>
+<div><b>03</b><span><strong>Cercanía</strong><small>Una persona del otro lado cuando necesitás ayuda.</small></span></div>
 </div>
 </div>
 </div>
+<div class="fe-manifesto"><span>TECNOLOGÍA</span><i>BIEN ELEGIDA.</i><span>BIEN PRESENTADA.</span><i>BIEN ATENDIDA.</i></div>
 </div>
 </section>
 <!-- =========================
@@ -2106,6 +2034,15 @@ Envíos a todo Argentina
 <!-- =========================
      CONTACTO Y UBICACIÓN
 ========================= -->
+<section class="fe-experience" aria-label="Experiencia de compra">
+<div class="fe-exp-side"><span>03 / EXPERIENCIA</span><h2>HECHA PARA<br/><em>COMPRAR.</em></h2></div>
+<div class="fe-exp-grid">
+<article><span>01</span><h3>Encontrá rápido</h3><p>Productos bien presentados, con precio, stock y detalles donde tienen que estar.</p></article>
+<article><span>02</span><h3>Elegí tranquilo</h3><p>Descripción clara, características separadas y una navegación sin vueltas.</p></article>
+<article><span>03</span><h3>Consultá fácil</h3><p>WhatsApp a un toque para resolver dudas reales antes de decidir.</p></article>
+<article><span>04</span><h3>Comprá seguro</h3><p>Carrito persistente, checkout cuidado y estructura preparada para Mercado Pago.</p></article>
+</div>
+</section>
 <section class="location" id="contacto">
 <div class="location-box">
 <div class="location-copy">
@@ -5132,5 +5069,53 @@ comprobarRetornoPago();
     productsObserver.observe(productGrid,{childList:true});
   }
 })();
-</script></body>
+</script>
+<script id="fe-premium-motion">
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const progress = document.createElement('div');
+  progress.className = 'fe-progress';
+  document.body.appendChild(progress);
+  const updateProgress = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+  };
+  updateProgress();
+  addEventListener('scroll', updateProgress, {passive:true});
+
+  if (!reduce && matchMedia('(pointer:fine)').matches) {
+    document.documentElement.classList.add('has-fine-pointer');
+    const glow = document.createElement('div');
+    glow.className = 'fe-cursor-glow'; document.body.appendChild(glow);
+    addEventListener('pointermove', e => { glow.style.left=e.clientX+'px'; glow.style.top=e.clientY+'px'; }, {passive:true});
+    const stage = document.querySelector('[data-parallax-stage]');
+    const card = stage?.querySelector('.fe-stage-product-card');
+    if (stage && card) {
+      stage.addEventListener('pointermove', e => {
+        const r = stage.getBoundingClientRect();
+        const x = (e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+        card.style.setProperty('--ry', `${x*7}deg`);
+        card.style.setProperty('--rx', `${-y*5}deg`);
+      });
+      stage.addEventListener('pointerleave', () => { card.style.setProperty('--ry','0deg'); card.style.setProperty('--rx','0deg'); });
+    }
+  }
+
+  if (!reduce && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('fe-in'); observer.unobserve(entry.target); }
+    }), {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    const prepare = (root=document) => root.querySelectorAll('.fe-products-head,.product,.fe-about-main,.fe-manifesto,.fe-exp-side,.fe-exp-grid article,.location-copy,.map,.contact-socials').forEach((el,i)=>{
+      if(el.classList.contains('fe-reveal-100')) return;
+      el.classList.add('fe-reveal-100');
+      el.style.transitionDelay = Math.min((i%4)*70,210)+'ms'; observer.observe(el);
+    });
+    prepare();
+    const grid = document.getElementById('products-grid');
+    if(grid) new MutationObserver(()=>prepare(grid)).observe(grid,{childList:true,subtree:true});
+  }
+})();
+</script>
+
+</body>
 </html>
