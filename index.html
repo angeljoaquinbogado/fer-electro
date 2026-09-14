@@ -1512,7 +1512,7 @@ img{max-width:100%;display:block}
 .features{
   position:relative;
   z-index:12;
-  margin:-140px auto 34px;
+  margin:-62px auto 34px;
 }
 .feature{
   background:rgba(255,255,255,.93);
@@ -1539,6 +1539,134 @@ img{max-width:100%;display:block}
   .features{margin-top:-26px}
 }
 </style>
+
+<style id="fe-responsive-final-v7">
+/* FER⚡ELECTRO · ajuste responsive final para beneficios/hero.
+   Desktop: 4 tarjetas elevadas sobre el fondo.
+   Tablet/móvil: grilla real 2x2, sin carrusel horizontal ni cortes. */
+
+/* Escritorio grande */
+.features{
+  position:relative;
+  z-index:12;
+  margin:-98px auto 32px!important;
+}
+
+/* Notebook / escritorio angosto */
+@media (min-width:981px) and (max-width:1180px){
+  .features{margin:-82px auto 30px!important;gap:9px}
+  .feature{padding:18px;min-height:104px}
+}
+
+/* Tablet */
+@media (min-width:641px) and (max-width:980px){
+  .features{
+    width:var(--container)!important;
+    margin:-68px auto 30px!important;
+    padding:0!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    overflow:visible!important;
+    scroll-snap-type:none!important;
+  }
+  .feature{
+    min-width:0!important;
+    min-height:102px!important;
+    padding:18px!important;
+    border-radius:20px!important;
+  }
+  .catalog-section{padding-top:70px!important}
+}
+
+/* Celulares */
+@media (max-width:640px){
+  .hero{padding-bottom:58px!important}
+  .hero-shell{min-height:540px!important}
+
+  .features{
+    width:var(--container)!important;
+    margin:-74px auto 22px!important;
+    padding:0!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    overflow:visible!important;
+    scroll-snap-type:none!important;
+  }
+  .features::-webkit-scrollbar{display:none!important}
+
+  .feature{
+    min-width:0!important;
+    min-height:118px!important;
+    padding:14px!important;
+    border-radius:20px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    justify-content:flex-start!important;
+    gap:9px!important;
+    scroll-snap-align:none!important;
+    background:rgba(255,255,255,.96)!important;
+    box-shadow:0 12px 30px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.94)!important;
+  }
+  .feature-icon{
+    width:36px!important;
+    height:36px!important;
+    border-radius:11px!important;
+  }
+  .feature-icon .ui-icon{width:18px!important;height:18px!important}
+  .feature strong{
+    margin:0!important;
+    font-size:12px!important;
+    line-height:1.2!important;
+    letter-spacing:-.02em!important;
+  }
+  .feature span{
+    margin-top:3px!important;
+    font-size:9.5px!important;
+    line-height:1.38!important;
+  }
+
+  /* El catálogo arranca cerca de las tarjetas, sin el vacío grande que se veía en iPhone. */
+  .catalog-section{padding-top:48px!important}
+}
+
+/* iPhone chicos / 320–380 px */
+@media (max-width:380px){
+  :root{--container:calc(100% - 20px)}
+  .hero-shell{min-height:525px!important}
+  .features{
+    margin:-66px auto 20px!important;
+    gap:8px!important;
+  }
+  .feature{
+    min-height:112px!important;
+    padding:12px!important;
+    border-radius:18px!important;
+    gap:8px!important;
+  }
+  .feature-icon{width:32px!important;height:32px!important;border-radius:10px!important}
+  .feature-icon .ui-icon{width:16px!important;height:16px!important}
+  .feature strong{font-size:11px!important}
+  .feature span{font-size:8.8px!important;line-height:1.35!important}
+  .catalog-section{padding-top:42px!important}
+}
+
+/* Pantallas muy angostas: sigue siendo 2x2, pero con texto compacto. */
+@media (max-width:335px){
+  .features{gap:7px!important;margin-top:-60px!important}
+  .feature{min-height:108px!important;padding:10px!important}
+  .feature strong{font-size:10.5px!important}
+  .feature span{font-size:8.2px!important}
+}
+
+/* Respeta usuarios que prefieren menos movimiento. */
+@media (prefers-reduced-motion:reduce){
+  .feature{transition:none!important}
+}
+</style>
+
 </head>
 <body><svg aria-hidden="true" class="icon-sprite" focusable="false">
 <symbol id="i-home" viewbox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-4.5v-6h-5v6H5a1.5 1.5 0 0 1-1.5-1.5v-9Z"></path></symbol>
