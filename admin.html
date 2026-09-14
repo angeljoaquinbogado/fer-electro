@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#111111">
 <title>FER⚡ELECTRO | Administración</title>
@@ -19,7 +19,8 @@
     --success:#18864b;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#f5f5f3;color:var(--text);min-height:100vh}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:Arial,Helvetica,sans-serif;background:#f5f5f3;color:var(--text);min-height:100vh;overflow-x:hidden}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
@@ -73,7 +74,122 @@ td strong{font-size:11px}
 .orders-toolbar{padding:18px;display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid #eee}
 .orders-toolbar h2{margin:0}
 .loading{padding:28px;text-align:center;color:#777;font-size:11px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.head{align-items:flex-start;flex-direction:column}.top-user{display:none}.shell{width:94%;margin-top:20px}}
+@media(max-width:900px){
+    .grid{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(3,1fr)}
+    .head{align-items:flex-start;flex-direction:column}
+    .top-user{display:none}
+    .shell{width:94%;margin-top:20px}
+}
+
+/* Mobile-first admin layout: iPhone / Android */
+@media(max-width:700px){
+    body{background:#f5f5f3}
+    .login-screen{padding:16px}
+    .login-card{padding:24px 18px;border-radius:20px}
+    .login-logo{font-size:23px}
+    .login-card p{font-size:13px}
+
+    .top{
+        height:auto;min-height:68px;padding:10px 14px;gap:10px;flex-wrap:wrap;
+        align-items:center
+    }
+    .brand{font-size:16px;line-height:1.15;white-space:nowrap}
+    .top-actions{gap:6px;margin-left:auto}
+    .top .secondary{padding:9px 11px;min-height:40px;font-size:9px}
+
+    .shell{width:auto;margin:18px 12px 48px}
+    .head{gap:12px;margin-bottom:16px}
+    .head h1{font-size:25px;line-height:1.1}
+    .head p{font-size:12px;line-height:1.5}
+    #refresh-button{width:100%;min-height:44px}
+
+    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+    .tab{width:100%;min-height:44px;padding:10px 8px;font-size:10px}
+
+    .stats{grid-template-columns:1fr 1fr;gap:8px}
+    .stat{padding:14px;border-radius:14px}
+    .stat:last-child{grid-column:1 / -1}
+    .stat span{font-size:9px;line-height:1.25}
+    .stat strong{font-size:22px}
+
+    .grid{gap:12px}
+    .card{padding:16px;border-radius:15px}
+    .card h2{font-size:18px}
+    .field{gap:8px;margin-bottom:15px}
+    .field label{font-size:10px}
+    .field input,.field textarea,.field select{
+        min-height:48px;padding:12px 13px;border-radius:12px;font-size:16px
+    }
+    .field textarea{min-height:110px}
+    .file-help{font-size:10px;line-height:1.55}
+    .form-actions{display:grid;grid-template-columns:1fr;gap:8px}
+    .primary,.secondary,.danger{min-height:44px;font-size:11px}
+
+    /* Convert desktop tables into readable mobile cards */
+    .table-wrap{overflow:visible;border:0;border-radius:0;background:transparent}
+    table{display:block;width:100%;min-width:0;background:transparent}
+    thead{display:none}
+    tbody{display:grid;gap:10px;width:100%}
+    tbody tr{
+        display:block;width:100%;background:#fff;border:1px solid #e7e7e7;
+        border-radius:14px;padding:12px 14px;box-shadow:0 4px 16px rgba(0,0,0,.025)
+    }
+    tbody td{
+        display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;align-items:center;
+        width:100%;padding:8px 0;border:0;font-size:12px;line-height:1.4;overflow-wrap:anywhere
+    }
+    tbody td::before{
+        font-size:8px;font-weight:900;letter-spacing:.55px;color:#888;line-height:1.2
+    }
+    #products-table td:nth-child(1)::before{content:"IMAGEN"}
+    #products-table td:nth-child(2)::before{content:"PRODUCTO"}
+    #products-table td:nth-child(3)::before{content:"PRECIO"}
+    #products-table td:nth-child(4)::before{content:"STOCK"}
+    #products-table td:nth-child(5)::before{content:"ESTADO"}
+    #products-table td:nth-child(6)::before{content:"ACCIONES"}
+    #orders-table td:nth-child(1)::before{content:"FECHA"}
+    #orders-table td:nth-child(2)::before{content:"CLIENTE"}
+    #orders-table td:nth-child(3)::before{content:"CONTACTO"}
+    #orders-table td:nth-child(4)::before{content:"TOTAL"}
+    #orders-table td:nth-child(5)::before{content:"PAGO"}
+    #orders-table td:nth-child(6)::before{content:"PREPARACIÓN"}
+    #orders-table td:nth-child(7)::before{content:"ACCIONES"}
+    tbody td.loading{display:block;text-align:center;padding:18px 4px;font-size:12px}
+    tbody td.loading::before{display:none}
+    .product-thumb{width:64px;height:64px}
+    td strong{font-size:13px}
+    .badge{font-size:9px;padding:6px 9px;width:max-content;max-width:100%}
+    .row-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;width:100%}
+    .icon-btn{min-height:40px;padding:8px 10px;font-size:10px;width:100%}
+    .fulfillment-select{width:100%!important;min-height:42px!important;font-size:14px!important;padding:8px 10px!important}
+
+    .orders-card{padding:0;border:0;background:transparent;box-shadow:none}
+    .orders-toolbar{
+        padding:14px;background:#fff;border:1px solid #e7e7e7;border-radius:14px;
+        margin-bottom:10px;align-items:flex-start;flex-direction:column
+    }
+    .orders-toolbar h2{font-size:18px}
+    .orders-toolbar span{font-size:10px!important;line-height:1.5}
+
+    .order-modal{align-items:flex-end;padding:0;background:rgba(0,0,0,.58)}
+    .order-modal-card{
+        width:100%;max-height:92dvh;border-radius:22px 22px 0 0;padding:22px 16px 28px
+    }
+    .order-modal-close{right:12px;top:12px;width:42px;height:42px}
+    .order-meta{grid-template-columns:1fr;gap:8px;margin-top:22px}
+    .order-meta div{padding:13px}
+    .order-meta strong{font-size:12px;overflow-wrap:anywhere}
+    .order-item-row{grid-template-columns:minmax(0,1fr) auto;padding:11px;gap:8px}
+}
+
+@media(max-width:380px){
+    .brand{font-size:14px}
+    .top .secondary{padding:8px 9px;font-size:8px}
+    .stats{grid-template-columns:1fr}
+    .stat:last-child{grid-column:auto}
+    tbody td{grid-template-columns:78px minmax(0,1fr)}
+}
 
 .order-modal{
     position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;
