@@ -108,33 +108,64 @@ img{max-width:100%;display:block}
   background:var(--gold-soft);color:#2a220b;font-size:9px;font-weight:800
 }
 
-.hero{position:relative;isolation:isolate;overflow:hidden;padding:54px 0 62px}
-.hero-bg{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.hero{
+  position:relative;isolation:isolate;overflow:hidden;padding:54px 0 62px;
+  background:#070707;color:#f7f3e8
+}
+.hero-bg{position:absolute;inset:-7%;z-index:-1;overflow:hidden;pointer-events:none;background:#070707}
+.hero-bg::before{
+  content:"";position:absolute;inset:-5%;
+  background-image:url("hero-bg-fer-electro.png");
+  background-size:cover;background-position:center center;background-repeat:no-repeat;
+  transform:scale(1.06);will-change:transform,background-position;
+  animation:heroBgMotion 18s cubic-bezier(.45,.05,.55,.95) infinite alternate;
+}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgba(3,3,3,.48) 0%,rgba(3,3,3,.20) 46%,rgba(3,3,3,.12) 100%),
+    radial-gradient(circle at 23% 42%,rgba(226,193,104,.10),transparent 34%),
+    linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.30));
+  animation:heroLightMotion 12s ease-in-out infinite alternate
+}
+@keyframes heroBgMotion{
+  0%{transform:scale(1.06) translate3d(-1.6%,-1%,0);background-position:48% 50%}
+  50%{transform:scale(1.11) translate3d(1.2%,.8%,0);background-position:52% 48%}
+  100%{transform:scale(1.08) translate3d(-.4%,1.5%,0);background-position:50% 52%}
+}
+@keyframes heroLightMotion{
+  0%{opacity:.78;transform:translate3d(-1%,0,0) scale(1)}
+  100%{opacity:1;transform:translate3d(1.5%,-.8%,0) scale(1.025)}
+}
 .hero-grid{
-  position:absolute;inset:0;opacity:.20;
-  background-image:linear-gradient(rgba(13,14,16,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(13,14,16,.08) 1px,transparent 1px);
+  position:absolute;inset:0;opacity:.08;
+  background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);
   background-size:64px 64px;
   mask-image:linear-gradient(to bottom,black,transparent 82%);
 }
-.hero-glow{position:absolute;border-radius:50%;filter:blur(30px);opacity:.65}
-.hero-glow-a{width:520px;height:520px;right:-120px;top:-160px;background:radial-gradient(circle,rgba(205,178,91,.28),transparent 68%)}
-.hero-glow-b{width:440px;height:440px;left:-160px;bottom:-240px;background:radial-gradient(circle,rgba(0,0,0,.09),transparent 68%)}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(44px);opacity:.32;will-change:transform}
+.hero-glow-a{width:520px;height:520px;right:-120px;top:-160px;background:radial-gradient(circle,rgba(220,183,79,.34),transparent 68%);animation:heroGlowA 10s ease-in-out infinite alternate}
+.hero-glow-b{width:440px;height:440px;left:-160px;bottom:-240px;background:radial-gradient(circle,rgba(216,176,70,.16),transparent 68%);animation:heroGlowB 13s ease-in-out infinite alternate}
+@keyframes heroGlowA{to{transform:translate3d(-42px,36px,0) scale(1.10)}}
+@keyframes heroGlowB{to{transform:translate3d(44px,-30px,0) scale(.94)}}
 .hero-shell{
   width:var(--container);margin:auto;min-height:590px;
   display:grid;grid-template-columns:minmax(0,1.02fr) minmax(420px,.98fr);gap:64px;align-items:center
 }
-.hero-content{max-width:650px;padding:24px 0}
+.hero-content{position:relative;z-index:2;max-width:650px;padding:24px 0;text-shadow:0 2px 20px rgba(0,0,0,.22)}
 .eyebrow,.kicker{
   display:flex;align-items:center;gap:9px;margin-bottom:20px;color:#666970;
   font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase
 }
-.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(182,146,46,.10)}
+.hero .eyebrow{color:rgba(247,243,232,.72)}
+.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:#d7b85c;box-shadow:0 0 0 5px rgba(215,184,92,.12),0 0 22px rgba(215,184,92,.35)}
 .hero h1{
   margin:0;max-width:720px;font-size:clamp(48px,5.6vw,80px);line-height:.96;letter-spacing:-.058em;font-weight:800
 }
-.hero h1 span{display:block;color:#8e711e}
+.hero h1{color:#fffaf0;text-shadow:0 12px 40px rgba(0,0,0,.30)}
+.hero h1 span{display:block;color:#d9b95e;text-shadow:0 10px 34px rgba(195,155,45,.12)}
 .hero-lead{
-  max-width:590px;margin:26px 0 0;color:#5e6066;font-size:clamp(15px,1.35vw,18px);line-height:1.7;letter-spacing:-.015em
+  max-width:590px;margin:26px 0 0;color:rgba(245,241,230,.76);font-size:clamp(15px,1.35vw,18px);line-height:1.7;letter-spacing:-.015em
 }
 .hero-actions{display:flex;align-items:center;gap:12px;margin-top:30px;flex-wrap:wrap}
 .gold-btn,.outline-btn,.hero-secondary,.view-product,.add-card-product,.dynamic-add-cart,.dynamic-add-cart-mobile,.cart-checkout,.checkout-pay{
@@ -149,14 +180,15 @@ img{max-width:100%;display:block}
 }
 .gold-btn:active:not(:disabled),.add-card-product:active:not(:disabled),.dynamic-add-cart:active:not(:disabled),.dynamic-add-cart-mobile:active:not(:disabled),.cart-checkout:active:not(:disabled){transform:translateY(0) scale(.985)}
 .gold-btn:disabled,.add-card-product:disabled,.dynamic-add-cart:disabled,.dynamic-add-cart-mobile:disabled,.cart-checkout:disabled,.checkout-pay:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
-.hero-btn{background:var(--ink);min-height:52px;padding:0 24px}
+.hero-btn{background:linear-gradient(135deg,#dfc36e,#b78c27);color:#111;min-height:52px;padding:0 24px;box-shadow:0 14px 30px rgba(174,133,35,.22)}
+.hero-btn:hover:not(:disabled){background:linear-gradient(135deg,#ead385,#c79c34);color:#090909}
 .hero-secondary{
-  background:rgba(255,255,255,.68);border:1px solid var(--line);color:var(--ink);text-transform:none;letter-spacing:-.01em;font-size:12px
+  background:rgba(9,9,9,.38);border:1px solid rgba(255,255,255,.20);color:#fffaf0;text-transform:none;letter-spacing:-.01em;font-size:12px;backdrop-filter:blur(12px)
 }
-.hero-secondary:hover{background:#fff;border-color:var(--line-strong);transform:translateY(-1px)}
-.hero-proof{display:flex;gap:18px;flex-wrap:wrap;margin-top:30px;color:#7a7c81;font-size:10px;font-weight:700}
+.hero-secondary:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.32);transform:translateY(-1px)}
+.hero-proof{display:flex;gap:18px;flex-wrap:wrap;margin-top:30px;color:rgba(247,243,232,.68);font-size:10px;font-weight:700}
 .hero-proof span{display:flex;align-items:center;gap:6px}
-.hero-proof .ui-icon{color:#9e822b}
+.hero-proof .ui-icon{color:#d4b151}
 .hero-visual{position:relative;min-width:0}
 .hero-product-stage{
   position:relative;min-height:520px;border-radius:38px;overflow:hidden;
@@ -572,6 +604,10 @@ img{max-width:100%;display:block}
 }
 
 @media (max-width:640px){
+  .hero-bg{inset:-10%}
+  .hero-bg::before{background-position:62% center;animation-duration:22s}
+  .hero-bg::after{background:linear-gradient(180deg,rgba(3,3,3,.34),rgba(3,3,3,.18) 45%,rgba(3,3,3,.42)),radial-gradient(circle at 50% 16%,rgba(215,184,92,.13),transparent 34%)}
+
   :root{--container:calc(100% - 28px)}
   html{scroll-padding-top:74px}
   body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
@@ -706,6 +742,9 @@ img{max-width:100%;display:block}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .reveal{opacity:1;transform:none}
+
+  .hero-bg::before,.hero-bg::after,.hero-glow-a,.hero-glow-b{animation:none!important}
+  .hero-bg::before{transform:scale(1.06)!important;background-position:center center!important}
 }
 </style>
 </head>
@@ -777,6 +816,7 @@ img{max-width:100%;display:block}
 <main>
 <section class="hero reveal" id="inicio">
 <div aria-hidden="true" class="hero-bg">
+<!-- Fondo premium animado: hero-bg-fer-electro.png -->
 <span class="hero-glow hero-glow-a"></span>
 <span class="hero-glow hero-glow-b"></span>
 <span class="hero-grid"></span>
