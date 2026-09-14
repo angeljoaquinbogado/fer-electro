@@ -1413,6 +1413,99 @@ img{max-width:100%;display:block}
 }
 </style>
 
+
+<style id="fe-about-image-bg-v5">
+/* FER⚡ELECTRO · Sobre nosotros usando la referencia blanco/dorado como fondo real. */
+.about-grid{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  background:#f7f1e3!important;
+  border-color:rgba(173,126,26,.22)!important;
+  box-shadow:0 34px 90px rgba(93,66,12,.16)!important;
+}
+.about-grid::before,.about-grid::after{display:none!important}
+.about-luxury-bg{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  overflow:hidden!important;
+  border-radius:inherit!important;
+  pointer-events:none!important;
+  background:#f7f1e3!important;
+}
+.about-luxury-bg::before{
+  content:""!important;
+  position:absolute!important;
+  inset:-8%!important;
+  background-image:url('sobre-nosotros-bg.png')!important;
+  background-repeat:no-repeat!important;
+  background-position:50% 50%!important;
+  background-size:cover!important;
+  opacity:1!important;
+  transform:translate3d(-1.4%,-.6%,0) scale(1.065)!important;
+  animation:aboutReferenceFloat 17s cubic-bezier(.45,.05,.55,.95) infinite alternate!important;
+  will-change:transform!important;
+  filter:saturate(1.03) brightness(1.01)!important;
+}
+.about-luxury-bg::after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  opacity:1!important;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.47) 38%,rgba(255,255,255,.18) 70%,rgba(255,255,255,.08) 100%),
+    radial-gradient(circle at 16% 30%,rgba(255,255,255,.36),transparent 36%)!important;
+  animation:aboutReferenceLight 11s ease-in-out infinite alternate!important;
+}
+.about-ribbon,.about-light,.about-dust{display:none!important}
+.about-copy{position:relative!important;z-index:3!important}
+.about-brand-pill,.about-live-pill,.about-copy-note,.about-highlight{
+  background:rgba(255,255,255,.56)!important;
+  border-color:rgba(140,98,16,.15)!important;
+  box-shadow:0 14px 36px rgba(108,76,13,.08),inset 0 1px 0 rgba(255,255,255,.82)!important;
+  backdrop-filter:blur(13px) saturate(1.04)!important;
+  -webkit-backdrop-filter:blur(13px) saturate(1.04)!important;
+}
+.about-copy h2{color:#111214!important;text-shadow:0 1px 0 rgba(255,255,255,.35)!important}
+.about-copy h2 span{
+  background:linear-gradient(100deg,#805d14,#bd9340 48%,#805d14)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;
+}
+.about-copy>p{color:#4d473b!important}
+.about-copy .kicker{color:#80682d!important}
+.about-highlight strong{color:#1c1a17!important}
+.about-highlight span{color:#675e4c!important}
+.about-highlight-icon{color:#8f6917!important;background:rgba(190,142,34,.11)!important;border-color:rgba(159,113,20,.18)!important}
+@keyframes aboutReferenceFloat{
+  0%{transform:translate3d(-1.6%,-.7%,0) scale(1.065)}
+  50%{transform:translate3d(.8%,.4%,0) scale(1.09)}
+  100%{transform:translate3d(1.6%,-.35%,0) scale(1.075)}
+}
+@keyframes aboutReferenceLight{
+  0%{opacity:.88;transform:translate3d(-.5%,0,0)}
+  100%{opacity:1;transform:translate3d(.7%,0,0)}
+}
+@media(max-width:640px){
+  .about-grid{background:#f8f1df!important}
+  .about-luxury-bg::before{
+    inset:-12%!important;
+    background-position:56% 50%!important;
+    transform:translate3d(-.8%,0,0) scale(1.10)!important;
+    animation-duration:19s!important;
+  }
+  .about-luxury-bg::after{
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.41) 46%,rgba(255,255,255,.28) 100%),
+      radial-gradient(circle at 50% 20%,rgba(255,255,255,.34),transparent 40%)!important;
+  }
+  .about-brand-pill,.about-live-pill,.about-copy-note,.about-highlight{background:rgba(255,255,255,.62)!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .about-luxury-bg::before,.about-luxury-bg::after{animation:none!important}
+}
+</style>
+
 </head>
 <body><svg aria-hidden="true" class="icon-sprite" focusable="false">
 <symbol id="i-home" viewbox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-4.5v-6h-5v6H5a1.5 1.5 0 0 1-1.5-1.5v-9Z"></path></symbol>
