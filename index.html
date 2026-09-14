@@ -912,6 +912,15 @@ min-height:36px;
 margin-bottom:19px;
 }
 
+.product-card-description{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3;
+    overflow:hidden;
+    min-height:52px !important;
+}
+
+
 
 .product .gold-btn{
 
@@ -1032,6 +1041,34 @@ padding:13px;
     line-height:1.7;
     color:#666;
     margin-bottom:25px;
+}
+
+.dynamic-product-description p{
+    margin:0 0 14px;
+}
+
+.dynamic-product-description p:last-child{
+    margin-bottom:0;
+}
+
+.dynamic-product-description strong{
+    color:#242424;
+    font-weight:700;
+}
+
+.dynamic-product-description ul{
+    margin:4px 0 18px;
+    padding-left:24px;
+    display:grid;
+    gap:7px;
+}
+
+.dynamic-product-description li{
+    padding-left:2px;
+}
+
+.dynamic-product-description .description-space{
+    height:4px;
 }
 
 .dynamic-product-price{
@@ -4009,6 +4046,57 @@ function textoSeguro(valor) {
         .replaceAll("'", "&#039;");
 }
 
+function descripcionResumen(valor) {
+    return String(valor ?? "")
+        .replace(/\*\*/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function descripcionFormateada(valor) {
+    const contenido = textoSeguro(valor || "Consultá las características de este producto.")
+        .replace(/\r\n/g, "\n");
+
+    const aplicarNegrita = (texto) =>
+        texto.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
+    const lineas = contenido.split("\n");
+    let html = "";
+    let listaAbierta = false;
+
+    const cerrarLista = () => {
+        if (listaAbierta) {
+            html += "</ul>";
+            listaAbierta = false;
+        }
+    };
+
+    for (const lineaOriginal of lineas) {
+        const linea = lineaOriginal.trim();
+
+        if (/^-\s+/.test(linea)) {
+            if (!listaAbierta) {
+                html += '<ul class="description-list">';
+                listaAbierta = true;
+            }
+
+            html += `<li>${aplicarNegrita(linea.replace(/^-\s+/, ""))}</li>`;
+            continue;
+        }
+
+        cerrarLista();
+
+        if (!linea) {
+            html += '<div class="description-space" aria-hidden="true"></div>';
+        } else {
+            html += `<p>${aplicarNegrita(linea)}</p>`;
+        }
+    }
+
+    cerrarLista();
+    return html;
+}
+
 function imagenSegura(valor) {
     const imagen = String(valor || "").trim();
 
@@ -4176,7 +4264,7 @@ async function cargarProductosDesdeSupabase() {
                 <div class="product-info">
                     <h3>${textoSeguro(producto.nombre || "Producto")}</h3>
 
-                    <p>${textoSeguro(producto.descripcion || "")}</p>
+                    <p class="product-card-description">${textoSeguro(descripcionResumen(producto.descripcion || ""))}</p>
 
                     <div class="product-price">
                         ${textoSeguro(formatearPrecio(producto.precio))}
@@ -4354,8 +4442,7 @@ function verProducto(producto) {
 
     const descripcion = modal.querySelector(".dynamic-product-description");
     if (descripcion) {
-        descripcion.textContent =
-            producto.descripcion || "Consultá las características de este producto.";
+        descripcion.innerHTML = descripcionFormateada(producto.descripcion);
     }
 
     const precio = modal.querySelector(".dynamic-product-price");
