@@ -324,34 +324,94 @@ img{max-width:100%;display:block}
 .add-card-product .ui-icon{width:16px;height:16px}
 
 .about{
-  padding:18px 0 108px
+  padding:26px 0 112px
 }
 .about-grid{
-  display:grid;grid-template-columns:minmax(360px,.92fr) minmax(0,1.08fr);gap:78px;align-items:center;
-  padding:54px;border-radius:34px;background:#111214;color:#fff;overflow:hidden;position:relative
+  position:relative;isolation:isolate;overflow:hidden;
+  display:grid;grid-template-columns:minmax(390px,.96fr) minmax(0,1.04fr);gap:clamp(54px,6vw,92px);align-items:center;
+  min-height:610px;padding:64px;border-radius:38px;
+  color:#fff;background:
+    radial-gradient(circle at 11% 17%,rgba(211,182,90,.15),transparent 28%),
+    radial-gradient(circle at 89% 84%,rgba(211,182,90,.08),transparent 25%),
+    linear-gradient(135deg,#0c0d0f 0%,#121317 54%,#090a0c 100%);
+  border:1px solid rgba(255,255,255,.07);box-shadow:0 38px 90px rgba(10,11,13,.18)
 }
 .about-grid::before{
-  content:"";position:absolute;width:420px;height:420px;left:-190px;top:-180px;border-radius:50%;
-  background:radial-gradient(circle,rgba(201,170,77,.22),transparent 68%)
+  content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;opacity:.44;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:52px 52px;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.52) 55%,transparent 100%);
+  mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.52) 55%,transparent 100%)
+}
+.about-grid::after{
+  content:"FER";position:absolute;right:-18px;bottom:-90px;z-index:-1;pointer-events:none;
+  font-size:clamp(170px,21vw,310px);font-weight:850;letter-spacing:-.09em;line-height:.8;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.035);opacity:.8
 }
 .about-visual{position:relative;z-index:1}
-.about-visual-card{
-  min-height:360px;border-radius:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:linear-gradient(145deg,#f8f8f5,#ecece7);border:1px solid rgba(255,255,255,.10);box-shadow:0 30px 70px rgba(0,0,0,.26);
-  color:#111
+.about-visual::before{
+  content:"";position:absolute;inset:9% -9% -10% 8%;z-index:-1;border-radius:32px;
+  background:radial-gradient(circle at 45% 38%,rgba(210,176,72,.20),rgba(210,176,72,.03) 48%,transparent 70%);
+  filter:blur(22px)
 }
-.about-monogram{font-size:11px;font-weight:850;letter-spacing:.18em;color:#7a7c81;margin-bottom:18px}
-.about-monogram span{color:#b48c23}
-.about-real-logo{width:min(78%,310px);max-height:160px;object-fit:contain}
-.about-visual-card p{margin:20px 0 0;color:#8a8c90;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.about-copy{position:relative;z-index:1}
-.about-copy .kicker{color:#aaa9a3}
-.about-copy h2{color:#fff}
-.about-copy h2 span{color:#d3b65a}
-.about-copy>p{max-width:620px;margin:22px 0 0;color:#b7b8ba;font-size:14px;line-height:1.75}
-.points{display:grid;gap:10px;margin-top:28px}
-.point{display:flex;align-items:center;gap:10px;color:#e5e5e2;font-size:11px;font-weight:650}
-.point .ui-icon{width:17px;height:17px;color:#d3b65a}
+.about-visual-card{
+  position:relative;min-height:438px;padding:28px;border-radius:30px;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.98),rgba(236,236,230,.95)),
+    #f5f5f1;
+  border:1px solid rgba(255,255,255,.65);box-shadow:0 30px 90px rgba(0,0,0,.34);color:#111
+}
+.about-visual-card::before{
+  content:"";position:absolute;width:300px;height:300px;right:-120px;top:-125px;border-radius:50%;
+  border:1px solid rgba(162,126,30,.20);box-shadow:0 0 0 28px rgba(162,126,30,.035),0 0 0 62px rgba(162,126,30,.025)
+}
+.about-visual-card::after{
+  content:"";position:absolute;left:-14%;right:-14%;bottom:24%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(168,130,30,.22),transparent);transform:rotate(-6deg)
+}
+.about-card-top,.about-card-bottom{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.about-card-label{font-size:9px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:#777980}
+.about-card-signal{display:inline-flex;align-items:center;gap:7px;font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5f6166}
+.about-card-signal::before{content:"";width:7px;height:7px;border-radius:50%;background:#b6922e;box-shadow:0 0 0 4px rgba(182,146,46,.10)}
+.about-logo-shell{
+  position:relative;z-index:2;width:100%;min-height:250px;display:grid;place-items:center;padding:26px
+}
+.about-logo-shell::before{
+  content:"";position:absolute;width:min(72%,280px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(191,153,49,.14),rgba(191,153,49,.02) 54%,transparent 70%);
+  border:1px solid rgba(164,128,30,.10)
+}
+.about-real-logo{position:relative;z-index:1;width:min(76%,300px);max-height:180px;object-fit:contain;filter:none}
+.about-card-bottom{padding-top:18px;border-top:1px solid rgba(13,14,16,.08)}
+.about-card-place strong,.about-card-code strong{display:block;font-size:10px;font-weight:850;letter-spacing:.02em;color:#191a1d}
+.about-card-place span,.about-card-code span{display:block;margin-top:3px;font-size:8px;font-weight:750;letter-spacing:.09em;text-transform:uppercase;color:#8a8c91}
+.about-card-code{text-align:right}
+.about-copy{position:relative;z-index:1;padding:8px 0}
+.about-copy .kicker{color:#c2c3c6}
+.about-copy h2{max-width:720px;margin-top:14px;color:#fff;font-size:clamp(46px,5.4vw,76px);line-height:.92;letter-spacing:-.065em}
+.about-copy h2 span{display:inline-block;color:#d8bd68}
+.about-copy>p{max-width:650px;margin:26px 0 0;color:#b8b9bc;font-size:14px;line-height:1.82}
+.about-copy-note{
+  margin-top:24px;padding-left:16px;border-left:1px solid rgba(216,189,104,.45);
+  color:#85878c;font-size:10px;font-weight:750;letter-spacing:.07em;text-transform:uppercase
+}
+.about-highlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:34px}
+.about-highlight{
+  min-height:132px;padding:17px;border-radius:18px;background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.07);transition:transform .28s var(--ease),background .28s var(--ease),border-color .28s var(--ease)
+}
+.about-highlight:hover{transform:translateY(-3px);background:rgba(255,255,255,.055);border-color:rgba(216,189,104,.20)}
+.about-highlight-icon{
+  width:36px;height:36px;border-radius:11px;display:grid;place-items:center;margin-bottom:20px;
+  color:#d8bd68;background:rgba(216,189,104,.08);border:1px solid rgba(216,189,104,.12)
+}
+.about-highlight-icon .ui-icon{width:17px;height:17px}
+.about-highlight strong{display:block;color:#f4f4f1;font-size:11px;font-weight:800;line-height:1.3}
+.about-highlight span{display:block;margin-top:7px;color:#888a8f;font-size:9px;font-weight:600;line-height:1.45}
+
 
 .location{padding:0 0 100px}
 .location-box{
@@ -589,8 +649,11 @@ img{max-width:100%;display:block}
   .section-head{grid-template-columns:1fr;gap:22px}
   .catalog-tools{max-width:520px}
   .products{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .about-grid{grid-template-columns:1fr;gap:34px;padding:34px}
-  .about-visual-card{min-height:300px}
+  .about-grid{grid-template-columns:1fr;gap:42px;padding:36px;min-height:auto}
+  .about-visual{max-width:620px;width:100%;margin:auto}
+  .about-visual-card{min-height:390px}
+  .about-copy{max-width:760px}
+  .about-highlights{grid-template-columns:repeat(3,minmax(0,1fr))}
   .location-box{grid-template-columns:1fr}
   .map{min-height:380px}
   .product-detail{padding:16px}
@@ -654,11 +717,26 @@ img{max-width:100%;display:block}
   .product-card-description{min-height:auto}
   .product-price{font-size:22px}
   .view-product{min-height:38px}
-  .about{padding-bottom:74px}
-  .about-grid{padding:16px;border-radius:26px;gap:26px}
-  .about-visual-card{min-height:240px;border-radius:20px}
-  .about-copy{padding:0 8px 14px}
-  .about-copy>p{font-size:12px}
+  .about{padding:8px 0 74px}
+  .about-grid{padding:14px;border-radius:28px;gap:28px}
+  .about-grid::before{background-size:38px 38px;opacity:.30}
+  .about-grid::after{right:-4px;bottom:-38px;font-size:150px}
+  .about-visual{width:100%}
+  .about-visual-card{min-height:320px;padding:20px;border-radius:22px}
+  .about-logo-shell{min-height:185px;padding:18px}
+  .about-real-logo{width:min(78%,250px);max-height:140px}
+  .about-card-label{font-size:7px}
+  .about-card-signal{font-size:7px}
+  .about-card-place strong,.about-card-code strong{font-size:9px}
+  .about-card-place span,.about-card-code span{font-size:7px}
+  .about-copy{padding:4px 8px 12px}
+  .about-copy h2{font-size:clamp(40px,12.5vw,56px);margin-top:12px}
+  .about-copy>p{font-size:12px;line-height:1.72;margin-top:20px}
+  .about-copy-note{font-size:8px;line-height:1.55;margin-top:20px}
+  .about-highlights{display:flex;overflow-x:auto;gap:9px;margin:28px -8px 0;padding:0 8px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .about-highlights::-webkit-scrollbar{display:none}
+  .about-highlight{min-width:220px;min-height:128px;scroll-snap-align:start}
+  .about-highlight:hover{transform:none}
   .location{padding-bottom:74px}
   .location-box{padding:10px;border-radius:26px}
   .location-copy{padding:24px 12px}
@@ -915,22 +993,43 @@ img{max-width:100%;display:block}
 <div class="about-grid">
 <div class="about-visual">
 <div class="about-visual-card">
-<div class="about-monogram">FER<span>⚡</span></div>
+<div class="about-card-top">
+<span class="about-card-label">FER⚡ELECTRO / 2026</span>
+<span class="about-card-signal">Tienda activa</span>
+</div>
+<div class="about-logo-shell">
 <img alt="FER⚡ELECTRO" class="about-real-logo" loading="lazy" src="logo.PNG"/>
-<p>Posadas · Misiones</p>
+</div>
+<div class="about-card-bottom">
+<div class="about-card-place"><strong>Itaembé Guazú</strong><span>Posadas · Misiones</span></div>
+<div class="about-card-code"><strong>FER / ELECTRO</strong><span>Tecnología seleccionada</span></div>
+</div>
 </div>
 </div>
 <div class="about-copy">
 <div class="kicker">SOBRE FER⚡ELECTRO</div>
-<h2>MENOS RUIDO.<br/><span>MEJOR TECNOLOGÍA.</span></h2>
+<h2>TECNOLOGÍA<br/><span>SIN VUELTAS.</span></h2>
 <p>
-        Seleccionamos audio, gadgets y accesorios pensando en lo que realmente importa:
-        productos útiles, precios claros y una experiencia de compra simple.
+        Elegimos audio, gadgets y accesorios con una idea simple: ofrecer productos útiles,
+        información clara y una compra que se sienta fácil desde el primer vistazo hasta la entrega.
       </p>
-<div class="points">
-<div class="point"><svg class="ui-icon"><use href="#i-check"></use></svg><span>Stock visible y catálogo actualizado</span></div>
-<div class="point"><svg class="ui-icon"><use href="#i-check"></use></svg><span>Atención directa por WhatsApp</span></div>
-<div class="point"><svg class="ui-icon"><use href="#i-check"></use></svg><span>Envíos a todo Argentina</span></div>
+<div class="about-copy-note">Una tienda local con una experiencia pensada como una marca grande.</div>
+<div class="about-highlights">
+<article class="about-highlight">
+<div class="about-highlight-icon"><svg class="ui-icon"><use href="#i-package"></use></svg></div>
+<strong>Catálogo actualizado</strong>
+<span>Productos y stock visibles para comprar con información clara.</span>
+</article>
+<article class="about-highlight">
+<div class="about-highlight-icon"><svg class="ui-icon"><use href="#i-whatsapp"></use></svg></div>
+<strong>Atención directa</strong>
+<span>Consultas rápidas por WhatsApp antes o después de tu compra.</span>
+</article>
+<article class="about-highlight">
+<div class="about-highlight-icon"><svg class="ui-icon"><use href="#i-truck"></use></svg></div>
+<strong>Envíos nacionales</strong>
+<span>Coordinamos entregas desde Posadas hacia todo el país.</span>
+</article>
 </div>
 </div>
 </div>
