@@ -1,14 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#ffffff">
-
-<meta name="description" content="FER⚡ELECTRO — Tecnología premium, audio, gadgets y accesorios en Itaembé Guazú, Posadas, Misiones.">
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta content="FER⚡ELECTRO — Tecnología premium, audio, gadgets y accesorios en Itaembé Guazú, Posadas, Misiones." name="description"/>
 <title>FER⚡ELECTRO | Tecnología Premium</title>
-
 <style>
 
 :root{
@@ -1611,280 +1609,427 @@ place-items:center;
     pointer-events:none;
 }
 
+
+
+/* =========================================================
+   FER⚡ELECTRO — DIRECCIÓN VISUAL FLUIDA 2026
+   Capa visual agregada sobre la estructura funcional existente.
+========================================================= */
+:root{
+  --fe-gold:#d4af37;
+  --fe-gold-2:#f0d77a;
+  --fe-ink:#11110f;
+  --fe-paper:#fbfaf6;
+  --fe-cream:#f3efe3;
+  --fe-line:rgba(17,17,15,.12);
+  --fe-radius:28px;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;
+  background:var(--fe-paper);
+}
+
+.motion-hero{ text-align:left; }
+.motion-hero::before{ content:none; }
+.hero-copy-block{ padding:0; text-align:left; }
+.motion-strip + .features{ margin:0 auto; }
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:9999;
+  opacity:.18;
+  background-image:
+    radial-gradient(circle at 20% 20%,rgba(0,0,0,.035) 0 1px,transparent 1.4px),
+    radial-gradient(circle at 80% 30%,rgba(0,0,0,.025) 0 1px,transparent 1.4px);
+  background-size:17px 17px,23px 23px;
+  mix-blend-mode:multiply;
+}
+
+.nav{
+  transition:height .35s ease, box-shadow .35s ease, background .35s ease;
+}
+.nav.fe-scrolled{
+  height:66px;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 14px 36px rgba(15,15,15,.07);
+}
+.navlinks a{position:relative;}
+.navlinks a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--fe-gold);transition:right .3s ease;
+}
+.navlinks a:hover::after{right:0;}
+
+.motion-hero{
+  min-height:clamp(660px,calc(100svh - 110px),900px);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  padding:clamp(54px,7vw,100px) 5.5% 66px;
+  background:
+    radial-gradient(circle at 72% 32%,rgba(212,175,55,.12),transparent 26%),
+    linear-gradient(135deg,#fff 0%,#fbfaf6 58%,#f1ead9 100%);
+  isolation:isolate;
+}
+.motion-hero::after{
+  content:"";position:absolute;inset:auto -8% -28% 42%;height:62%;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,175,55,.15),transparent 68%);filter:blur(28px);z-index:-2;
+}
+.hero-grid{
+  width:min(1500px,100%);margin:auto;display:grid;grid-template-columns:minmax(0,1.03fr) minmax(420px,.97fr);
+  align-items:center;gap:clamp(40px,7vw,110px);position:relative;z-index:2;
+}
+.hero-copy-block{max-width:720px;}
+.hero-eyebrow{display:flex;align-items:center;gap:11px;margin-bottom:23px;letter-spacing:.17em;font-size:11px;color:#5f5b52;}
+.hero-eyebrow span{width:34px;height:1px;background:var(--fe-gold);display:block;}
+.hero-brandmark{width:clamp(170px,20vw,278px);height:auto;margin:0 0 26px;filter:drop-shadow(0 10px 24px rgba(0,0,0,.07));}
+.motion-hero h1{
+  font-size:clamp(52px,7vw,104px);line-height:.88;letter-spacing:-.067em;font-weight:850;margin:0 0 28px;color:var(--fe-ink);
+}
+.motion-hero h1 span{font-weight:320;color:#8f7931;display:inline-block;}
+.hero-lead{max-width:600px;font-size:clamp(16px,1.45vw,20px);line-height:1.68;color:#625f57;margin:0 0 32px;}
+.hero-actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.motion-hero .hero-btn{min-width:190px;justify-content:center;border-radius:999px;padding:17px 24px;box-shadow:0 14px 34px rgba(185,138,24,.18);transition:transform .28s ease,box-shadow .28s ease;}
+.motion-hero .hero-btn:hover{transform:translateY(-3px);box-shadow:0 20px 42px rgba(185,138,24,.24);}
+.hero-link{font-size:12px;font-weight:760;letter-spacing:.08em;border-bottom:1px solid rgba(17,17,15,.24);padding:10px 0;transition:border-color .25s,color .25s;}
+.hero-link:hover{border-color:var(--fe-gold);color:#8b6b13;}
+.hero-link span{margin-left:5px;}
+.hero-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:46px;max-width:620px;border-top:1px solid var(--fe-line);padding-top:20px;}
+.hero-proof div{display:flex;align-items:flex-start;gap:10px;}
+.hero-proof strong{font-size:10px;letter-spacing:.12em;color:#b18a22;margin-top:3px;}
+.hero-proof span{font-size:12px;line-height:1.35;color:#5d5a52;}
+
+.hero-stage{
+  --mx:0px;--my:0px;position:relative;min-height:clamp(460px,60vw,650px);max-height:680px;border-radius:38px;overflow:hidden;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.08),transparent 32%),
+    radial-gradient(circle at 46% 44%,#38362f 0%,#1c1c19 35%,#0f0f0e 72%);
+  box-shadow:0 38px 90px rgba(22,20,14,.22),inset 0 0 0 1px rgba(255,255,255,.07);
+  transform:perspective(1200px) rotateY(calc(var(--mx) * .012deg)) rotateX(calc(var(--my) * -.009deg));
+  transition:transform .18s ease-out;
+}
+.hero-stage::before{
+  content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 48%,rgba(255,255,255,.035) 49% 50%,transparent 51%);background-size:34px 34px;opacity:.6;
+}
+.stage-label{position:absolute;top:30px;left:30px;right:30px;display:flex;justify-content:space-between;align-items:center;color:#fff;z-index:4;}
+.stage-label span{font-size:10px;letter-spacing:.19em;font-weight:800;color:var(--fe-gold-2);}
+.stage-label small{font-size:9px;letter-spacing:.14em;opacity:.52;}
+.stage-orbit{position:absolute;border:1px solid rgba(240,215,122,.24);border-radius:50%;inset:50% auto auto 50%;transform:translate(-50%,-50%);}
+.stage-orbit-one{width:72%;aspect-ratio:1;animation:feOrbit 16s linear infinite;}
+.stage-orbit-two{width:54%;aspect-ratio:1;border-style:dashed;animation:feOrbitReverse 22s linear infinite;}
+.stage-product-wrap{position:absolute;inset:12% 8% 9%;display:grid;place-items:center;z-index:2;transform:translate(calc(var(--mx) * .22),calc(var(--my) * .17));transition:transform .15s ease-out;}
+.stage-product{width:min(92%,540px);max-height:82%;object-fit:contain;filter:drop-shadow(0 42px 28px rgba(0,0,0,.46));animation:feFloat 5.2s ease-in-out infinite;position:relative;z-index:2;}
+.stage-shadow{position:absolute;width:60%;height:8%;bottom:12%;left:20%;background:rgba(0,0,0,.56);filter:blur(18px);border-radius:50%;animation:feShadow 5.2s ease-in-out infinite;}
+.stage-note{position:absolute;z-index:4;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;}
+.stage-note b{font-size:10px;color:var(--fe-gold-2);}
+.stage-note span{opacity:.5;}
+.stage-note-left{left:30px;bottom:32px;}
+.stage-note-right{right:30px;bottom:32px;text-align:right;}
+.stage-index{position:absolute;right:25px;top:48%;writing-mode:vertical-rl;color:rgba(255,255,255,.24);font-size:10px;letter-spacing:.3em;z-index:4;}
+.scroll-cue{position:absolute;left:5.5%;bottom:24px;display:flex;align-items:center;gap:10px;color:#706b5f;font-size:9px;letter-spacing:.2em;z-index:3;}
+.scroll-cue i{width:42px;height:1px;background:#aca58f;position:relative;overflow:hidden;}
+.scroll-cue i::after{content:"";position:absolute;inset:0;background:var(--fe-gold);transform:translateX(-100%);animation:feScrollCue 2.2s ease-in-out infinite;}
+.hero-ambient{position:absolute;border-radius:50%;filter:blur(1px);pointer-events:none;z-index:-1;}
+.hero-ambient-one{width:420px;height:420px;left:-260px;top:18%;border:1px solid rgba(212,175,55,.18);}
+.hero-ambient-two{width:190px;height:190px;left:44%;top:8%;border:1px solid rgba(17,17,15,.08);}
+
+.motion-strip{height:48px;background:#11110f;color:#fff;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;}
+.motion-track{display:flex;align-items:center;gap:24px;width:max-content;white-space:nowrap;animation:feMarquee 28s linear infinite;}
+.motion-track span{font-size:10px;font-weight:760;letter-spacing:.18em;opacity:.78;}
+.motion-track i{font-style:normal;color:var(--fe-gold);font-size:9px;}
+
+.features{position:relative;z-index:2;background:#fff;}
+.feature{transition:transform .3s ease,background .3s ease;}
+.feature:hover{transform:translateY(-4px);background:#fbfaf6;}
+
+.section{padding-top:clamp(76px,9vw,132px);padding-bottom:clamp(76px,9vw,132px);}
+.section-head{max-width:760px;}
+.section-title{letter-spacing:-.045em;}
+.products{gap:clamp(18px,2vw,30px);}
+.product{
+  border-radius:24px;overflow:hidden;border:1px solid rgba(17,17,15,.085);background:#fff;
+  box-shadow:0 14px 34px rgba(22,20,14,.055);transition:transform .38s cubic-bezier(.2,.7,.2,1),box-shadow .38s ease,border-color .38s ease;
+  animation:feCardIn .65s both;
+}
+.product:nth-child(2){animation-delay:.08s}.product:nth-child(3){animation-delay:.16s}.product:nth-child(4){animation-delay:.24s}
+.product:hover{transform:translateY(-9px);box-shadow:0 28px 60px rgba(22,20,14,.12);border-color:rgba(212,175,55,.34);}
+.product-img{overflow:hidden;background:linear-gradient(150deg,#faf9f4,#f0ede4);}
+.product-real-image{transition:transform .6s cubic-bezier(.2,.7,.2,1),filter .45s ease;}
+.product:hover .product-real-image{transform:scale(1.045) rotate(-.5deg);filter:drop-shadow(0 22px 22px rgba(0,0,0,.12));}
+.product .badge{backdrop-filter:blur(10px);}
+.view-product{position:relative;overflow:hidden;}
+.view-product::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--fe-gold);transition:width .3s ease;}
+.view-product:hover::after{width:100%;}
+
+.about{background:linear-gradient(180deg,#fff 0%,#f7f3e9 100%);overflow:hidden;}
+.about-ring{position:relative;isolation:isolate;animation:feBreath 5.8s ease-in-out infinite;}
+.about-ring::after{content:"";position:absolute;inset:-28px;border:1px dashed rgba(185,138,24,.28);border-radius:50%;animation:feOrbit 24s linear infinite;z-index:-1;}
+.about-copy h2{letter-spacing:-.045em;}
+
+.location-box{border-radius:32px;overflow:hidden;box-shadow:0 30px 70px rgba(22,20,14,.10);}
+.map{overflow:hidden;}
+.map iframe{transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s ease;}
+.map:hover iframe{transform:scale(1.025);filter:saturate(.9) contrast(1.03);}
+.social-card{transition:transform .3s ease,box-shadow .3s ease;}
+.social-card:hover{transform:translateY(-4px);box-shadow:0 18px 34px rgba(0,0,0,.08);}
+
+/* Scroll reveal: solo se activa cuando JavaScript está disponible */
+.js-motion .fe-reveal{opacity:0;transform:translateY(26px);transition:opacity .72s cubic-bezier(.2,.7,.2,1),transform .72s cubic-bezier(.2,.7,.2,1);}
+.js-motion .fe-reveal.fe-visible{opacity:1;transform:none;}
+.js-motion .feature.fe-reveal:nth-child(2),.js-motion .point.fe-reveal:nth-child(2){transition-delay:.08s;}
+.js-motion .feature.fe-reveal:nth-child(3),.js-motion .point.fe-reveal:nth-child(3){transition-delay:.16s;}
+.js-motion .feature.fe-reveal:nth-child(4){transition-delay:.24s;}
+
+@keyframes feOrbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes feOrbitReverse{to{transform:translate(-50%,-50%) rotate(-360deg)}}
+@keyframes feFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
+@keyframes feShadow{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(.86);opacity:.34}}
+@keyframes feScrollCue{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
+@keyframes feMarquee{to{transform:translateX(-50%)}}
+@keyframes feCardIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes feBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+
+@media(max-width:1080px){
+  .hero-grid{grid-template-columns:1fr 46%;gap:36px;}
+  .motion-hero h1{font-size:clamp(52px,8vw,82px);}
+  .hero-stage{min-height:520px;}
+}
+
+@media(max-width:820px){
+  body::before{opacity:.10;}
+  .motion-hero{padding:46px 20px 40px;min-height:auto;}
+  .hero-grid{grid-template-columns:1fr;gap:34px;}
+  .hero-copy-block{max-width:none;}
+  .hero-brandmark{width:190px;margin-bottom:20px;}
+  .motion-hero h1{font-size:clamp(46px,14vw,72px);line-height:.91;margin-bottom:20px;}
+  .hero-lead{font-size:16px;line-height:1.58;margin-bottom:26px;}
+  .hero-actions{gap:15px;}
+  .motion-hero .hero-btn{min-width:0;flex:1 1 180px;}
+  .hero-link{flex:1 1 180px;text-align:center;}
+  .hero-proof{margin-top:32px;padding-top:16px;gap:8px;}
+  .hero-proof div{gap:6px;}
+  .hero-proof span{font-size:10px;}
+  .hero-stage{min-height:460px;border-radius:28px;}
+  .stage-label{top:22px;left:22px;right:22px;}
+  .stage-note-left{left:22px;bottom:22px}.stage-note-right{right:22px;bottom:22px;}
+  .scroll-cue{display:none;}
+  .motion-strip{height:42px;}
+  .section{padding-left:20px;padding-right:20px;}
+  .product{border-radius:20px;}
+  .location-box{border-radius:24px;}
+}
+
+@media(max-width:520px){
+  .motion-hero{padding-top:34px;}
+  .hero-eyebrow{font-size:9px;letter-spacing:.13em;margin-bottom:17px;}
+  .hero-brandmark{width:158px;}
+  .motion-hero h1{font-size:clamp(43px,15.4vw,62px);letter-spacing:-.06em;}
+  .hero-lead{font-size:15px;}
+  .hero-actions{display:grid;grid-template-columns:1fr;}
+  .motion-hero .hero-btn,.hero-link{width:100%;}
+  .hero-proof{grid-template-columns:repeat(3,1fr);}
+  .hero-proof div{display:block;}
+  .hero-proof strong{display:block;margin-bottom:6px;}
+  .hero-stage{min-height:390px;border-radius:22px;}
+  .stage-product{width:93%;}
+  .stage-label small{display:none;}
+  .stage-note{font-size:7px}.stage-note b{font-size:8px;}
+  .stage-note-right{display:none;}
+  .motion-track{gap:18px;animation-duration:23s;}
+  .motion-track span{font-size:9px;}
+  .features{padding-left:14px;padding-right:14px;}
+  .feature:hover{transform:none;}
+  .product:hover{transform:none;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important;}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
+  .hero-stage,.stage-product-wrap{transform:none!important;}
+}
 </style>
 </head>
-
 <body>
-
 <!-- =========================
      BARRA SUPERIOR
 ========================= -->
-
 <div class="topbar">
 
 ⚡ Envíos a todo Argentina
 
-&nbsp;&nbsp; • &nbsp;&nbsp;
+   •   
 
 Pago seguro con Mercado Pago
 
-&nbsp;&nbsp; • &nbsp;&nbsp;
+   •   
 
 Atención personalizada por WhatsApp
 
 </div>
-
-
 <!-- =========================
      NAVEGACIÓN
 ========================= -->
-
 <header class="nav">
-
 <a class="brand" href="#inicio">
-
-    <img
-        src="logo.PNG"
-        alt="FER⚡ELECTRO"
-        class="nav-logo"
-    >
-
+<img alt="FER⚡ELECTRO" class="nav-logo" src="logo.PNG"/>
 </a>
-
-
 <nav class="navlinks">
-
 <a class="active" href="#inicio">
 INICIO
 </a>
-
 <a href="#productos">
 PRODUCTOS
 </a>
-
 <a href="#productos">
 CATEGORÍAS
 </a>
-
 <a href="#nosotros">
 NOSOTROS
 </a>
-
 <a href="#contacto">
 CONTACTO
 </a>
-
 </nav>
-
-
 <div class="nav-actions">
-
-<a
-class="nav-cta"
-href="https://wa.me/543764863227"
-target="_blank"
-rel="noopener">
+<a class="nav-cta" href="https://wa.me/543764863227" rel="noopener" target="_blank">
 
 CONSULTAR POR WHATSAPP ◔
 
 </a>
-
-<button
-type="button"
-class="cart-trigger"
-id="cart-trigger"
-onclick="abrirCarrito()"
-aria-label="Abrir carrito de compras"
-aria-controls="cart-drawer"
-aria-expanded="false"
->
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M3 3h2l2.1 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 7H7"/>
-<circle cx="10" cy="19" r="1.5"/>
-<circle cx="17" cy="19" r="1.5"/>
+<button aria-controls="cart-drawer" aria-expanded="false" aria-label="Abrir carrito de compras" class="cart-trigger" id="cart-trigger" onclick="abrirCarrito()" type="button">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<path d="M3 3h2l2.1 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 7H7"></path>
+<circle cx="10" cy="19" r="1.5"></circle>
+<circle cx="17" cy="19" r="1.5"></circle>
 </svg>
 <span class="cart-trigger-label">CARRITO</span>
-<span class="cart-count" id="cart-count" aria-live="polite">0</span>
+<span aria-live="polite" class="cart-count" id="cart-count">0</span>
 </button>
-
 </div>
-
 </header>
-
-
 <!-- =========================
      HERO
 ========================= -->
-
 <main>
-
-<section
-class="hero"
-id="inicio"
->
-
-<div class="hero-content">
-
-<div class="eyebrow">
-
-TECNOLOGÍA · CALIDAD · CONFIANZA
-
+<section class="hero motion-hero" id="inicio">
+<div class="hero-ambient hero-ambient-one"></div>
+<div class="hero-ambient hero-ambient-two"></div>
+<div class="hero-grid">
+<div class="hero-content hero-copy-block">
+<div class="eyebrow hero-eyebrow"><span></span> TECNOLOGÍA · CALIDAD · CONFIANZA</div>
+<img alt="FER⚡ELECTRO Itaembé Guazú" class="real-logo hero-brandmark" src="logo-2.PNG"/>
+<h1>TECNOLOGÍA<br/><span>QUE SE SIENTE.</span></h1>
+<p class="hero-lead">Audio, gadgets y accesorios elegidos para acompañarte todos los días. Atención cercana, compra simple y una experiencia cuidada de principio a fin.</p>
+<div class="hero-actions">
+<a class="gold-btn hero-btn" href="#productos">VER PRODUCTOS <b>↘</b></a>
+<a class="hero-link" href="https://wa.me/543764863227" rel="noopener" target="_blank">HABLAR POR WHATSAPP <span>↗</span></a>
 </div>
-
-<img
-src="logo-2.PNG"
-alt="FER⚡ELECTRO Itaembé Guazú"
-class="real-logo"
->
-
-<h1>
-
-TECNOLOGÍA PREMIUM
-
-</h1>
-
-
-<p>
-
-AUDIO &nbsp;•&nbsp;
-GADGETS &nbsp;•&nbsp;
-ACCESORIOS
-
-</p>
-
-
-<a
-class="gold-btn hero-btn"
-href="https://wa.me/543764863227"
-target="_blank"
-rel="noopener"
->
-
-CONSULTAR POR WHATSAPP ◔
-
-</a>
-
+<div class="hero-proof">
+<div><strong>01</strong><span>Atención<br/>personalizada</span></div>
+<div><strong>02</strong><span>Envíos a<br/>todo el país</span></div>
+<div><strong>03</strong><span>Compra<br/>segura</span></div>
 </div>
-
-</section>
-
-
+</div>
+<div aria-label="Selección destacada de FER Electro" class="hero-stage">
+<div class="stage-label"><span>DESTACADO</span><small>FER⚡ELECTRO / 2026</small></div>
+<div class="stage-orbit stage-orbit-one"></div>
+<div class="stage-orbit stage-orbit-two"></div>
+<div class="stage-product-wrap">
+<div class="stage-shadow"></div>
+<img alt="Auriculares destacados FER Electro" class="stage-product" src="auriculares 2.PNG"/>
+</div>
+<div class="stage-note stage-note-left"><b>SONIDO</b><span>para todos los días</span></div>
+<div class="stage-note stage-note-right"><b>DISEÑO</b><span>simple · funcional</span></div>
+<div class="stage-index">FE / 01</div>
+</div>
+</div>
+<a aria-label="Ir a productos" class="scroll-cue" href="#productos"><span>SCROLL</span><i></i></a>
+</section><div aria-hidden="true" class="motion-strip">
+<div class="motion-track">
+<span>FER⚡ELECTRO</span><i>✦</i><span>AUDIO</span><i>✦</i><span>GADGETS</span><i>✦</i><span>ACCESORIOS</span><i>✦</i><span>POSADAS · MISIONES</span><i>✦</i>
+<span>FER⚡ELECTRO</span><i>✦</i><span>AUDIO</span><i>✦</i><span>GADGETS</span><i>✦</i><span>ACCESORIOS</span><i>✦</i><span>POSADAS · MISIONES</span><i>✦</i>
+</div>
+</div>
 <!-- =========================
      BENEFICIOS
 ========================= -->
-
 <section class="features">
-
-
 <div class="feature">
-
 <div class="icon">
 
 ⚡
 
 </div>
-
 <div>
-
 <strong>
 CALIDAD PREMIUM
 </strong>
-
 <span>
 Productos seleccionados
 </span>
-
 </div>
-
 </div>
-
-
 <div class="feature">
-
 <div class="icon">
 
 ♢
 
 </div>
-
 <div>
-
 <strong>
 ENVÍOS A TODO EL PAÍS
 </strong>
-
 <span>
 Coordinamos la entrega
 </span>
-
 </div>
-
 </div>
-
-
 <div class="feature">
-
 <div class="icon">
 
 ♧
 
 </div>
-
 <div>
-
 <strong>
 ATENCIÓN PERSONALIZADA
 </strong>
-
 <span>
 Te asesoramos siempre
 </span>
-
 </div>
-
 </div>
-
-
 <div class="feature">
-
 <div class="icon">
 
 ✓
 
 </div>
-
 <div>
-
 <strong>
 COMPRA SEGURA
 </strong>
-
 <span>
 Confianza en cada compra
 </span>
-
 </div>
-
 </div>
-
-
 </section>
 <!-- =========================
      PRODUCTOS
 ========================= -->
-
 <section class="section" id="productos">
-
 <div class="section-head">
-
 <div class="kicker">
 NUESTROS PRODUCTOS
 </div>
-
 <h2 class="section-title">
 LO MEJOR EN <span>TECNOLOGÍA</span>
 </h2>
-
 <p class="section-desc">
 
 Conocé nuestra selección de productos.
@@ -1892,59 +2037,29 @@ Consultá disponibilidad, características
 y formas de entrega directamente por WhatsApp.
 
 </p>
-
 </div>
-
-
 <div class="products" id="products-grid">
-
-    <div class="products-loading">
+<div class="products-loading">
         Cargando productos...
     </div>
-
 </div>
-
 </section>
-
-
 <!-- =========================
      SOBRE FER ELECTRO
 ========================= -->
-
-<section
-class="section about"
-id="nosotros"
->
-
+<section class="section about" id="nosotros">
 <div class="about-grid">
-
-
 <!-- VISUAL -->
-
 <div class="about-visual">
-
 <div class="about-ring">
-
-<img
-src="logo.PNG"
-alt="FER⚡ELECTRO"
-class="about-real-logo"
->
-
+<img alt="FER⚡ELECTRO" class="about-real-logo" src="logo.PNG"/>
 </div>
-
 </div>
-
-
 <!-- TEXTO -->
-
 <div class="about-copy">
-
 <div class="kicker">
 SOBRE NOSOTROS
 </div>
-
-
 <h2>
 
 TECNOLOGÍA QUE
@@ -1952,8 +2067,6 @@ TECNOLOGÍA QUE
 TU DÍA.
 
 </h2>
-
-
 <p>
 
 En FER⚡ELECTRO seleccionamos
@@ -1964,439 +2077,233 @@ y una experiencia de compra simple
 y segura.
 
 </p>
-
-
 <div class="points">
-
-
 <div class="point">
-
 <i>✓</i>
 
 Productos seleccionados
 
 </div>
-
-
 <div class="point">
-
 <i>✓</i>
 
 Atención directa por WhatsApp
 
 </div>
-
-
 <div class="point">
-
 <i>✓</i>
 
 Envíos a todo Argentina
 
 </div>
-
-
 </div>
-
 </div>
-
 </div>
-
 </section>
-
-
 <!-- =========================
      UBICACIÓN
 ========================= -->
-
 <!-- =========================
      CONTACTO Y UBICACIÓN
 ========================= -->
-
-<section
-class="location"
-id="contacto"
->
-
+<section class="location" id="contacto">
 <div class="location-box">
-
-    <div class="location-copy">
-
-        <div class="kicker">
+<div class="location-copy">
+<div class="kicker">
             ¿DÓNDE ESTAMOS?
         </div>
-
-        <h2>
+<h2>
             ITAEMBÉ GUAZÚ
-            <br>
-            <span>POSADAS, MISIONES</span>
-        </h2>
-
-        <p>
+            <br/>
+<span>POSADAS, MISIONES</span>
+</h2>
+<p>
             Consultanos por WhatsApp para conocer
             disponibilidad y coordinar tu entrega.
         </p>
-
-        <div class="address">
+<div class="address">
             📍 Itaembé Guazú, Posadas, Misiones
         </div>
-
-        <a
-        class="address phone-link"
-        href="tel:+543764863227"
-        >
+<a class="address phone-link" href="tel:+543764863227">
             ☎ +54 9 3764 863227
         </a>
-
-    </div>
-
-
-    <!-- MAPA REAL CLICKEABLE -->
-
-<a
-class="map"
-href="https://maps.app.goo.gl/BsdCXFUMWgxsmqop9?g_st=ic"
-target="_blank"
-rel="noopener"
-aria-label="Ver ubicación de FER⚡ELECTRO en Google Maps"
->
-
-<iframe
-src="https://www.google.com/maps?q=Itaembé%20Guazú%2C%20Posadas%2C%20Misiones&output=embed"
-loading="lazy"
-allowfullscreen
-referrerpolicy="no-referrer-when-downgrade"
-></iframe>
-
+</div>
+<!-- MAPA REAL CLICKEABLE -->
+<a aria-label="Ver ubicación de FER⚡ELECTRO en Google Maps" class="map" href="https://maps.app.goo.gl/BsdCXFUMWgxsmqop9?g_st=ic" rel="noopener" target="_blank">
+<iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Itaembé%20Guazú%2C%20Posadas%2C%20Misiones&amp;output=embed"></iframe>
 <div class="map-overlay">
-
 <div class="map-hint">
-
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<path fill="#4285F4" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7z"/>
-<circle cx="12" cy="9" r="3" fill="#fff"/>
-<path fill="#34A853" d="M5.8 15.5 3 20h6.2z"/>
-<path fill="#FBBC04" d="m18.2 15.5 2.8 4.5h-6.2z"/>
-<path fill="#EA4335" d="M9.2 20H15l-3-5z"/>
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7z" fill="#4285F4"></path>
+<circle cx="12" cy="9" fill="#fff" r="3"></circle>
+<path d="M5.8 15.5 3 20h6.2z" fill="#34A853"></path>
+<path d="m18.2 15.5 2.8 4.5h-6.2z" fill="#FBBC04"></path>
+<path d="M9.2 20H15l-3-5z" fill="#EA4335"></path>
 </svg>
 
 VER EN GOOGLE MAPS
 
 </div>
-
 </div>
-
 </a>
-
-
-    <!-- REDES -->
-
-    <div class="contact-socials">
-
-        <a
-        class="social-card whatsapp-card"
-        href="https://wa.me/543764863227"
-        target="_blank"
-        rel="noopener"
-        >
-
-            <span class="social-icon whatsapp-logo">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"/>
+<!-- REDES -->
+<div class="contact-socials">
+<a class="social-card whatsapp-card" href="https://wa.me/543764863227" rel="noopener" target="_blank">
+<span class="social-icon whatsapp-logo">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"></path>
 </svg>
 </span>
-
-            <span>
-                <strong>WhatsApp</strong>
-                <small>Escribinos</small>
-            </span>
-
-        </a>
-
-
-        <a
-        class="social-card instagram-card"
-        href="https://www.instagram.com/ferchoo_ferchoo"
-        target="_blank"
-        rel="noopener"
-        >
-
-            <span class="social-icon instagram-logo">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
-<circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/>
-<circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+<span>
+<strong>WhatsApp</strong>
+<small>Escribinos</small>
+</span>
+</a>
+<a class="social-card instagram-card" href="https://www.instagram.com/ferchoo_ferchoo" rel="noopener" target="_blank">
+<span class="social-icon instagram-logo">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<rect fill="none" height="18" rx="5" stroke="currentColor" stroke-width="2" width="18" x="3" y="3"></rect>
+<circle cx="12" cy="12" fill="none" r="4.2" stroke="currentColor" stroke-width="2"></circle>
+<circle cx="17.5" cy="6.5" fill="currentColor" r="1.2"></circle>
 </svg>
 </span>
-
-            <span>
-                <strong>Instagram</strong>
-                <small>@ferchoo_ferchoo</small>
-            </span>
-
-        </a>
-
-    </div>
-
-
-    <!-- BOTÓN WHATSAPP -->
-
-    <a
-    class="gold-btn location-btn"
-    href="https://wa.me/543764863227"
-    target="_blank"
-    rel="noopener"
-    >
+<span>
+<strong>Instagram</strong>
+<small>@ferchoo_ferchoo</small>
+</span>
+</a>
+</div>
+<!-- BOTÓN WHATSAPP -->
+<a class="gold-btn location-btn" href="https://wa.me/543764863227" rel="noopener" target="_blank">
         ESCRIBIR POR WHATSAPP ◔
     </a>
-
 </div>
-
 </section>
-
 <!-- =========================
      PRODUCTO DINÁMICO
 ========================= -->
-
-<div class="product-detail" id="producto-dinamico" aria-hidden="true">
-
-    <div class="product-detail-inner">
-
-        <button
-            type="button"
-            class="product-detail-close"
-            onclick="cerrarProductoDinamico()"
-            aria-label="Cerrar"
-        >
+<div aria-hidden="true" class="product-detail" id="producto-dinamico">
+<div class="product-detail-inner">
+<button aria-label="Cerrar" class="product-detail-close" onclick="cerrarProductoDinamico()" type="button">
             ×
         </button>
-
-        <div class="product-detail-image">
-
-            <img
-                src="logo-2.PNG"
-                alt=""
-                class="dynamic-product-image"
-            >
-
-        </div>
-
-        <div class="product-detail-info">
-
-            <div class="kicker dynamic-product-category">
+<div class="product-detail-image">
+<img alt="" class="dynamic-product-image" src="logo-2.PNG"/>
+</div>
+<div class="product-detail-info">
+<div class="kicker dynamic-product-category">
                 PRODUCTO
             </div>
-
-            <h2 class="dynamic-product-name">
+<h2 class="dynamic-product-name">
                 Producto
             </h2>
-
-            <section class="product-info-section dynamic-description-section">
-                <h3 class="product-info-section-title">Descripción</h3>
-                <div class="dynamic-product-description">
+<section class="product-info-section dynamic-description-section">
+<h3 class="product-info-section-title">Descripción</h3>
+<div class="dynamic-product-description">
                     Descripción del producto.
                 </div>
-            </section>
-
-            <section class="product-info-section dynamic-features-section">
-                <h3 class="product-info-section-title">Características principales</h3>
-                <div class="dynamic-product-features"></div>
-            </section>
-
-            <div class="dynamic-product-price">
+</section>
+<section class="product-info-section dynamic-features-section">
+<h3 class="product-info-section-title">Características principales</h3>
+<div class="dynamic-product-features"></div>
+</section>
+<div class="dynamic-product-price">
                 $0
             </div>
-
-            <div class="dynamic-product-stock">
+<div class="dynamic-product-stock">
                 Consultando stock...
             </div>
-
-            <div class="quantity-block">
-                <div class="quantity-label-row">
-                    <label for="dynamic-product-qty">CANTIDAD</label>
-                    <span class="dynamic-qty-help">Elegí cuántas unidades querés.</span>
-                </div>
-
-                <div class="quantity-selector">
-                    <button
-                        type="button"
-                        class="qty-btn dynamic-qty-minus"
-                        aria-label="Restar una unidad"
-                    >−</button>
-
-                    <input
-                        id="dynamic-product-qty"
-                        class="qty-input dynamic-qty-input"
-                        type="number"
-                        min="1"
-                        value="1"
-                        inputmode="numeric"
-                        aria-label="Cantidad de unidades"
-                    >
-
-                    <button
-                        type="button"
-                        class="qty-btn dynamic-qty-plus"
-                        aria-label="Sumar una unidad"
-                    >+</button>
-                </div>
-            </div>
-
-            <button
-                type="button"
-                class="gold-btn dynamic-add-cart"
-            >
+<div class="quantity-block">
+<div class="quantity-label-row">
+<label for="dynamic-product-qty">CANTIDAD</label>
+<span class="dynamic-qty-help">Elegí cuántas unidades querés.</span>
+</div>
+<div class="quantity-selector">
+<button aria-label="Restar una unidad" class="qty-btn dynamic-qty-minus" type="button">−</button>
+<input aria-label="Cantidad de unidades" class="qty-input dynamic-qty-input" id="dynamic-product-qty" inputmode="numeric" min="1" type="number" value="1"/>
+<button aria-label="Sumar una unidad" class="qty-btn dynamic-qty-plus" type="button">+</button>
+</div>
+</div>
+<button class="gold-btn dynamic-add-cart" type="button">
                 🛒 AGREGAR AL CARRITO
             </button>
-
-        </div>
-
-    </div>
-
 </div>
-
+</div>
+</div>
 </main>
 <!-- =========================
      FOOTER
 ========================= -->
-
 <footer>
-
 <div class="footer-main">
-
-    <!-- MARCA -->
-
-    <div class="footer-brand-box">
-
-        <div class="footer-brand">
+<!-- MARCA -->
+<div class="footer-brand-box">
+<div class="footer-brand">
             FER<span>⚡</span>ELECTRO
         </div>
-
-        <p>
+<p>
             Tecnología, calidad y confianza
             en Posadas, Misiones.
         </p>
-
-        <div class="footer-socials">
-
-            <a
-            href="https://wa.me/543764863227"
-            target="_blank"
-            rel="noopener"
-            aria-label="WhatsApp"
-            >
+<div class="footer-socials">
+<a aria-label="WhatsApp" href="https://wa.me/543764863227" rel="noopener" target="_blank">
                 WhatsApp
             </a>
-
-            <a
-            href="https://www.instagram.com/ferchoo_ferchoo"
-            target="_blank"
-            rel="noopener"
-            aria-label="Instagram"
-            >
+<a aria-label="Instagram" href="https://www.instagram.com/ferchoo_ferchoo" rel="noopener" target="_blank">
                 Instagram
             </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- NAVEGACIÓN -->
-
-    <div class="footer-column">
-
-        <h4>NAVEGACIÓN</h4>
-
-        <a href="#inicio">Inicio</a>
-        <a href="#productos">Productos</a>
-        <a href="#nosotros">Nosotros</a>
-        <a href="#contacto">Contacto</a>
-
-    </div>
-
-
-    <!-- CATEGORÍAS -->
-
-    <div class="footer-column">
-
-        <h4>CATEGORÍAS</h4>
-
-        <a href="#productos">Audio</a>
-        <a href="#productos">Gadgets</a>
-        <a href="#productos">Hogar</a>
-        <a href="#productos">Accesorios</a>
-
-    </div>
-
-
-    <!-- CONTACTO -->
-
-    <div class="footer-column footer-contact">
-
-        <h4>CONTACTO</h4>
-
-        <a href="tel:+543764863227">
+</div>
+</div>
+<!-- NAVEGACIÓN -->
+<div class="footer-column">
+<h4>NAVEGACIÓN</h4>
+<a href="#inicio">Inicio</a>
+<a href="#productos">Productos</a>
+<a href="#nosotros">Nosotros</a>
+<a href="#contacto">Contacto</a>
+</div>
+<!-- CATEGORÍAS -->
+<div class="footer-column">
+<h4>CATEGORÍAS</h4>
+<a href="#productos">Audio</a>
+<a href="#productos">Gadgets</a>
+<a href="#productos">Hogar</a>
+<a href="#productos">Accesorios</a>
+</div>
+<!-- CONTACTO -->
+<div class="footer-column footer-contact">
+<h4>CONTACTO</h4>
+<a href="tel:+543764863227">
             ☎ +54 9 3764 863227
         </a>
-
-        <a
-        href="https://wa.me/543764863227"
-        target="_blank"
-        rel="noopener"
-        >
+<a href="https://wa.me/543764863227" rel="noopener" target="_blank">
             💬 WhatsApp
         </a>
-
-        <a
-        href="https://www.instagram.com/ferchoo_ferchoo"
-        target="_blank"
-        rel="noopener"
-        >
+<a href="https://www.instagram.com/ferchoo_ferchoo" rel="noopener" target="_blank">
             ◎ Instagram
         </a>
-
-    </div>
-
 </div>
-
-
+</div>
 <div class="footer-bottom">
-
-    <span>
+<span>
         © 2026 FER⚡ELECTRO
     </span>
-
-    <span>
+<span>
         Itaembé Guazú · Posadas, Misiones
     </span>
-
 </div>
-
 </footer>
-
-
 <!-- =========================
      WHATSAPP FLOTANTE
 ========================= -->
-
-<a
-class="float-wa"
-href="https://wa.me/543764863227"
-target="_blank"
-rel="noopener"
-aria-label="Abrir WhatsApp de FER ELECTRO"
->
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"/>
+<a aria-label="Abrir WhatsApp de FER ELECTRO" class="float-wa" href="https://wa.me/543764863227" rel="noopener" target="_blank">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"></path>
 </svg>
 </a>
-
-
 <!-- =========================
      RESPONSIVE
 ========================= -->
-
 <style>
 
 /* =========================
@@ -3834,255 +3741,179 @@ body.checkout-open{
 
 
 </style>
-
-
-
-
 <!-- =========================
      CHECKOUT
 ========================= -->
-
-<div
-    id="checkout-modal"
-    class="checkout-modal"
-    aria-hidden="true"
->
-    <div class="checkout-card" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
-        <button
-            type="button"
-            class="checkout-close"
-            onclick="cerrarCheckout()"
-            aria-label="Cerrar checkout"
-        >×</button>
-
-        <section class="checkout-main">
-            <div class="checkout-kicker">COMPRA SEGURA</div>
-            <h2 class="checkout-title" id="checkout-title">Finalizá tu compra</h2>
-            <p class="checkout-intro">
+<div aria-hidden="true" class="checkout-modal" id="checkout-modal">
+<div aria-labelledby="checkout-title" aria-modal="true" class="checkout-card" role="dialog">
+<button aria-label="Cerrar checkout" class="checkout-close" onclick="cerrarCheckout()" type="button">×</button>
+<section class="checkout-main">
+<div class="checkout-kicker">COMPRA SEGURA</div>
+<h2 class="checkout-title" id="checkout-title">Finalizá tu compra</h2>
+<p class="checkout-intro">
                 Completá tus datos. El importe de los productos se paga por Mercado Pago.
                 La entrega se coordina con FER⚡ELECTRO según tu ubicación.
             </p>
-
-            <form id="checkout-form" class="checkout-form" novalidate>
-                <div class="form-grid">
-                    <div class="form-field full">
-                        <label for="checkout-name">NOMBRE Y APELLIDO</label>
-                        <input id="checkout-name" name="nombre" type="text" autocomplete="name" maxlength="100" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="checkout-email">EMAIL</label>
-                        <input id="checkout-email" name="email" type="email" autocomplete="email" maxlength="160" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="checkout-phone">TELÉFONO</label>
-                        <input id="checkout-phone" name="telefono" type="tel" autocomplete="tel" maxlength="40" required>
-                    </div>
-
-                    <div class="form-field full">
-                        <label for="checkout-address">DOMICILIO</label>
-                        <input id="checkout-address" name="domicilio" type="text" autocomplete="street-address" maxlength="180" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="checkout-city">CIUDAD / LOCALIDAD</label>
-                        <input id="checkout-city" name="ciudad" type="text" autocomplete="address-level2" maxlength="100" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="checkout-province">PROVINCIA</label>
-                        <select id="checkout-province" name="provincia" autocomplete="address-level1" required>
-                            <option value="">Elegí una provincia</option>
-                            <option>Buenos Aires</option>
-                            <option>Ciudad Autónoma de Buenos Aires</option>
-                            <option>Catamarca</option>
-                            <option>Chaco</option>
-                            <option>Chubut</option>
-                            <option>Córdoba</option>
-                            <option>Corrientes</option>
-                            <option>Entre Ríos</option>
-                            <option>Formosa</option>
-                            <option>Jujuy</option>
-                            <option>La Pampa</option>
-                            <option>La Rioja</option>
-                            <option>Mendoza</option>
-                            <option>Misiones</option>
-                            <option>Neuquén</option>
-                            <option>Río Negro</option>
-                            <option>Salta</option>
-                            <option>San Juan</option>
-                            <option>San Luis</option>
-                            <option>Santa Cruz</option>
-                            <option>Santa Fe</option>
-                            <option>Santiago del Estero</option>
-                            <option>Tierra del Fuego</option>
-                            <option>Tucumán</option>
-                        </select>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="checkout-postal">CÓDIGO POSTAL</label>
-                        <input id="checkout-postal" name="codigo_postal" type="text" autocomplete="postal-code" maxlength="12" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="checkout-delivery">ENTREGA</label>
-                        <select id="checkout-delivery" name="entrega" required>
-                            <option value="envio">Envío a domicilio</option>
-                            <option value="coordinar">Coordinar entrega/retiro</option>
-                        </select>
-                    </div>
-
-                    <div class="form-field full">
-                        <label for="checkout-notes">ACLARACIONES (OPCIONAL)</label>
-                        <textarea id="checkout-notes" name="notas" maxlength="500" placeholder="Piso, departamento, referencias, horario, etc."></textarea>
-                    </div>
-                </div>
-
-                <div class="checkout-delivery-note">
+<form class="checkout-form" id="checkout-form" novalidate="">
+<div class="form-grid">
+<div class="form-field full">
+<label for="checkout-name">NOMBRE Y APELLIDO</label>
+<input autocomplete="name" id="checkout-name" maxlength="100" name="nombre" required="" type="text"/>
+</div>
+<div class="form-field">
+<label for="checkout-email">EMAIL</label>
+<input autocomplete="email" id="checkout-email" maxlength="160" name="email" required="" type="email"/>
+</div>
+<div class="form-field">
+<label for="checkout-phone">TELÉFONO</label>
+<input autocomplete="tel" id="checkout-phone" maxlength="40" name="telefono" required="" type="tel"/>
+</div>
+<div class="form-field full">
+<label for="checkout-address">DOMICILIO</label>
+<input autocomplete="street-address" id="checkout-address" maxlength="180" name="domicilio" required="" type="text"/>
+</div>
+<div class="form-field">
+<label for="checkout-city">CIUDAD / LOCALIDAD</label>
+<input autocomplete="address-level2" id="checkout-city" maxlength="100" name="ciudad" required="" type="text"/>
+</div>
+<div class="form-field">
+<label for="checkout-province">PROVINCIA</label>
+<select autocomplete="address-level1" id="checkout-province" name="provincia" required="">
+<option value="">Elegí una provincia</option>
+<option>Buenos Aires</option>
+<option>Ciudad Autónoma de Buenos Aires</option>
+<option>Catamarca</option>
+<option>Chaco</option>
+<option>Chubut</option>
+<option>Córdoba</option>
+<option>Corrientes</option>
+<option>Entre Ríos</option>
+<option>Formosa</option>
+<option>Jujuy</option>
+<option>La Pampa</option>
+<option>La Rioja</option>
+<option>Mendoza</option>
+<option>Misiones</option>
+<option>Neuquén</option>
+<option>Río Negro</option>
+<option>Salta</option>
+<option>San Juan</option>
+<option>San Luis</option>
+<option>Santa Cruz</option>
+<option>Santa Fe</option>
+<option>Santiago del Estero</option>
+<option>Tierra del Fuego</option>
+<option>Tucumán</option>
+</select>
+</div>
+<div class="form-field">
+<label for="checkout-postal">CÓDIGO POSTAL</label>
+<input autocomplete="postal-code" id="checkout-postal" maxlength="12" name="codigo_postal" required="" type="text"/>
+</div>
+<div class="form-field">
+<label for="checkout-delivery">ENTREGA</label>
+<select id="checkout-delivery" name="entrega" required="">
+<option value="envio">Envío a domicilio</option>
+<option value="coordinar">Coordinar entrega/retiro</option>
+</select>
+</div>
+<div class="form-field full">
+<label for="checkout-notes">ACLARACIONES (OPCIONAL)</label>
+<textarea id="checkout-notes" maxlength="500" name="notas" placeholder="Piso, departamento, referencias, horario, etc."></textarea>
+</div>
+</div>
+<div class="checkout-delivery-note">
                     El total mostrado corresponde a los productos. El costo de envío no se calcula automáticamente:
                     FER⚡ELECTRO lo coordina según localidad, correo y modalidad elegida.
                 </div>
-
-                <label class="checkout-consent">
-                    <input id="checkout-consent" type="checkbox" required>
-                    <span>
+<label class="checkout-consent">
+<input id="checkout-consent" required="" type="checkbox"/>
+<span>
                         Confirmo que los datos ingresados son correctos y acepto que FER⚡ELECTRO los utilice
                         únicamente para gestionar esta compra, el pago y la entrega.
                     </span>
-                </label>
-
-                <div id="checkout-error" class="checkout-error" role="alert"></div>
-
-                <button type="submit" class="gold-btn checkout-pay" id="checkout-pay">
+</label>
+<div class="checkout-error" id="checkout-error" role="alert"></div>
+<button class="gold-btn checkout-pay" id="checkout-pay" type="submit">
                     PAGAR CON MERCADO PAGO →
                 </button>
-
-                <div class="checkout-secure">
+<div class="checkout-secure">
                     🔒 El pago se procesa en Mercado Pago. FER⚡ELECTRO no recibe ni guarda los datos de tu tarjeta.
                 </div>
-            </form>
-        </section>
-
-        <aside class="checkout-side">
-            <h3>Resumen del pedido</h3>
-            <div id="checkout-summary-list" class="checkout-summary-list"></div>
-
-            <div class="checkout-summary-total">
-                <div class="checkout-summary-row">
-                    <span>Productos</span>
-                    <strong id="checkout-summary-units">0 unidades</strong>
-                </div>
-                <div class="checkout-summary-row">
-                    <span>Envío</span>
-                    <strong>A coordinar</strong>
-                </div>
-                <div class="checkout-summary-row total">
-                    <span>TOTAL PRODUCTOS</span>
-                    <strong id="checkout-summary-total">$0</strong>
-                </div>
-            </div>
-
-            <div class="checkout-shipping">
+</form>
+</section>
+<aside class="checkout-side">
+<h3>Resumen del pedido</h3>
+<div class="checkout-summary-list" id="checkout-summary-list"></div>
+<div class="checkout-summary-total">
+<div class="checkout-summary-row">
+<span>Productos</span>
+<strong id="checkout-summary-units">0 unidades</strong>
+</div>
+<div class="checkout-summary-row">
+<span>Envío</span>
+<strong>A coordinar</strong>
+</div>
+<div class="checkout-summary-row total">
+<span>TOTAL PRODUCTOS</span>
+<strong id="checkout-summary-total">$0</strong>
+</div>
+</div>
+<div class="checkout-shipping">
                 El valor del envío no está incluido en este total. Para una entrega fuera de Posadas se coordina
                 la empresa de transporte y el costo correspondiente.
             </div>
-
-            <button type="button" class="checkout-whatsapp" onclick="finalizarPorWhatsApp()">
+<button class="checkout-whatsapp" onclick="finalizarPorWhatsApp()" type="button">
                 PREFIERO COORDINAR POR WHATSAPP
             </button>
-        </aside>
-    </div>
+</aside>
 </div>
-
-
+</div>
 <!-- =========================
      CARRITO DE COMPRAS
 ========================= -->
-
-<div
-    id="cart-overlay"
-    class="cart-overlay"
-    onclick="cerrarCarrito()"
-    aria-hidden="true"
-></div>
-
-<aside
-    id="cart-drawer"
-    class="cart-drawer"
-    aria-label="Carrito de compras"
-    aria-hidden="true"
->
-    <div class="cart-head">
-        <div class="cart-head-copy">
-            <strong>Tu carrito</strong>
-            <span id="cart-head-count">0 productos</span>
-        </div>
-
-        <button
-            type="button"
-            class="cart-close"
-            onclick="cerrarCarrito()"
-            aria-label="Cerrar carrito"
-        >×</button>
-    </div>
-
-    <div class="cart-items" id="cart-items"></div>
-
-    <div class="cart-footer" id="cart-footer">
-        <div class="cart-summary-row">
-            <span>Productos</span>
-            <strong id="cart-units">0 unidades</strong>
-        </div>
-
-        <div class="cart-total-row">
-            <span>TOTAL</span>
-            <strong id="cart-total">$0</strong>
-        </div>
-
-        <button
-            type="button"
-            class="gold-btn cart-checkout"
-            id="cart-checkout"
-            onclick="abrirCheckout()"
-        >
+<div aria-hidden="true" class="cart-overlay" id="cart-overlay" onclick="cerrarCarrito()"></div>
+<aside aria-hidden="true" aria-label="Carrito de compras" class="cart-drawer" id="cart-drawer">
+<div class="cart-head">
+<div class="cart-head-copy">
+<strong>Tu carrito</strong>
+<span id="cart-head-count">0 productos</span>
+</div>
+<button aria-label="Cerrar carrito" class="cart-close" onclick="cerrarCarrito()" type="button">×</button>
+</div>
+<div class="cart-items" id="cart-items"></div>
+<div class="cart-footer" id="cart-footer">
+<div class="cart-summary-row">
+<span>Productos</span>
+<strong id="cart-units">0 unidades</strong>
+</div>
+<div class="cart-total-row">
+<span>TOTAL</span>
+<strong id="cart-total">$0</strong>
+</div>
+<button class="gold-btn cart-checkout" id="cart-checkout" onclick="abrirCheckout()" type="button">
             CONTINUAR COMPRA →
         </button>
-
-        <div class="cart-checkout-note">
+<div class="cart-checkout-note">
             Completá tus datos y pagá de forma segura con Mercado Pago. El envío se coordina según tu ubicación.
         </div>
-
-        <div class="cart-footer-actions">
-            <button
-                type="button"
-                class="cart-link-button"
-                onclick="cerrarCarrito()"
-            >
+<div class="cart-footer-actions">
+<button class="cart-link-button" onclick="cerrarCarrito()" type="button">
                 SEGUIR COMPRANDO
             </button>
-
-            <button
-                type="button"
-                class="cart-link-button"
-                onclick="vaciarCarrito()"
-            >
+<button class="cart-link-button" onclick="vaciarCarrito()" type="button">
                 VACIAR CARRITO
             </button>
-        </div>
-    </div>
-</aside>
-
-<div id="cart-toast" class="cart-toast" role="status" aria-live="polite" aria-atomic="true">
-    <span class="cart-toast-icon">✓</span>
-    <div>
-        <strong>Producto agregado</strong>
-        <span>Se agregó al carrito correctamente.</span>
-    </div>
 </div>
-
-
+</div>
+</aside>
+<div aria-atomic="true" aria-live="polite" class="cart-toast" id="cart-toast" role="status">
+<span class="cart-toast-icon">✓</span>
+<div>
+<strong>Producto agregado</strong>
+<span>Se agregó al carrito correctamente.</span>
+</div>
+</div>
 <script>
 const FER_CART_KEY = "ferCarrito";
 const FER_WHATSAPP = "543764863227";
@@ -5234,7 +5065,72 @@ renderCarrito();
 cargarProductosDesdeSupabase();
 comprobarRetornoPago();
 </script>
+<script>
 
-</body>
+/* FER⚡ELECTRO — movimiento editorial progresivo */
+(() => {
+  const root = document.documentElement;
+  root.classList.add('js-motion');
 
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nav = document.querySelector('.nav');
+  const stage = document.querySelector('.hero-stage');
+
+  const updateNav = () => {
+    if (!nav) return;
+    nav.classList.toggle('fe-scrolled', window.scrollY > 24);
+  };
+  updateNav();
+  window.addEventListener('scroll', updateNav, {passive:true});
+
+  if (!reduceMotion && stage && window.matchMedia('(pointer:fine)').matches) {
+    let raf = 0;
+    stage.addEventListener('pointermove', (event) => {
+      const rect = stage.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - .5) * 18;
+      const y = ((event.clientY - rect.top) / rect.height - .5) * 18;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        stage.style.setProperty('--mx', `${x}px`);
+        stage.style.setProperty('--my', `${y}px`);
+      });
+    });
+    stage.addEventListener('pointerleave', () => {
+      stage.style.setProperty('--mx','0px');
+      stage.style.setProperty('--my','0px');
+    });
+  }
+
+  if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fe-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.13, rootMargin:'0px 0px -7% 0px'});
+
+  const hookReveal = (scope=document) => {
+    scope.querySelectorAll('.section-head,.feature,.about-visual,.about-copy,.point,.location-copy,.map,.contact-socials,.footer-main').forEach((el) => {
+      if (el.classList.contains('fe-reveal')) return;
+      el.classList.add('fe-reveal');
+      observer.observe(el);
+    });
+  };
+  hookReveal();
+
+  const productGrid = document.getElementById('products-grid');
+  if (productGrid) {
+    const productsObserver = new MutationObserver(() => {
+      productGrid.querySelectorAll('.product').forEach((card) => {
+        if (card.dataset.motionReady) return;
+        card.dataset.motionReady = '1';
+      });
+    });
+    productsObserver.observe(productGrid,{childList:true});
+  }
+})();
+</script></body>
 </html>
