@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="#ffffff" name="theme-color"/>
-<meta content="FER⚡ELECTRO — Tecnología premium, audio, gadgets y accesorios en Itaembé Guazú, Posadas, Misiones." name="description"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+
+<meta name="description" content="FER⚡ELECTRO — Tecnología premium, audio, gadgets y accesorios en Itaembé Guazú, Posadas, Misiones.">
+
 <title>FER⚡ELECTRO | Tecnología Premium</title>
+
 <style>
 
 :root{
@@ -1609,661 +1611,1118 @@ place-items:center;
     pointer-events:none;
 }
 
-
+</style>
+<style>
 
 /* =========================================================
-   FER⚡ELECTRO — DIRECCIÓN VISUAL FLUIDA 2026
-   Capa visual agregada sobre la estructura funcional existente.
+   FER ELECTRO — REFINAMIENTO VISUAL
+   Tipografía, iconografía y navegación móvil premium
 ========================================================= */
 :root{
-  --fe-gold:#d4af37;
-  --fe-gold-2:#f0d77a;
-  --fe-ink:#11110f;
-  --fe-paper:#fbfaf6;
-  --fe-cream:#f3efe3;
-  --fe-line:rgba(17,17,15,.12);
-  --fe-radius:28px;
+    --gold:#c8a33a;
+    --gold-dark:#8f6d17;
+    --gold-light:#ead891;
+    --black:#0c0c0d;
+    --text:#141416;
+    --muted:#73737a;
+    --line:#ece8df;
+    --soft:#f7f5f0;
+    --white:#fff;
+    --font-ui:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-display:"Avenir Next",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;
-  background:var(--fe-paper);
+    font-family:var(--font-ui);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
 }
 
-.motion-hero{ text-align:left; }
-.motion-hero::before{ content:none; }
-.hero-copy-block{ padding:0; text-align:left; }
-.motion-strip + .features{ margin:0 auto; }
+button,input,select,textarea{font-family:inherit}
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:9999;
-  opacity:.18;
-  background-image:
-    radial-gradient(circle at 20% 20%,rgba(0,0,0,.035) 0 1px,transparent 1.4px),
-    radial-gradient(circle at 80% 30%,rgba(0,0,0,.025) 0 1px,transparent 1.4px);
-  background-size:17px 17px,23px 23px;
-  mix-blend-mode:multiply;
+.topbar{
+    height:32px;
+    background:#0e0e0f;
+    color:#e7d8a5;
+    font-size:10px;
+    font-weight:650;
+    letter-spacing:.22px;
 }
 
 .nav{
-  transition:height .35s ease, box-shadow .35s ease, background .35s ease;
+    height:78px;
+    padding:0 5%;
+    border-bottom:1px solid rgba(17,17,17,.07);
+    background:rgba(255,255,255,.9);
+    box-shadow:0 8px 30px rgba(15,15,15,.035);
 }
-.nav.fe-scrolled{
-  height:66px;
-  background:rgba(255,255,255,.88);
-  box-shadow:0 14px 36px rgba(15,15,15,.07);
-}
-.navlinks a{position:relative;}
-.navlinks a::after{
-  content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--fe-gold);transition:right .3s ease;
-}
-.navlinks a:hover::after{right:0;}
 
-.motion-hero{
-  min-height:clamp(660px,calc(100svh - 110px),900px);
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  padding:clamp(54px,7vw,100px) 5.5% 66px;
-  background:
-    radial-gradient(circle at 72% 32%,rgba(212,175,55,.12),transparent 26%),
-    linear-gradient(135deg,#fff 0%,#fbfaf6 58%,#f1ead9 100%);
-  isolation:isolate;
+.nav-logo{
+    width:146px;
+    height:50px;
 }
-.motion-hero::after{
-  content:"";position:absolute;inset:auto -8% -28% 42%;height:62%;border-radius:50%;
-  background:radial-gradient(circle,rgba(212,175,55,.15),transparent 68%);filter:blur(28px);z-index:-2;
-}
-.hero-grid{
-  width:min(1500px,100%);margin:auto;display:grid;grid-template-columns:minmax(0,1.03fr) minmax(420px,.97fr);
-  align-items:center;gap:clamp(40px,7vw,110px);position:relative;z-index:2;
-}
-.hero-copy-block{max-width:720px;}
-.hero-eyebrow{display:flex;align-items:center;gap:11px;margin-bottom:23px;letter-spacing:.17em;font-size:11px;color:#5f5b52;}
-.hero-eyebrow span{width:34px;height:1px;background:var(--fe-gold);display:block;}
-.hero-brandmark{width:clamp(170px,20vw,278px);height:auto;margin:0 0 26px;filter:drop-shadow(0 10px 24px rgba(0,0,0,.07));}
-.motion-hero h1{
-  font-size:clamp(52px,7vw,104px);line-height:.88;letter-spacing:-.067em;font-weight:850;margin:0 0 28px;color:var(--fe-ink);
-}
-.motion-hero h1 span{font-weight:320;color:#8f7931;display:inline-block;}
-.hero-lead{max-width:600px;font-size:clamp(16px,1.45vw,20px);line-height:1.68;color:#625f57;margin:0 0 32px;}
-.hero-actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
-.motion-hero .hero-btn{min-width:190px;justify-content:center;border-radius:999px;padding:17px 24px;box-shadow:0 14px 34px rgba(185,138,24,.18);transition:transform .28s ease,box-shadow .28s ease;}
-.motion-hero .hero-btn:hover{transform:translateY(-3px);box-shadow:0 20px 42px rgba(185,138,24,.24);}
-.hero-link{font-size:12px;font-weight:760;letter-spacing:.08em;border-bottom:1px solid rgba(17,17,15,.24);padding:10px 0;transition:border-color .25s,color .25s;}
-.hero-link:hover{border-color:var(--fe-gold);color:#8b6b13;}
-.hero-link span{margin-left:5px;}
-.hero-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:46px;max-width:620px;border-top:1px solid var(--fe-line);padding-top:20px;}
-.hero-proof div{display:flex;align-items:flex-start;gap:10px;}
-.hero-proof strong{font-size:10px;letter-spacing:.12em;color:#b18a22;margin-top:3px;}
-.hero-proof span{font-size:12px;line-height:1.35;color:#5d5a52;}
 
-.hero-stage{
-  --mx:0px;--my:0px;position:relative;min-height:clamp(460px,60vw,650px);max-height:680px;border-radius:38px;overflow:hidden;
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.08),transparent 32%),
-    radial-gradient(circle at 46% 44%,#38362f 0%,#1c1c19 35%,#0f0f0e 72%);
-  box-shadow:0 38px 90px rgba(22,20,14,.22),inset 0 0 0 1px rgba(255,255,255,.07);
-  transform:perspective(1200px) rotateY(calc(var(--mx) * .012deg)) rotateX(calc(var(--my) * -.009deg));
-  transition:transform .18s ease-out;
+.navlinks{
+    gap:30px;
+    font-size:13px;
+    font-weight:650;
+    letter-spacing:-.08px;
 }
-.hero-stage::before{
-  content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 48%,rgba(255,255,255,.035) 49% 50%,transparent 51%);background-size:34px 34px;opacity:.6;
+.navlinks a{padding:29px 0;color:#37373b;transition:color .22s ease}
+.navlinks a:hover,.navlinks a.active{color:#0d0d0f}
+.navlinks a:after{
+    bottom:19px;
+    height:2px;
+    border-radius:99px;
+    background:linear-gradient(90deg,#a9801d,#e0c56c);
 }
-.stage-label{position:absolute;top:30px;left:30px;right:30px;display:flex;justify-content:space-between;align-items:center;color:#fff;z-index:4;}
-.stage-label span{font-size:10px;letter-spacing:.19em;font-weight:800;color:var(--fe-gold-2);}
-.stage-label small{font-size:9px;letter-spacing:.14em;opacity:.52;}
-.stage-orbit{position:absolute;border:1px solid rgba(240,215,122,.24);border-radius:50%;inset:50% auto auto 50%;transform:translate(-50%,-50%);}
-.stage-orbit-one{width:72%;aspect-ratio:1;animation:feOrbit 16s linear infinite;}
-.stage-orbit-two{width:54%;aspect-ratio:1;border-style:dashed;animation:feOrbitReverse 22s linear infinite;}
-.stage-product-wrap{position:absolute;inset:12% 8% 9%;display:grid;place-items:center;z-index:2;transform:translate(calc(var(--mx) * .22),calc(var(--my) * .17));transition:transform .15s ease-out;}
-.stage-product{width:min(92%,540px);max-height:82%;object-fit:contain;filter:drop-shadow(0 42px 28px rgba(0,0,0,.46));animation:feFloat 5.2s ease-in-out infinite;position:relative;z-index:2;}
-.stage-shadow{position:absolute;width:60%;height:8%;bottom:12%;left:20%;background:rgba(0,0,0,.56);filter:blur(18px);border-radius:50%;animation:feShadow 5.2s ease-in-out infinite;}
-.stage-note{position:absolute;z-index:4;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;}
-.stage-note b{font-size:10px;color:var(--fe-gold-2);}
-.stage-note span{opacity:.5;}
-.stage-note-left{left:30px;bottom:32px;}
-.stage-note-right{right:30px;bottom:32px;text-align:right;}
-.stage-index{position:absolute;right:25px;top:48%;writing-mode:vertical-rl;color:rgba(255,255,255,.24);font-size:10px;letter-spacing:.3em;z-index:4;}
-.scroll-cue{position:absolute;left:5.5%;bottom:24px;display:flex;align-items:center;gap:10px;color:#706b5f;font-size:9px;letter-spacing:.2em;z-index:3;}
-.scroll-cue i{width:42px;height:1px;background:#aca58f;position:relative;overflow:hidden;}
-.scroll-cue i::after{content:"";position:absolute;inset:0;background:var(--fe-gold);transform:translateX(-100%);animation:feScrollCue 2.2s ease-in-out infinite;}
-.hero-ambient{position:absolute;border-radius:50%;filter:blur(1px);pointer-events:none;z-index:-1;}
-.hero-ambient-one{width:420px;height:420px;left:-260px;top:18%;border:1px solid rgba(212,175,55,.18);}
-.hero-ambient-two{width:190px;height:190px;left:44%;top:8%;border:1px solid rgba(17,17,15,.08);}
 
-.motion-strip{height:48px;background:#11110f;color:#fff;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;}
-.motion-track{display:flex;align-items:center;gap:24px;width:max-content;white-space:nowrap;animation:feMarquee 28s linear infinite;}
-.motion-track span{font-size:10px;font-weight:760;letter-spacing:.18em;opacity:.78;}
-.motion-track i{font-style:normal;color:var(--fe-gold);font-size:9px;}
+.nav-cta{
+    min-height:44px;
+    padding:0 17px;
+    border-radius:14px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#111113;
+    color:#fff;
+    box-shadow:none;
+    font-size:12px;
+    font-weight:680;
+    letter-spacing:0;
+    transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.nav-cta:hover{background:#1d1d20;transform:translateY(-1px);box-shadow:0 10px 28px rgba(0,0,0,.14)}
+.nav-wa-icon{width:18px;height:18px;fill:currentColor;flex:none}
 
-.features{position:relative;z-index:2;background:#fff;}
-.feature{transition:transform .3s ease,background .3s ease;}
-.feature:hover{transform:translateY(-4px);background:#fbfaf6;}
+.cart-trigger{
+    min-height:44px;
+    padding:0 13px;
+    border:1px solid #ded9cc;
+    border-radius:14px;
+    box-shadow:none;
+    background:#fff;
+    gap:7px;
+}
+.cart-trigger:hover{transform:translateY(-1px);border-color:#c7b36d;box-shadow:0 10px 24px rgba(0,0,0,.07)}
+.cart-trigger-label{font-size:12px;font-weight:670;letter-spacing:0}
+.cart-count{
+    min-width:19px;height:19px;padding:0 5px;
+    background:#111113;color:#fff;
+    font-size:10px;font-weight:750;
+}
 
-.section{padding-top:clamp(76px,9vw,132px);padding-bottom:clamp(76px,9vw,132px);}
-.section-head{max-width:760px;}
-.section-title{letter-spacing:-.045em;}
-.products{gap:clamp(18px,2vw,30px);}
+.eyebrow,.kicker{
+    font-family:var(--font-display);
+    text-transform:uppercase;
+    font-size:10px;
+    letter-spacing:2.35px;
+    font-weight:720;
+    color:#96731d;
+}
+.hero h1{
+    font-family:var(--font-display);
+    font-size:clamp(24px,3vw,38px);
+    font-weight:650;
+    letter-spacing:-.8px;
+    line-height:1.08;
+}
+.hero p{
+    font-size:14px;
+    letter-spacing:0;
+    line-height:1.65;
+    color:#66666c;
+}
+.section-title{
+    font-family:var(--font-display);
+    font-size:clamp(32px,4.3vw,52px);
+    line-height:1.02;
+    letter-spacing:-1.9px;
+    font-weight:650;
+}
+.section-desc{
+    font-size:14px;
+    line-height:1.75;
+    color:#74747b;
+}
+
+.gold-btn,.hero-btn,.add-card-product,.dynamic-add-cart,.cart-checkout{
+    border-radius:14px;
+    background:linear-gradient(135deg,#111113,#26262a);
+    color:#fff;
+    box-shadow:0 10px 24px rgba(0,0,0,.12);
+    font-size:12px;
+    font-weight:680;
+    letter-spacing:0;
+    text-transform:none;
+    transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.gold-btn:hover:not(:disabled),.hero-btn:hover,.add-card-product:hover:not(:disabled),.dynamic-add-cart:hover:not(:disabled){
+    transform:translateY(-2px);
+    box-shadow:0 14px 30px rgba(0,0,0,.17);
+}
+.add-card-product,.dynamic-add-cart{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+}
+.add-card-product:not(:disabled)::before,.dynamic-add-cart:not(:disabled)::before{
+    content:"";
+    width:17px;height:17px;display:block;flex:none;
+    background:currentColor;
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4h2l2 10h10.5l2-7H7'/%3E%3Ccircle cx='9.5' cy='19' r='1.2'/%3E%3Ccircle cx='17' cy='19' r='1.2'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4h2l2 10h10.5l2-7H7'/%3E%3Ccircle cx='9.5' cy='19' r='1.2'/%3E%3Ccircle cx='17' cy='19' r='1.2'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
 .product{
-  border-radius:24px;overflow:hidden;border:1px solid rgba(17,17,15,.085);background:#fff;
-  box-shadow:0 14px 34px rgba(22,20,14,.055);transition:transform .38s cubic-bezier(.2,.7,.2,1),box-shadow .38s ease,border-color .38s ease;
-  animation:feCardIn .65s both;
+    border:1px solid #ebe7dd;
+    border-radius:20px;
+    box-shadow:0 14px 40px rgba(20,20,20,.04);
+    transition:transform .32s cubic-bezier(.2,.75,.2,1),box-shadow .32s ease,border-color .32s ease;
 }
-.product:nth-child(2){animation-delay:.08s}.product:nth-child(3){animation-delay:.16s}.product:nth-child(4){animation-delay:.24s}
-.product:hover{transform:translateY(-9px);box-shadow:0 28px 60px rgba(22,20,14,.12);border-color:rgba(212,175,55,.34);}
-.product-img{overflow:hidden;background:linear-gradient(150deg,#faf9f4,#f0ede4);}
-.product-real-image{transition:transform .6s cubic-bezier(.2,.7,.2,1),filter .45s ease;}
-.product:hover .product-real-image{transform:scale(1.045) rotate(-.5deg);filter:drop-shadow(0 22px 22px rgba(0,0,0,.12));}
-.product .badge{backdrop-filter:blur(10px);}
-.view-product{position:relative;overflow:hidden;}
-.view-product::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--fe-gold);transition:width .3s ease;}
-.view-product:hover::after{width:100%;}
+.product:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(20,20,20,.09);border-color:#ded5bf}
+.product-price{font-family:var(--font-display);font-weight:700;letter-spacing:-.8px}
+.product-name,.product h3{font-family:var(--font-display);letter-spacing:-.3px}
 
-.about{background:linear-gradient(180deg,#fff 0%,#f7f3e9 100%);overflow:hidden;}
-.about-ring{position:relative;isolation:isolate;animation:feBreath 5.8s ease-in-out infinite;}
-.about-ring::after{content:"";position:absolute;inset:-28px;border:1px dashed rgba(185,138,24,.28);border-radius:50%;animation:feOrbit 24s linear infinite;z-index:-1;}
-.about-copy h2{letter-spacing:-.045em;}
-
-.location-box{border-radius:32px;overflow:hidden;box-shadow:0 30px 70px rgba(22,20,14,.10);}
-.map{overflow:hidden;}
-.map iframe{transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s ease;}
-.map:hover iframe{transform:scale(1.025);filter:saturate(.9) contrast(1.03);}
-.social-card{transition:transform .3s ease,box-shadow .3s ease;}
-.social-card:hover{transform:translateY(-4px);box-shadow:0 18px 34px rgba(0,0,0,.08);}
-
-/* Scroll reveal: solo se activa cuando JavaScript está disponible */
-.js-motion .fe-reveal{opacity:0;transform:translateY(26px);transition:opacity .72s cubic-bezier(.2,.7,.2,1),transform .72s cubic-bezier(.2,.7,.2,1);}
-.js-motion .fe-reveal.fe-visible{opacity:1;transform:none;}
-.js-motion .feature.fe-reveal:nth-child(2),.js-motion .point.fe-reveal:nth-child(2){transition-delay:.08s;}
-.js-motion .feature.fe-reveal:nth-child(3),.js-motion .point.fe-reveal:nth-child(3){transition-delay:.16s;}
-.js-motion .feature.fe-reveal:nth-child(4){transition-delay:.24s;}
-
-@keyframes feOrbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
-@keyframes feOrbitReverse{to{transform:translate(-50%,-50%) rotate(-360deg)}}
-@keyframes feFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
-@keyframes feShadow{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(.86);opacity:.34}}
-@keyframes feScrollCue{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
-@keyframes feMarquee{to{transform:translateX(-50%)}}
-@keyframes feCardIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-@keyframes feBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
-
-@media(max-width:1080px){
-  .hero-grid{grid-template-columns:1fr 46%;gap:36px;}
-  .motion-hero h1{font-size:clamp(52px,8vw,82px);}
-  .hero-stage{min-height:520px;}
+/* Toast de carrito: más visual y contextual */
+.cart-toast{
+    right:22px;bottom:22px;
+    gap:13px;
+    min-width:310px;
+    padding:14px 16px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    background:rgba(17,17,19,.96);
+    box-shadow:0 22px 55px rgba(0,0,0,.24);
+    backdrop-filter:blur(16px);
+    transform:translateY(18px) scale(.98);
+    overflow:hidden;
 }
+.cart-toast.active{transform:translateY(0) scale(1)}
+.cart-toast::after{
+    content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;
+    background:linear-gradient(90deg,#c6a03b,#ead78e);
+    transform-origin:left;transform:scaleX(0);
+}
+.cart-toast.active::after{animation:toastProgress 2.5s linear forwards}
+@keyframes toastProgress{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.cart-toast-icon{
+    width:38px;height:38px;border-radius:12px;
+    background:#f0e5be;color:#5d4917;
+    display:grid;place-items:center;
+}
+.cart-toast-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cart-toast strong{font-family:var(--font-display);font-size:13px;font-weight:680;letter-spacing:-.1px}
+.cart-toast div span{font-size:11px;line-height:1.45;color:#c8c8cc;opacity:1}
+.cart-toast[data-type="remove"] .cart-toast-icon{background:#f4dede;color:#9d3535}
+.cart-toast[data-type="warning"] .cart-toast-icon{background:#f3e8c7;color:#8b6914}
+.cart-toast[data-type="empty"] .cart-toast-icon{background:#e7e7ea;color:#44444a}
 
-@media(max-width:820px){
-  body::before{opacity:.10;}
-  .motion-hero{padding:46px 20px 40px;min-height:auto;}
-  .hero-grid{grid-template-columns:1fr;gap:34px;}
-  .hero-copy-block{max-width:none;}
-  .hero-brandmark{width:190px;margin-bottom:20px;}
-  .motion-hero h1{font-size:clamp(46px,14vw,72px);line-height:.91;margin-bottom:20px;}
-  .hero-lead{font-size:16px;line-height:1.58;margin-bottom:26px;}
-  .hero-actions{gap:15px;}
-  .motion-hero .hero-btn{min-width:0;flex:1 1 180px;}
-  .hero-link{flex:1 1 180px;text-align:center;}
-  .hero-proof{margin-top:32px;padding-top:16px;gap:8px;}
-  .hero-proof div{gap:6px;}
-  .hero-proof span{font-size:10px;}
-  .hero-stage{min-height:460px;border-radius:28px;}
-  .stage-label{top:22px;left:22px;right:22px;}
-  .stage-note-left{left:22px;bottom:22px}.stage-note-right{right:22px;bottom:22px;}
-  .scroll-cue{display:none;}
-  .motion-strip{height:42px;}
-  .section{padding-left:20px;padding-right:20px;}
-  .product{border-radius:20px;}
-  .location-box{border-radius:24px;}
+.cart-head-copy strong{font-family:var(--font-display);font-size:20px;font-weight:650;letter-spacing:-.5px}
+.cart-close{display:grid;place-items:center;font-size:0}
+.cart-close svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.cart-remove{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;color:#8b8b91}
+.cart-remove svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.cart-remove:hover{background:#fff0f0;color:#a23636}
+.cart-empty-icon{border-radius:20px}
+.cart-empty-icon svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.cart-link-button{text-decoration:none;font-size:10px;font-weight:650;letter-spacing:0}
+.cart-link-button:hover{text-decoration:underline;text-underline-offset:3px}
+.cart-total-row strong{font-family:var(--font-display);font-weight:700}
+
+/* Mobile dock */
+.mobile-dock{display:none}
+
+@media(max-width:850px){
+    body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+    .nav{height:66px;padding:0 16px}
+    .nav-logo{width:132px;height:45px}
+    .nav-actions .nav-cta{display:none}
+    .cart-trigger{display:none}
+    .float-wa{display:none}
+
+    .mobile-dock{
+        position:fixed;
+        left:12px;right:12px;
+        bottom:max(10px,env(safe-area-inset-bottom));
+        z-index:160;
+        height:62px;
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        align-items:center;
+        padding:5px;
+        border:1px solid rgba(20,20,20,.08);
+        border-radius:22px;
+        background:rgba(255,255,255,.92);
+        box-shadow:0 18px 45px rgba(0,0,0,.16);
+        backdrop-filter:blur(18px) saturate(160%);
+        -webkit-backdrop-filter:blur(18px) saturate(160%);
+    }
+    .mobile-dock-item{
+        position:relative;
+        height:52px;
+        border:0;
+        border-radius:17px;
+        background:transparent;
+        color:#75757c;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:3px;
+        font-size:9px;
+        font-weight:650;
+        line-height:1;
+        cursor:pointer;
+        transition:background .2s ease,color .2s ease,transform .2s ease;
+    }
+    .mobile-dock-item svg{
+        width:21px;height:21px;
+        fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;
+    }
+    .mobile-dock-item[href*="wa.me"] svg{fill:currentColor;stroke:none;width:20px;height:20px}
+    .mobile-dock-item.active{color:#111113;background:#f4f0e4}
+    .mobile-dock-item:active{transform:scale(.96)}
+    .mobile-dock-iconwrap{position:relative;display:grid;place-items:center}
+    .mobile-cart-count{
+        position:absolute;top:-7px;right:-11px;
+        min-width:17px;height:17px;padding:0 4px;
+        display:grid;place-items:center;
+        border:2px solid #fff;border-radius:999px;
+        background:#111113;color:#fff;
+        font-size:8px;font-weight:800;
+    }
+    .cart-toast{
+        left:14px;right:14px;
+        bottom:calc(84px + env(safe-area-inset-bottom));
+        min-width:0;max-width:none;
+        padding:13px 14px;
+        border-radius:17px;
+    }
+    .hero h1{font-size:clamp(24px,7vw,32px);letter-spacing:-.9px}
+    .hero p{font-size:13px;line-height:1.55}
+    .section-title{font-size:clamp(30px,9vw,40px);letter-spacing:-1.4px}
 }
 
 @media(max-width:520px){
-  .motion-hero{padding-top:34px;}
-  .hero-eyebrow{font-size:9px;letter-spacing:.13em;margin-bottom:17px;}
-  .hero-brandmark{width:158px;}
-  .motion-hero h1{font-size:clamp(43px,15.4vw,62px);letter-spacing:-.06em;}
-  .hero-lead{font-size:15px;}
-  .hero-actions{display:grid;grid-template-columns:1fr;}
-  .motion-hero .hero-btn,.hero-link{width:100%;}
-  .hero-proof{grid-template-columns:repeat(3,1fr);}
-  .hero-proof div{display:block;}
-  .hero-proof strong{display:block;margin-bottom:6px;}
-  .hero-stage{min-height:390px;border-radius:22px;}
-  .stage-product{width:93%;}
-  .stage-label small{display:none;}
-  .stage-note{font-size:7px}.stage-note b{font-size:8px;}
-  .stage-note-right{display:none;}
-  .motion-track{gap:18px;animation-duration:23s;}
-  .motion-track span{font-size:9px;}
-  .features{padding-left:14px;padding-right:14px;}
-  .feature:hover{transform:none;}
-  .product:hover{transform:none;}
-}
-
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto!important;}
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
-  .hero-stage,.stage-product-wrap{transform:none!important;}
+    .topbar{height:29px;font-size:8.5px}
+    .hero-content{padding-left:18px;padding-right:18px}
+    .eyebrow{letter-spacing:1.7px;font-size:9px}
+    .section{padding-left:18px;padding-right:18px}
+    .product{border-radius:18px}
+    .cart-drawer{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
 }
 </style>
-
-<style id="fe-premium-100">
-:root{--fe-ink:#11110f;--fe-paper:#f6f3ec;--fe-paper-2:#fbfaf6;--fe-gold:#c39a2e;--fe-gold-2:#e0c56b;--fe-line:rgba(17,17,15,.12);--fe-soft:#706d64;--fe-radius:28px;}
-html{scroll-padding-top:104px;}
-body{background:var(--fe-paper-2);color:var(--fe-ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
-::selection{background:#111;color:#fff;}
-.topbar{height:30px;background:#11110f;color:#f8f4e8;font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:650;}
-.fe-nav{height:auto;position:sticky;top:0;padding:12px 18px;background:linear-gradient(to bottom,rgba(251,250,246,.94),rgba(251,250,246,.78));border:0;backdrop-filter:blur(20px) saturate(145%);z-index:100;}
-.fe-nav-inner{width:min(1280px,100%);height:70px;margin:auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 22px;border:1px solid rgba(17,17,15,.09);border-radius:999px;background:rgba(255,255,255,.78);box-shadow:0 12px 38px rgba(23,20,14,.07);}
-.fe-nav-left{display:flex;align-items:center;gap:24px;}
-.fe-nav-left a{font-size:11px;font-weight:720;letter-spacing:.04em;color:#5e5a51;position:relative;transition:.25s ease;}
-.fe-nav-left a:hover,.fe-nav-left a.active{color:#111;}
-.fe-nav-left a::after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--fe-gold);transition:right .3s ease;}.fe-nav-left a:hover::after,.fe-nav-left a.active::after{right:0;}
-.fe-brand-center{justify-self:center;display:flex;align-items:center;justify-content:center;}.fe-brand-center .nav-logo{width:148px;height:44px;object-fit:contain;display:block;margin:0 auto;}
-.fe-nav-right{justify-self:end;display:flex;align-items:center;gap:16px;}.fe-nav-whatsapp{font-size:11px;font-weight:720;color:#5e5a51;white-space:nowrap}.fe-nav-whatsapp span{color:var(--fe-gold);margin-left:4px}.fe-nav-whatsapp:hover{color:#111}
-.fe-nav .cart-trigger{height:42px;min-width:112px;padding:0 15px;border:0;border-radius:999px;background:#111;color:#fff;gap:8px;box-shadow:none}.fe-nav .cart-trigger:hover{transform:translateY(-1px);background:#201f1b}.fe-nav .cart-count{background:var(--fe-gold);color:#111;min-width:20px;height:20px;line-height:20px;font-size:10px}.fe-nav .cart-trigger svg{width:17px;height:17px;stroke:#fff}
-
-.fe-hero{position:relative;min-height:calc(100svh - 100px);padding:18px 18px 32px;overflow:hidden;background:var(--fe-paper-2);isolation:isolate;}
-.fe-hero-shell{position:relative;width:min(1380px,100%);min-height:calc(100svh - 150px);margin:auto;border:1px solid rgba(17,17,15,.10);border-radius:38px;background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(243,238,226,.72));overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;box-shadow:0 30px 90px rgba(31,26,17,.08);}
-.fe-hero-gridlines{position:absolute;inset:0;background-image:linear-gradient(rgba(17,17,15,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,15,.035) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,transparent,black 20%,black 75%,transparent);z-index:-2;}
-.fe-hero-glow{position:absolute;border-radius:50%;filter:blur(75px);opacity:.32;z-index:-1;pointer-events:none}.fe-glow-a{width:520px;height:520px;background:#e7ca70;top:-180px;left:-100px}.fe-glow-b{width:430px;height:430px;background:#fff0bf;right:-120px;bottom:5%}
-.fe-hero-topline{display:flex;justify-content:space-between;gap:20px;padding:26px 34px 0;font-size:9px;font-weight:700;letter-spacing:.16em;color:#777267}.fe-live-dot{display:flex;align-items:center;gap:8px}.fe-live-dot i{width:7px;height:7px;background:#78a86b;border-radius:50%;box-shadow:0 0 0 5px rgba(120,168,107,.12)}
-.fe-hero-center{text-align:center;max-width:880px;margin:0 auto;padding:44px 24px 20px;position:relative;z-index:3}.fe-hero-eyebrow{font-size:10px;letter-spacing:.22em;color:#8d876f;margin-bottom:20px}.fe-hero-logo{width:clamp(150px,16vw,225px);height:auto;display:block;margin:0 auto 24px;filter:drop-shadow(0 10px 28px rgba(25,21,13,.08));}.fe-hero h1{font-size:clamp(64px,9.6vw,154px);line-height:.78;letter-spacing:-.075em;font-weight:850;margin:0;color:#111}.fe-hero h1 span,.fe-hero h1 em{display:block}.fe-hero h1 em{font-size:.58em;line-height:1.05;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-style:italic;letter-spacing:-.045em;color:#9c7a21;margin-top:12px}.fe-hero-center>p{max-width:610px;margin:30px auto 0;font-size:clamp(15px,1.35vw,19px);line-height:1.7;color:#625e55}.fe-hero-cta-row{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:28px;flex-wrap:wrap}.fe-btn-primary,.fe-btn-ghost{height:52px;padding:0 22px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:18px;font-size:11px;font-weight:800;letter-spacing:.04em;transition:transform .28s ease,box-shadow .28s ease,background .28s ease}.fe-btn-primary{background:#111;color:#fff;box-shadow:0 16px 32px rgba(17,17,15,.15)}.fe-btn-primary b{font-size:17px;color:var(--fe-gold-2)}.fe-btn-primary:hover{transform:translateY(-3px);box-shadow:0 22px 40px rgba(17,17,15,.20)}.fe-btn-ghost{border:1px solid rgba(17,17,15,.16);background:rgba(255,255,255,.58);color:#26231d}.fe-btn-ghost:hover{transform:translateY(-3px);background:#fff}
-.fe-product-stage{position:relative;width:min(920px,82vw);height:330px;margin:-6px auto 8px;display:grid;grid-template-columns:1fr 330px 1fr;align-items:center;gap:22px;perspective:1100px;--rx:0deg;--ry:0deg;}.fe-stage-product-card{position:relative;height:300px;border-radius:34px;background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(229,222,203,.64));border:1px solid rgba(17,17,15,.10);display:flex;align-items:center;justify-content:center;box-shadow:0 35px 70px rgba(42,34,19,.12);transform:rotateX(var(--rx)) rotateY(var(--ry)) translateZ(0);transition:transform .18s ease-out;overflow:hidden}.fe-stage-product-card::before{content:"";position:absolute;inset:18px;border:1px solid rgba(17,17,15,.07);border-radius:24px}.fe-stage-product-img{width:82%;height:72%;object-fit:contain;filter:drop-shadow(0 26px 28px rgba(0,0,0,.18));position:relative;z-index:2;animation:feFloat 5.5s ease-in-out infinite}.fe-stage-badge{position:absolute;top:22px;left:24px;font-size:8px;letter-spacing:.18em;font-weight:800;border:1px solid rgba(17,17,15,.13);padding:7px 10px;border-radius:999px;z-index:3;background:rgba(255,255,255,.7)}.fe-stage-caption{position:absolute;left:26px;right:26px;bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;z-index:3}.fe-stage-caption span{font-size:11px;font-weight:800;letter-spacing:.06em}.fe-stage-caption small{font-size:9px;color:#777267}.fe-stage-copy{display:flex;flex-direction:column;gap:6px;color:#5c584f}.fe-stage-copy span{font-size:9px;color:#b18a22;font-weight:800;letter-spacing:.16em}.fe-stage-copy strong{font-size:11px;letter-spacing:.12em;color:#2a2822}.fe-stage-copy small{font-size:10px;line-height:1.5}.fe-stage-copy-left{text-align:right;align-items:flex-end}.fe-stage-copy-right{text-align:left;align-items:flex-start}.fe-stage-orbit{position:absolute;border:1px solid rgba(178,140,40,.16);border-radius:50%;pointer-events:none;left:50%;top:50%;transform:translate(-50%,-50%);animation:feOrbit 22s linear infinite}.fe-stage-orbit-1{width:430px;height:430px}.fe-stage-orbit-2{width:580px;height:210px;animation-direction:reverse;animation-duration:28s}
-.fe-hero-bottom{display:grid;grid-template-columns:repeat(3,1fr) auto;align-items:end;gap:26px;padding:0 34px 28px}.fe-hero-bottom>div{display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--fe-line);padding-top:13px}.fe-hero-bottom strong{font-size:10px;letter-spacing:.12em;text-transform:uppercase}.fe-hero-bottom span{font-size:11px;color:#777267}.fe-scroll-pill{width:86px;height:86px;border-radius:50%;background:#111;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;justify-self:end;transition:.3s ease}.fe-scroll-pill span{font-size:7px;letter-spacing:.16em;color:#fff}.fe-scroll-pill i{font-style:normal;color:var(--fe-gold-2);font-size:17px}.fe-scroll-pill:hover{transform:translateY(-5px) rotate(3deg)}
-.fe-marquee{overflow:hidden;border-top:1px solid var(--fe-line);border-bottom:1px solid var(--fe-line);background:#111;color:#f7f1df}.fe-marquee-track{width:max-content;display:flex;align-items:center;gap:28px;padding:13px 0;animation:feMarquee 26s linear infinite}.fe-marquee span{font-size:10px;font-weight:750;letter-spacing:.18em}.fe-marquee i{font-style:normal;color:var(--fe-gold-2);font-size:8px}
-.fe-trust{width:min(1320px,calc(100% - 36px));margin:18px auto 0;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--fe-line);border-radius:24px;overflow:hidden;background:#fff}.fe-trust-item{padding:22px;display:flex;gap:14px;align-items:flex-start;border-right:1px solid var(--fe-line)}.fe-trust-item:last-child{border-right:0}.fe-trust-item>span{font-size:9px;font-weight:800;color:#b18a22;letter-spacing:.12em}.fe-trust-item div{display:flex;flex-direction:column;gap:5px}.fe-trust-item strong{font-size:12px}.fe-trust-item small{font-size:10px;color:#777267;line-height:1.45}
-
-#productos.section{padding:130px 5.5% 120px;background:var(--fe-paper-2);}.fe-products-head{max-width:1040px;margin:0 auto 56px;text-align:center}.fe-section-index{font-size:9px;letter-spacing:.18em;color:#9b968b;margin-bottom:18px}.fe-products-head .kicker{display:inline-flex;padding:8px 12px;border:1px solid var(--fe-line);border-radius:999px;background:#fff;margin-bottom:24px}.fe-products-head .section-title{font-size:clamp(46px,6vw,84px);line-height:.92;letter-spacing:-.055em;max-width:1000px;margin:0 auto}.fe-products-head .section-title span{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-weight:400;color:#a57d17}.fe-products-head .section-desc{max-width:620px;margin:26px auto 0;font-size:15px;line-height:1.7;color:#6c685e}.fe-head-rule{display:flex;align-items:center;gap:14px;margin-top:30px}.fe-head-rule span{height:1px;background:var(--fe-line);flex:1}.fe-head-rule small{font-size:8px;letter-spacing:.17em;color:#9b968b}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:24px;max-width:1320px;margin:0 auto}.product{border:1px solid var(--fe-line)!important;border-radius:30px!important;background:#fff!important;overflow:hidden!important;box-shadow:none!important;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .4s!important;min-width:0}.product:hover{transform:translateY(-8px)!important;box-shadow:0 30px 70px rgba(31,26,17,.11)!important;border-color:rgba(185,138,24,.26)!important}.product-img{height:380px!important;background:linear-gradient(145deg,#f4f0e6,#ede8dc)!important;position:relative!important;overflow:hidden!important}.product-img::after{content:"";position:absolute;inset:16px;border:1px solid rgba(17,17,15,.07);border-radius:22px;pointer-events:none}.product-real-image{width:82%!important;height:82%!important;object-fit:contain!important;transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .55s!important;filter:drop-shadow(0 24px 22px rgba(0,0,0,.12))}.product:hover .product-real-image{transform:scale(1.055) rotate(-1deg)!important;filter:drop-shadow(0 30px 28px rgba(0,0,0,.16))}.product .badge{top:22px!important;left:22px!important;background:rgba(255,255,255,.82)!important;color:#29261f!important;border:1px solid rgba(17,17,15,.10)!important;backdrop-filter:blur(10px);font-size:8px!important;letter-spacing:.13em!important;border-radius:999px!important;padding:8px 11px!important}.product-info{padding:26px 26px 28px!important}.product-info h3{font-size:21px!important;letter-spacing:-.025em!important;line-height:1.15!important;margin-bottom:10px!important}.product-card-description{font-size:12px!important;line-height:1.6!important;color:#777267!important;min-height:38px}.product-price{font-size:28px!important;font-weight:800!important;letter-spacing:-.035em!important;margin:22px 0 4px!important;color:#14130f!important}.product-stock{font-size:9px!important;letter-spacing:.12em!important;color:#8a856f!important;text-transform:uppercase!important;margin-bottom:20px!important}.product-actions{display:grid!important;gap:11px!important}.view-product{height:44px!important;border-radius:999px!important;border:1px solid var(--fe-line)!important;background:#fff!important;font-size:10px!important;letter-spacing:.08em!important;font-weight:780!important}.view-product:hover{background:#f6f2e8!important;border-color:#d5bf76!important}.card-quantity-row{border-top:1px solid var(--fe-line)!important;padding-top:15px!important}.card-quantity-row>span{font-size:8px!important;letter-spacing:.14em!important}.quantity-selector{border-radius:999px!important}.add-card-product{height:48px!important;border-radius:999px!important;background:#111!important;color:#fff!important;border:0!important;font-size:10px!important;letter-spacing:.05em!important}.add-card-product:hover{background:#8c6c1b!important;color:#fff!important;transform:translateY(-1px)!important}
-
-.fe-about{padding:120px 5.5%;background:#111;color:#f5f0e4;overflow:hidden}.fe-about-inner{max-width:1320px;margin:auto}.fe-about-label{font-size:9px;letter-spacing:.18em;color:#a9a395;border-bottom:1px solid rgba(255,255,255,.14);padding-bottom:18px}.fe-about-main{display:grid;grid-template-columns:minmax(320px,.9fr) 1.1fr;gap:80px;align-items:center;padding:72px 0}.fe-about-logo-wrap{height:480px;position:relative;border:1px solid rgba(255,255,255,.12);border-radius:36px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,rgba(216,179,67,.14),transparent 45%)}.fe-about-logo-wrap img{width:min(60%,310px);height:auto;filter:brightness(1.08) drop-shadow(0 18px 35px rgba(0,0,0,.25));position:relative;z-index:3}.fe-about-logo-wrap>span{position:absolute;bottom:26px;font-size:8px;letter-spacing:.18em;color:#9d978b}.fe-about-ring{position:absolute;border:1px solid rgba(224,197,107,.22);border-radius:50%;animation:feOrbit 24s linear infinite}.fe-ring-a{width:300px;height:300px}.fe-ring-b{width:390px;height:170px;animation-direction:reverse}.fe-about-copy .kicker{color:#d8bb60;margin-bottom:22px}.fe-about-copy h2{font-size:clamp(46px,5.2vw,76px);line-height:.95;letter-spacing:-.055em;margin:0 0 28px}.fe-about-copy h2 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:#d8bb60}.fe-about-copy>p{font-size:16px;line-height:1.75;color:#b8b1a2;max-width:650px}.fe-about-points{margin-top:36px;border-top:1px solid rgba(255,255,255,.14)}.fe-about-points>div{display:grid;grid-template-columns:45px 1fr;gap:10px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.11)}.fe-about-points b{font-size:9px;color:#d8bb60;letter-spacing:.12em}.fe-about-points span{display:flex;justify-content:space-between;gap:30px}.fe-about-points strong{font-size:12px}.fe-about-points small{font-size:10px;color:#8f897e;text-align:right}.fe-manifesto{border-top:1px solid rgba(255,255,255,.14);padding-top:28px;display:flex;gap:18px;flex-wrap:wrap;font-size:clamp(22px,3vw,46px);font-weight:800;letter-spacing:-.035em}.fe-manifesto i{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:#d8bb60}
-
-.fe-experience{padding:120px 5.5%;background:#f0ece2;display:grid;grid-template-columns:.78fr 1.22fr;gap:70px}.fe-exp-side>span{font-size:9px;letter-spacing:.18em;color:#918b7e}.fe-exp-side h2{font-size:clamp(52px,6vw,90px);line-height:.88;letter-spacing:-.06em;margin-top:20px;position:sticky;top:150px}.fe-exp-side h2 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:#a47e1e}.fe-exp-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--fe-line);border-left:1px solid var(--fe-line)}.fe-exp-grid article{min-height:260px;padding:30px;border-right:1px solid var(--fe-line);border-bottom:1px solid var(--fe-line);display:flex;flex-direction:column}.fe-exp-grid article>span{font-size:9px;letter-spacing:.16em;color:#a47e1e}.fe-exp-grid h3{font-size:25px;letter-spacing:-.03em;margin-top:auto;margin-bottom:12px}.fe-exp-grid p{font-size:12px;line-height:1.65;color:#6e695f;max-width:280px}
-
-.location{background:#fbfaf6!important;padding:120px 5.5%!important}.location-box{max-width:1320px!important;margin:auto!important;display:grid!important;grid-template-columns:.72fr 1.28fr!important;gap:18px!important;background:transparent!important;border:0!important}.location-copy{border:1px solid var(--fe-line)!important;border-radius:30px!important;padding:44px!important;background:#fff!important}.location-copy h2{font-size:clamp(38px,4.4vw,62px)!important;letter-spacing:-.055em!important;line-height:.94!important}.location-copy h2 span{font-family:Georgia,"Times New Roman",serif;font-weight:400!important;font-style:italic;color:#a47e1e!important}.location-copy p{font-size:13px!important;line-height:1.7!important;color:#6f6a5f!important}.address{border-radius:999px!important;background:#f3efe5!important;border:1px solid var(--fe-line)!important}.map{min-height:430px!important;border-radius:30px!important;overflow:hidden!important;border:1px solid var(--fe-line)!important;box-shadow:none!important}.contact-socials{grid-column:1/-1!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:18px!important}.social-card{border-radius:24px!important;border:1px solid var(--fe-line)!important;min-height:92px!important;background:#fff!important;transition:.3s ease!important}.social-card:hover{transform:translateY(-4px)!important;box-shadow:0 22px 44px rgba(31,26,17,.08)!important}
-
-.footer{background:#111!important;color:#f6f0e2!important}.footer-main{border-color:rgba(255,255,255,.12)!important}.footer a,.footer p,.footer span{color:inherit}.footer-bottom{border-color:rgba(255,255,255,.12)!important}
-
-.fe-reveal-100{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}.fe-reveal-100.fe-in{opacity:1;transform:none}.fe-progress{position:fixed;left:0;top:0;height:2px;width:100%;transform-origin:left center;transform:scaleX(0);background:linear-gradient(90deg,#a77a18,#e2c964);z-index:999;pointer-events:none}.fe-cursor-glow{position:fixed;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.08),transparent 68%);pointer-events:none;z-index:1;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s}.has-fine-pointer .fe-cursor-glow{opacity:1}
-@keyframes feFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(-.7deg)}}@keyframes feOrbit{to{transform:translate(-50%,-50%) rotate(360deg)}}@keyframes feMarquee{to{transform:translateX(-50%)}}
-
-@media(max-width:900px){.fe-nav{padding:9px 10px}.fe-nav-inner{height:62px;padding:0 14px;grid-template-columns:1fr auto 1fr}.fe-nav-left{display:none}.fe-brand-center{grid-column:2}.fe-brand-center .nav-logo{width:132px;height:40px}.fe-nav-right{grid-column:3}.fe-nav-whatsapp,.cart-trigger-label{display:none!important}.fe-nav .cart-trigger{min-width:44px;width:44px;height:44px;padding:0;position:relative}.fe-nav .cart-count{position:absolute;top:-3px;right:-3px}.fe-hero{padding:8px 10px 24px;min-height:auto}.fe-hero-shell{min-height:auto;border-radius:28px}.fe-hero-topline{padding:20px 20px 0;font-size:7px}.fe-live-dot{display:none}.fe-hero-center{padding:52px 18px 16px}.fe-hero-logo{width:150px;margin-bottom:22px}.fe-hero h1{font-size:clamp(56px,16vw,86px);line-height:.8}.fe-hero h1 em{font-size:.56em;margin-top:10px}.fe-hero-center>p{font-size:14px;max-width:500px;margin-top:24px}.fe-hero-cta-row{display:grid;grid-template-columns:1fr;width:100%;max-width:380px;margin:24px auto 0}.fe-btn-primary,.fe-btn-ghost{width:100%;height:50px}.fe-product-stage{width:calc(100% - 26px);height:330px;grid-template-columns:1fr;margin:8px auto 10px}.fe-stage-product-card{height:300px;border-radius:28px}.fe-stage-copy{display:none}.fe-stage-orbit-1{width:350px;height:350px}.fe-stage-orbit-2{width:420px;height:170px}.fe-hero-bottom{grid-template-columns:repeat(3,1fr);gap:7px;padding:0 18px 20px}.fe-hero-bottom>div{padding-top:10px}.fe-hero-bottom strong{font-size:8px}.fe-hero-bottom span{font-size:8px}.fe-scroll-pill{display:none}.fe-trust{grid-template-columns:1fr 1fr}.fe-trust-item:nth-child(2){border-right:0}.fe-trust-item:nth-child(-n+2){border-bottom:1px solid var(--fe-line)}#productos.section{padding:90px 18px 90px}.fe-products-head{margin-bottom:38px}.fe-products-head .section-title{font-size:clamp(40px,10vw,68px)}.products{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}.product-img{height:330px!important}.fe-about{padding:90px 18px}.fe-about-main{grid-template-columns:1fr;gap:38px;padding:44px 0}.fe-about-logo-wrap{height:340px}.fe-about-copy h2{font-size:clamp(44px,11vw,70px)}.fe-about-points span{display:block}.fe-about-points small{display:block;text-align:left;margin-top:5px}.fe-experience{padding:90px 18px;grid-template-columns:1fr;gap:40px}.fe-exp-side h2{position:static}.location{padding:90px 18px!important}.location-box{grid-template-columns:1fr!important}.contact-socials{grid-template-columns:1fr 1fr!important}}
-@media(max-width:560px){.topbar{font-size:7px;letter-spacing:.11em;text-align:center;padding:0 8px}.fe-hero-topline{justify-content:center}.fe-hero-topline>span:first-child{font-size:7px}.fe-hero-center{padding-top:42px}.fe-hero h1{font-size:clamp(48px,15.2vw,66px)}.fe-product-stage{height:285px}.fe-stage-product-card{height:260px}.fe-stage-product-img{width:88%;height:76%}.fe-stage-caption small{display:none}.fe-hero-bottom{grid-template-columns:1fr;gap:0;padding:0 18px 18px}.fe-hero-bottom>div{flex-direction:row;justify-content:space-between;padding:9px 0;border-top:1px solid var(--fe-line)}.fe-trust{grid-template-columns:1fr;border-radius:20px}.fe-trust-item,.fe-trust-item:nth-child(2){border-right:0;border-bottom:1px solid var(--fe-line)}.fe-trust-item:last-child{border-bottom:0}.fe-products-head{text-align:left}.fe-products-head .section-title{font-size:clamp(40px,12vw,56px)}.fe-products-head .section-desc{margin-left:0}.fe-products-head .kicker{margin-left:0}.product{border-radius:24px!important}.product-img{height:300px!important}.product-info{padding:22px!important}.fe-about-logo-wrap{height:280px}.fe-manifesto{font-size:24px}.fe-exp-grid{grid-template-columns:1fr}.fe-exp-grid article{min-height:210px}.location-copy{padding:28px!important}.map{min-height:320px!important}.contact-socials{grid-template-columns:1fr!important}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}.fe-reveal-100{opacity:1!important;transform:none!important}.fe-cursor-glow{display:none!important}}
-</style>
-
-
 </head>
+
 <body>
+
 <!-- =========================
      BARRA SUPERIOR
 ========================= -->
+
 <div class="topbar">
 
 ⚡ Envíos a todo Argentina
 
-   •   
+&nbsp;&nbsp; • &nbsp;&nbsp;
 
 Pago seguro con Mercado Pago
 
-   •   
+&nbsp;&nbsp; • &nbsp;&nbsp;
 
 Atención personalizada por WhatsApp
 
 </div>
+
+
 <!-- =========================
      NAVEGACIÓN
 ========================= -->
-<header class="nav fe-nav" id="site-nav">
-<div class="fe-nav-inner">
-<nav class="fe-nav-left" aria-label="Navegación principal">
-<a class="active" href="#inicio">Inicio</a>
-<a href="#productos">Productos</a>
-<a href="#nosotros">Nosotros</a>
-</nav>
-<a class="brand fe-brand-center" href="#inicio" aria-label="FER Electro - Inicio">
-<img alt="FER⚡ELECTRO" class="nav-logo" src="logo.PNG"/>
+
+<header class="nav">
+
+<a class="brand" href="#inicio">
+
+    <img
+        src="logo.PNG"
+        alt="FER⚡ELECTRO"
+        class="nav-logo"
+    >
+
 </a>
-<div class="nav-actions fe-nav-right">
-<a class="fe-nav-whatsapp" href="https://wa.me/543764863227" rel="noopener" target="_blank">WhatsApp <span>↗</span></a>
-<button aria-controls="cart-drawer" aria-expanded="false" aria-label="Abrir carrito de compras" class="cart-trigger" id="cart-trigger" onclick="abrirCarrito()" type="button">
-<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3h2l2.1 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 7H7"></path><circle cx="10" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>
-<span class="cart-trigger-label">Carrito</span><span aria-live="polite" class="cart-count" id="cart-count">0</span>
+
+
+<nav class="navlinks">
+
+<a class="active" href="#inicio">
+Inicio
+</a>
+
+<a href="#productos">
+Productos
+</a>
+
+<a href="#productos">
+Categorías
+</a>
+
+<a href="#nosotros">
+Nosotros
+</a>
+
+<a href="#contacto">
+Contacto
+</a>
+
+</nav>
+
+
+<div class="nav-actions">
+
+<a
+class="nav-cta"
+href="https://wa.me/543764863227"
+target="_blank"
+rel="noopener">
+
+<svg class="nav-wa-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"/></svg><span>WhatsApp</span>
+
+</a>
+
+<button
+type="button"
+class="cart-trigger"
+id="cart-trigger"
+onclick="abrirCarrito()"
+aria-label="Abrir carrito de compras"
+aria-controls="cart-drawer"
+aria-expanded="false"
+>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M3 3h2l2.1 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 7H7"/>
+<circle cx="10" cy="19" r="1.5"/>
+<circle cx="17" cy="19" r="1.5"/>
+</svg>
+<span class="cart-trigger-label">Carrito</span>
+<span class="cart-count" id="cart-count" aria-live="polite">0</span>
 </button>
+
 </div>
-</div>
+
 </header>
+
+
 <!-- =========================
      HERO
 ========================= -->
+
 <main>
-<section class="fe-hero" id="inicio">
-<div class="fe-hero-gridlines" aria-hidden="true"></div>
-<div class="fe-hero-glow fe-glow-a" aria-hidden="true"></div>
-<div class="fe-hero-glow fe-glow-b" aria-hidden="true"></div>
-<div class="fe-hero-shell">
-<div class="fe-hero-topline"><span>CURATED TECH · POSADAS, MISIONES</span><span class="fe-live-dot"><i></i> COMPRA ONLINE</span></div>
-<div class="fe-hero-center">
-<div class="fe-hero-eyebrow">FER⚡ELECTRO / 2026</div>
-<img alt="FER⚡ELECTRO" class="fe-hero-logo" src="logo-2.PNG"/>
-<h1><span>TECNOLOGÍA</span><em>bien elegida.</em></h1>
-<p>Productos útiles, atención real y una compra sin vueltas. Desde Posadas, para todo el país.</p>
-<div class="fe-hero-cta-row">
-<a class="fe-btn-primary" href="#productos"><span>Explorar productos</span><b>↘</b></a>
-<a class="fe-btn-ghost" href="https://wa.me/543764863227" rel="noopener" target="_blank">Hablar por WhatsApp <span>↗</span></a>
+
+<section
+class="hero"
+id="inicio"
+>
+
+<div class="hero-content">
+
+<div class="eyebrow">
+
+TECNOLOGÍA · CALIDAD · CONFIANZA
+
 </div>
+
+<img
+src="logo-2.PNG"
+alt="FER⚡ELECTRO Itaembé Guazú"
+class="real-logo"
+>
+
+<h1>
+
+TECNOLOGÍA PREMIUM
+
+</h1>
+
+
+<p>
+
+AUDIO &nbsp;•&nbsp;
+GADGETS &nbsp;•&nbsp;
+ACCESORIOS
+
+</p>
+
+
+<a
+class="gold-btn hero-btn"
+href="https://wa.me/543764863227"
+target="_blank"
+rel="noopener"
+>
+
+<svg class="nav-wa-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"/></svg><span>WhatsApp</span>
+
+</a>
+
 </div>
-<div class="fe-product-stage" data-parallax-stage>
-<div class="fe-stage-orbit fe-stage-orbit-1" aria-hidden="true"></div>
-<div class="fe-stage-orbit fe-stage-orbit-2" aria-hidden="true"></div>
-<div class="fe-stage-copy fe-stage-copy-left"><span>01</span><strong>SELECCIÓN</strong><small>Lo que vale la pena,<br/>sin llenar por llenar.</small></div>
-<div class="fe-stage-product-card">
-<div class="fe-stage-badge">DESTACADO</div>
-<img alt="Auriculares destacados FER Electro" class="fe-stage-product-img" src="auriculares 2.PNG"/>
-<div class="fe-stage-caption"><span>RD SPORT</span><small>Audio · Diseño · Comodidad</small></div>
-</div>
-<div class="fe-stage-copy fe-stage-copy-right"><span>02</span><strong>ATENCIÓN</strong><small>Una persona real<br/>cuando la necesitás.</small></div>
-</div>
-<div class="fe-hero-bottom">
-<div><strong>Envíos</strong><span>A todo Argentina</span></div>
-<div><strong>Pago</strong><span>Seguro y simple</span></div>
-<div><strong>Atención</strong><span>Directa por WhatsApp</span></div>
-<a class="fe-scroll-pill" href="#productos"><span>DESCUBRIR</span><i>↓</i></a>
-</div>
-</div>
+
 </section>
-<div class="fe-marquee" aria-hidden="true"><div class="fe-marquee-track"><span>FER⚡ELECTRO</span><i>✦</i><span>AUDIO</span><i>✦</i><span>GADGETS</span><i>✦</i><span>ACCESORIOS</span><i>✦</i><span>POSADAS · MISIONES</span><i>✦</i><span>FER⚡ELECTRO</span><i>✦</i><span>AUDIO</span><i>✦</i><span>GADGETS</span><i>✦</i><span>ACCESORIOS</span><i>✦</i><span>POSADAS · MISIONES</span><i>✦</i></div></div>
-<section class="fe-trust" aria-label="Beneficios de comprar en FER Electro">
-<div class="fe-trust-item"><span>01</span><div><strong>Compra clara</strong><small>Precio, stock y detalles visibles.</small></div></div>
-<div class="fe-trust-item"><span>02</span><div><strong>Atención humana</strong><small>Te respondemos de verdad.</small></div></div>
-<div class="fe-trust-item"><span>03</span><div><strong>Selección cuidada</strong><small>Menos ruido, mejores opciones.</small></div></div>
-<div class="fe-trust-item"><span>04</span><div><strong>Entrega coordinada</strong><small>Seguimiento simple y directo.</small></div></div>
+
+
+<!-- =========================
+     BENEFICIOS
+========================= -->
+
+<section class="features">
+
+
+<div class="feature">
+
+<div class="icon">
+
+⚡
+
+</div>
+
+<div>
+
+<strong>
+CALIDAD PREMIUM
+</strong>
+
+<span>
+Productos seleccionados
+</span>
+
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">
+
+♢
+
+</div>
+
+<div>
+
+<strong>
+ENVÍOS A TODO EL PAÍS
+</strong>
+
+<span>
+Coordinamos la entrega
+</span>
+
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">
+
+♧
+
+</div>
+
+<div>
+
+<strong>
+ATENCIÓN PERSONALIZADA
+</strong>
+
+<span>
+Te asesoramos siempre
+</span>
+
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="icon">
+
+✓
+
+</div>
+
+<div>
+
+<strong>
+COMPRA SEGURA
+</strong>
+
+<span>
+Confianza en cada compra
+</span>
+
+</div>
+
+</div>
+
+
 </section>
 <!-- =========================
      PRODUCTOS
 ========================= -->
+
 <section class="section" id="productos">
-<div class="section-head fe-products-head">
-<div class="fe-section-index">01 / CATÁLOGO</div>
-<div class="kicker">SELECCIÓN FER⚡ELECTRO</div>
-<h2 class="section-title">LO QUE TENEMOS <span>HOY.</span></h2>
-<p class="section-desc">Pocos productos, bien presentados. Precio, stock y detalles claros para decidir sin perder tiempo.</p>
-<div class="fe-head-rule"><span></span><small>STOCK EN TIEMPO REAL</small></div>
+
+<div class="section-head">
+
+<div class="kicker">
+NUESTROS PRODUCTOS
 </div>
+
+<h2 class="section-title">
+LO MEJOR EN <span>TECNOLOGÍA</span>
+</h2>
+
+<p class="section-desc">
+
+Conocé nuestra selección de productos.
+Consultá disponibilidad, características
+y formas de entrega directamente por WhatsApp.
+
+</p>
+
+</div>
+
+
 <div class="products" id="products-grid">
-<div class="products-loading">
+
+    <div class="products-loading">
         Cargando productos...
     </div>
+
 </div>
+
 </section>
+
+
 <!-- =========================
      SOBRE FER ELECTRO
 ========================= -->
 
-<section class="fe-cinematic-break" aria-label="FER Electro, tecnología en movimiento">
-  <div class="fe-cinema-noise" aria-hidden="true"></div>
-  <div class="fe-cinema-orbit fe-cinema-orbit-a" aria-hidden="true"></div>
-  <div class="fe-cinema-orbit fe-cinema-orbit-b" aria-hidden="true"></div>
-  <div class="fe-cinema-flow fe-cinema-flow-a" aria-hidden="true"></div>
-  <div class="fe-cinema-flow fe-cinema-flow-b" aria-hidden="true"></div>
-  <div class="fe-cinema-content">
-    <span class="fe-cinema-kicker">FER⚡ELECTRO / EXPERIENCIA DIGITAL</span>
-    <h2>TECNOLOGÍA QUE<br><em>SE SIENTE.</em></h2>
-    <p>Movimiento, detalle y una experiencia pensada para que comprar se sienta simple desde el primer segundo.</p>
-    <div class="fe-cinema-line"><span></span><small>SCROLL · EXPLORE · SHOP</small></div>
-  </div>
-  <div class="fe-cinema-index">01 — 03</div>
+<section
+class="section about"
+id="nosotros"
+>
+
+<div class="about-grid">
+
+
+<!-- VISUAL -->
+
+<div class="about-visual">
+
+<div class="about-ring">
+
+<img
+src="logo.PNG"
+alt="FER⚡ELECTRO"
+class="about-real-logo"
+>
+
+</div>
+
+</div>
+
+
+<!-- TEXTO -->
+
+<div class="about-copy">
+
+<div class="kicker">
+SOBRE NOSOTROS
+</div>
+
+
+<h2>
+
+TECNOLOGÍA QUE
+<span>ELEVA</span>
+TU DÍA.
+
+</h2>
+
+
+<p>
+
+En FER⚡ELECTRO seleccionamos
+tecnología, audio y accesorios
+pensando en lo que realmente buscás:
+buenos productos, atención cercana
+y una experiencia de compra simple
+y segura.
+
+</p>
+
+
+<div class="points">
+
+
+<div class="point">
+
+<i>✓</i>
+
+Productos seleccionados
+
+</div>
+
+
+<div class="point">
+
+<i>✓</i>
+
+Atención directa por WhatsApp
+
+</div>
+
+
+<div class="point">
+
+<i>✓</i>
+
+Envíos a todo Argentina
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
 </section>
-<section class="fe-about" id="nosotros">
-<div class="fe-about-inner">
-<div class="fe-about-label">02 / NUESTRA FORMA DE HACERLO</div>
-<div class="fe-about-main">
-<div class="fe-about-logo-wrap">
-<div class="fe-about-ring fe-ring-a"></div><div class="fe-about-ring fe-ring-b"></div>
-<img alt="FER⚡ELECTRO" src="logo.PNG"/>
-<span>POSADAS · MISIONES</span>
-</div>
-<div class="fe-about-copy">
-<div class="kicker">SOBRE FER⚡ELECTRO</div>
-<h2>Una tienda chica. <em>Una atención grande.</em></h2>
-<p>Mostramos lo importante, respondemos cuando hace falta y cuidamos cada detalle de la compra. Queremos que entrar, elegir y comprar se sienta fácil.</p>
-<div class="fe-about-points">
-<div><b>01</b><span><strong>Selección</strong><small>Productos con sentido, no por llenar catálogo.</small></span></div>
-<div><b>02</b><span><strong>Claridad</strong><small>Información concreta antes de comprar.</small></span></div>
-<div><b>03</b><span><strong>Cercanía</strong><small>Una persona del otro lado cuando necesitás ayuda.</small></span></div>
-</div>
-</div>
-</div>
-<div class="fe-manifesto"><span>TECNOLOGÍA</span><i>BIEN ELEGIDA.</i><span>BIEN PRESENTADA.</span><i>BIEN ATENDIDA.</i></div>
-</div>
-</section>
+
+
 <!-- =========================
      UBICACIÓN
 ========================= -->
+
 <!-- =========================
      CONTACTO Y UBICACIÓN
 ========================= -->
-<section class="fe-experience" aria-label="Experiencia de compra">
-<div class="fe-exp-side"><span>03 / EXPERIENCIA</span><h2>COMPRAR SIN<br/><em>VUELTAS.</em></h2></div>
-<div class="fe-exp-grid">
-<article><span>01</span><h3>Encontrá rápido</h3><p>Productos bien presentados, con precio, stock y detalles donde tienen que estar.</p></article>
-<article><span>02</span><h3>Elegí tranquilo</h3><p>Descripción clara, características separadas y una navegación sin vueltas.</p></article>
-<article><span>03</span><h3>Consultá fácil</h3><p>WhatsApp a un toque para resolver dudas reales antes de decidir.</p></article>
-<article><span>04</span><h3>Comprá seguro</h3><p>Carrito persistente, checkout cuidado y estructura preparada para Mercado Pago.</p></article>
-</div>
-</section>
-<section class="location" id="contacto">
+
+<section
+class="location"
+id="contacto"
+>
+
 <div class="location-box">
-<div class="location-copy">
-<div class="kicker">
+
+    <div class="location-copy">
+
+        <div class="kicker">
             ¿DÓNDE ESTAMOS?
         </div>
-<h2>
+
+        <h2>
             ITAEMBÉ GUAZÚ
-            <br/>
-<span>POSADAS, MISIONES</span>
-</h2>
-<p>
+            <br>
+            <span>POSADAS, MISIONES</span>
+        </h2>
+
+        <p>
             Consultanos por WhatsApp para conocer
             disponibilidad y coordinar tu entrega.
         </p>
-<div class="address">
+
+        <div class="address">
             📍 Itaembé Guazú, Posadas, Misiones
         </div>
-<a class="address phone-link" href="tel:+543764863227">
+
+        <a
+        class="address phone-link"
+        href="tel:+543764863227"
+        >
             ☎ +54 9 3764 863227
         </a>
-</div>
-<!-- MAPA REAL CLICKEABLE -->
-<a aria-label="Ver ubicación de FER⚡ELECTRO en Google Maps" class="map" href="https://maps.app.goo.gl/BsdCXFUMWgxsmqop9?g_st=ic" rel="noopener" target="_blank">
-<iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Itaembé%20Guazú%2C%20Posadas%2C%20Misiones&amp;output=embed"></iframe>
+
+    </div>
+
+
+    <!-- MAPA REAL CLICKEABLE -->
+
+<a
+class="map"
+href="https://maps.app.goo.gl/BsdCXFUMWgxsmqop9?g_st=ic"
+target="_blank"
+rel="noopener"
+aria-label="Ver ubicación de FER⚡ELECTRO en Google Maps"
+>
+
+<iframe
+src="https://www.google.com/maps?q=Itaembé%20Guazú%2C%20Posadas%2C%20Misiones&output=embed"
+loading="lazy"
+allowfullscreen
+referrerpolicy="no-referrer-when-downgrade"
+></iframe>
+
 <div class="map-overlay">
+
 <div class="map-hint">
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7z" fill="#4285F4"></path>
-<circle cx="12" cy="9" fill="#fff" r="3"></circle>
-<path d="M5.8 15.5 3 20h6.2z" fill="#34A853"></path>
-<path d="m18.2 15.5 2.8 4.5h-6.2z" fill="#FBBC04"></path>
-<path d="M9.2 20H15l-3-5z" fill="#EA4335"></path>
+
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path fill="#4285F4" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7z"/>
+<circle cx="12" cy="9" r="3" fill="#fff"/>
+<path fill="#34A853" d="M5.8 15.5 3 20h6.2z"/>
+<path fill="#FBBC04" d="m18.2 15.5 2.8 4.5h-6.2z"/>
+<path fill="#EA4335" d="M9.2 20H15l-3-5z"/>
 </svg>
 
 VER EN GOOGLE MAPS
 
 </div>
+
 </div>
+
 </a>
-<!-- REDES -->
-<div class="contact-socials">
-<a class="social-card whatsapp-card" href="https://wa.me/543764863227" rel="noopener" target="_blank">
-<span class="social-icon whatsapp-logo">
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"></path>
+
+
+    <!-- REDES -->
+
+    <div class="contact-socials">
+
+        <a
+        class="social-card whatsapp-card"
+        href="https://wa.me/543764863227"
+        target="_blank"
+        rel="noopener"
+        >
+
+            <span class="social-icon whatsapp-logo">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"/>
 </svg>
 </span>
-<span>
-<strong>WhatsApp</strong>
-<small>Escribinos</small>
-</span>
-</a>
-<a class="social-card instagram-card" href="https://www.instagram.com/ferchoo_ferchoo" rel="noopener" target="_blank">
-<span class="social-icon instagram-logo">
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<rect fill="none" height="18" rx="5" stroke="currentColor" stroke-width="2" width="18" x="3" y="3"></rect>
-<circle cx="12" cy="12" fill="none" r="4.2" stroke="currentColor" stroke-width="2"></circle>
-<circle cx="17.5" cy="6.5" fill="currentColor" r="1.2"></circle>
+
+            <span>
+                <strong>WhatsApp</strong>
+                <small>Escribinos</small>
+            </span>
+
+        </a>
+
+
+        <a
+        class="social-card instagram-card"
+        href="https://www.instagram.com/ferchoo_ferchoo"
+        target="_blank"
+        rel="noopener"
+        >
+
+            <span class="social-icon instagram-logo">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
 </svg>
 </span>
-<span>
-<strong>Instagram</strong>
-<small>@ferchoo_ferchoo</small>
-</span>
-</a>
-</div>
-<!-- BOTÓN WHATSAPP -->
-<a class="gold-btn location-btn" href="https://wa.me/543764863227" rel="noopener" target="_blank">
+
+            <span>
+                <strong>Instagram</strong>
+                <small>@ferchoo_ferchoo</small>
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <!-- BOTÓN WHATSAPP -->
+
+    <a
+    class="gold-btn location-btn"
+    href="https://wa.me/543764863227"
+    target="_blank"
+    rel="noopener"
+    >
         ESCRIBIR POR WHATSAPP ◔
     </a>
+
 </div>
+
 </section>
+
 <!-- =========================
      PRODUCTO DINÁMICO
 ========================= -->
-<div aria-hidden="true" class="product-detail" id="producto-dinamico">
-<div class="product-detail-inner">
-<button aria-label="Cerrar" class="product-detail-close" onclick="cerrarProductoDinamico()" type="button">
+
+<div class="product-detail" id="producto-dinamico" aria-hidden="true">
+
+    <div class="product-detail-inner">
+
+        <button
+            type="button"
+            class="product-detail-close"
+            onclick="cerrarProductoDinamico()"
+            aria-label="Cerrar"
+        >
             ×
         </button>
-<div class="product-detail-image">
-<img alt="" class="dynamic-product-image" src="logo-2.PNG"/>
-</div>
-<div class="product-detail-info">
-<div class="kicker dynamic-product-category">
+
+        <div class="product-detail-image">
+
+            <img
+                src="logo-2.PNG"
+                alt=""
+                class="dynamic-product-image"
+            >
+
+        </div>
+
+        <div class="product-detail-info">
+
+            <div class="kicker dynamic-product-category">
                 PRODUCTO
             </div>
-<h2 class="dynamic-product-name">
+
+            <h2 class="dynamic-product-name">
                 Producto
             </h2>
-<section class="product-info-section dynamic-description-section">
-<h3 class="product-info-section-title">Descripción</h3>
-<div class="dynamic-product-description">
+
+            <section class="product-info-section dynamic-description-section">
+                <h3 class="product-info-section-title">Descripción</h3>
+                <div class="dynamic-product-description">
                     Descripción del producto.
                 </div>
-</section>
-<section class="product-info-section dynamic-features-section">
-<h3 class="product-info-section-title">Características principales</h3>
-<div class="dynamic-product-features"></div>
-</section>
-<div class="dynamic-product-price">
+            </section>
+
+            <section class="product-info-section dynamic-features-section">
+                <h3 class="product-info-section-title">Características principales</h3>
+                <div class="dynamic-product-features"></div>
+            </section>
+
+            <div class="dynamic-product-price">
                 $0
             </div>
-<div class="dynamic-product-stock">
+
+            <div class="dynamic-product-stock">
                 Consultando stock...
             </div>
-<div class="quantity-block">
-<div class="quantity-label-row">
-<label for="dynamic-product-qty">CANTIDAD</label>
-<span class="dynamic-qty-help">Elegí cuántas unidades querés.</span>
-</div>
-<div class="quantity-selector">
-<button aria-label="Restar una unidad" class="qty-btn dynamic-qty-minus" type="button">−</button>
-<input aria-label="Cantidad de unidades" class="qty-input dynamic-qty-input" id="dynamic-product-qty" inputmode="numeric" min="1" type="number" value="1"/>
-<button aria-label="Sumar una unidad" class="qty-btn dynamic-qty-plus" type="button">+</button>
-</div>
-</div>
-<button class="gold-btn dynamic-add-cart" type="button">
-                🛒 AGREGAR AL CARRITO
+
+            <div class="quantity-block">
+                <div class="quantity-label-row">
+                    <label for="dynamic-product-qty">CANTIDAD</label>
+                    <span class="dynamic-qty-help">Elegí cuántas unidades querés.</span>
+                </div>
+
+                <div class="quantity-selector">
+                    <button
+                        type="button"
+                        class="qty-btn dynamic-qty-minus"
+                        aria-label="Restar una unidad"
+                    >−</button>
+
+                    <input
+                        id="dynamic-product-qty"
+                        class="qty-input dynamic-qty-input"
+                        type="number"
+                        min="1"
+                        value="1"
+                        inputmode="numeric"
+                        aria-label="Cantidad de unidades"
+                    >
+
+                    <button
+                        type="button"
+                        class="qty-btn dynamic-qty-plus"
+                        aria-label="Sumar una unidad"
+                    >+</button>
+                </div>
+            </div>
+
+            <button
+                type="button"
+                class="gold-btn dynamic-add-cart"
+            >
+                Agregar al carrito
             </button>
+
+        </div>
+
+    </div>
+
 </div>
-</div>
-</div>
+
 </main>
 <!-- =========================
      FOOTER
 ========================= -->
+
 <footer>
+
 <div class="footer-main">
-<!-- MARCA -->
-<div class="footer-brand-box">
-<div class="footer-brand">
+
+    <!-- MARCA -->
+
+    <div class="footer-brand-box">
+
+        <div class="footer-brand">
             FER<span>⚡</span>ELECTRO
         </div>
-<p>
+
+        <p>
             Tecnología, calidad y confianza
             en Posadas, Misiones.
         </p>
-<div class="footer-socials">
-<a aria-label="WhatsApp" href="https://wa.me/543764863227" rel="noopener" target="_blank">
+
+        <div class="footer-socials">
+
+            <a
+            href="https://wa.me/543764863227"
+            target="_blank"
+            rel="noopener"
+            aria-label="WhatsApp"
+            >
                 WhatsApp
             </a>
-<a aria-label="Instagram" href="https://www.instagram.com/ferchoo_ferchoo" rel="noopener" target="_blank">
+
+            <a
+            href="https://www.instagram.com/ferchoo_ferchoo"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+            >
                 Instagram
             </a>
-</div>
-</div>
-<!-- NAVEGACIÓN -->
-<div class="footer-column">
-<h4>NAVEGACIÓN</h4>
-<a href="#inicio">Inicio</a>
-<a href="#productos">Productos</a>
-<a href="#nosotros">Nosotros</a>
-<a href="#contacto">Contacto</a>
-</div>
-<!-- CATEGORÍAS -->
-<div class="footer-column">
-<h4>CATEGORÍAS</h4>
-<a href="#productos">Audio</a>
-<a href="#productos">Gadgets</a>
-<a href="#productos">Hogar</a>
-<a href="#productos">Accesorios</a>
-</div>
-<!-- CONTACTO -->
-<div class="footer-column footer-contact">
-<h4>CONTACTO</h4>
-<a href="tel:+543764863227">
+
+        </div>
+
+    </div>
+
+
+    <!-- NAVEGACIÓN -->
+
+    <div class="footer-column">
+
+        <h4>NAVEGACIÓN</h4>
+
+        <a href="#inicio">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+
+    </div>
+
+
+    <!-- CATEGORÍAS -->
+
+    <div class="footer-column">
+
+        <h4>CATEGORÍAS</h4>
+
+        <a href="#productos">Audio</a>
+        <a href="#productos">Gadgets</a>
+        <a href="#productos">Hogar</a>
+        <a href="#productos">Accesorios</a>
+
+    </div>
+
+
+    <!-- CONTACTO -->
+
+    <div class="footer-column footer-contact">
+
+        <h4>CONTACTO</h4>
+
+        <a href="tel:+543764863227">
             ☎ +54 9 3764 863227
         </a>
-<a href="https://wa.me/543764863227" rel="noopener" target="_blank">
+
+        <a
+        href="https://wa.me/543764863227"
+        target="_blank"
+        rel="noopener"
+        >
             💬 WhatsApp
         </a>
-<a href="https://www.instagram.com/ferchoo_ferchoo" rel="noopener" target="_blank">
+
+        <a
+        href="https://www.instagram.com/ferchoo_ferchoo"
+        target="_blank"
+        rel="noopener"
+        >
             ◎ Instagram
         </a>
+
+    </div>
+
 </div>
-</div>
+
+
 <div class="footer-bottom">
-<span>
+
+    <span>
         © 2026 FER⚡ELECTRO
     </span>
-<span>
+
+    <span>
         Itaembé Guazú · Posadas, Misiones
     </span>
+
 </div>
+
 </footer>
-<!-- NAVEGACIÓN MÓVIL -->
-<nav class="fe-mobile-dock" aria-label="Navegación móvil">
-  <a href="#inicio" aria-label="Ir al inicio"><span class="fe-dock-icon">⌂</span><small>Inicio</small></a>
-  <a href="#productos" aria-label="Ver productos"><span class="fe-dock-icon">◫</span><small>Productos</small></a>
-  <a href="https://wa.me/543764863227" target="_blank" rel="noopener" aria-label="Abrir WhatsApp"><span class="fe-dock-icon">↗</span><small>WhatsApp</small></a>
-  <button type="button" onclick="abrirCarrito()" aria-label="Abrir carrito"><span class="fe-dock-icon">◌</span><small>Carrito</small><b id="mobile-cart-count">0</b></button>
-</nav>
+
+
 <!-- =========================
      WHATSAPP FLOTANTE
 ========================= -->
-<a aria-label="Abrir WhatsApp de FER ELECTRO" class="float-wa" href="https://wa.me/543764863227" rel="noopener" target="_blank">
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"></path>
+
+
+<!-- Navegación móvil -->
+<nav class="mobile-dock" aria-label="Navegación rápida">
+    <a class="mobile-dock-item active" href="#inicio" data-dock="inicio" aria-label="Inicio">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.5 12 3l8.5 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-4.5v-6h-5v6H5a1.5 1.5 0 0 1-1.5-1.5v-9Z"/></svg>
+        <span>Inicio</span>
+    </a>
+    <a class="mobile-dock-item" href="#productos" data-dock="productos" aria-label="Productos">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v14H4z"/><path d="M8 5.5V4h8v1.5M8 10h8"/></svg>
+        <span>Productos</span>
+    </a>
+    <a class="mobile-dock-item" href="https://wa.me/543764863227" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"/></svg>
+        <span>WhatsApp</span>
+    </a>
+    <button class="mobile-dock-item mobile-dock-cart" type="button" onclick="abrirCarrito()" aria-label="Abrir carrito">
+        <span class="mobile-dock-iconwrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2 10h10.5l2-7H7"/><circle cx="9.5" cy="19" r="1.2"/><circle cx="17" cy="19" r="1.2"/></svg>
+            <span class="mobile-cart-count" id="mobile-cart-count">0</span>
+        </span>
+        <span>Carrito</span>
+    </button>
+</nav>
+<a
+class="float-wa"
+href="https://wa.me/543764863227"
+target="_blank"
+rel="noopener"
+aria-label="Abrir WhatsApp de FER ELECTRO"
+>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3zm-8.4 18.1h-.1c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1 1-3.7-.2-.3a9.7 9.7 0 1 1 8.2 4.5zm5.3-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4-.1-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.3 3.6 5.6 5 2.1.9 2.9 1 4 .8.6-.1 1.8-.7 2.1-1.3.3-.6.3-1.2.2-1.3-.1-.1-.3-.2-.6-.4z"/>
 </svg>
 </a>
+
+
 <!-- =========================
      RESPONSIVE
 ========================= -->
+
 <style>
 
 /* =========================
@@ -3701,179 +4160,255 @@ body.checkout-open{
 
 
 </style>
+
+
+
+
 <!-- =========================
      CHECKOUT
 ========================= -->
-<div aria-hidden="true" class="checkout-modal" id="checkout-modal">
-<div aria-labelledby="checkout-title" aria-modal="true" class="checkout-card" role="dialog">
-<button aria-label="Cerrar checkout" class="checkout-close" onclick="cerrarCheckout()" type="button">×</button>
-<section class="checkout-main">
-<div class="checkout-kicker">COMPRA SEGURA</div>
-<h2 class="checkout-title" id="checkout-title">Finalizá tu compra</h2>
-<p class="checkout-intro">
+
+<div
+    id="checkout-modal"
+    class="checkout-modal"
+    aria-hidden="true"
+>
+    <div class="checkout-card" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+        <button
+            type="button"
+            class="checkout-close"
+            onclick="cerrarCheckout()"
+            aria-label="Cerrar checkout"
+        >×</button>
+
+        <section class="checkout-main">
+            <div class="checkout-kicker">COMPRA SEGURA</div>
+            <h2 class="checkout-title" id="checkout-title">Finalizá tu compra</h2>
+            <p class="checkout-intro">
                 Completá tus datos. El importe de los productos se paga por Mercado Pago.
                 La entrega se coordina con FER⚡ELECTRO según tu ubicación.
             </p>
-<form class="checkout-form" id="checkout-form" novalidate="">
-<div class="form-grid">
-<div class="form-field full">
-<label for="checkout-name">NOMBRE Y APELLIDO</label>
-<input autocomplete="name" id="checkout-name" maxlength="100" name="nombre" required="" type="text"/>
-</div>
-<div class="form-field">
-<label for="checkout-email">EMAIL</label>
-<input autocomplete="email" id="checkout-email" maxlength="160" name="email" required="" type="email"/>
-</div>
-<div class="form-field">
-<label for="checkout-phone">TELÉFONO</label>
-<input autocomplete="tel" id="checkout-phone" maxlength="40" name="telefono" required="" type="tel"/>
-</div>
-<div class="form-field full">
-<label for="checkout-address">DOMICILIO</label>
-<input autocomplete="street-address" id="checkout-address" maxlength="180" name="domicilio" required="" type="text"/>
-</div>
-<div class="form-field">
-<label for="checkout-city">CIUDAD / LOCALIDAD</label>
-<input autocomplete="address-level2" id="checkout-city" maxlength="100" name="ciudad" required="" type="text"/>
-</div>
-<div class="form-field">
-<label for="checkout-province">PROVINCIA</label>
-<select autocomplete="address-level1" id="checkout-province" name="provincia" required="">
-<option value="">Elegí una provincia</option>
-<option>Buenos Aires</option>
-<option>Ciudad Autónoma de Buenos Aires</option>
-<option>Catamarca</option>
-<option>Chaco</option>
-<option>Chubut</option>
-<option>Córdoba</option>
-<option>Corrientes</option>
-<option>Entre Ríos</option>
-<option>Formosa</option>
-<option>Jujuy</option>
-<option>La Pampa</option>
-<option>La Rioja</option>
-<option>Mendoza</option>
-<option>Misiones</option>
-<option>Neuquén</option>
-<option>Río Negro</option>
-<option>Salta</option>
-<option>San Juan</option>
-<option>San Luis</option>
-<option>Santa Cruz</option>
-<option>Santa Fe</option>
-<option>Santiago del Estero</option>
-<option>Tierra del Fuego</option>
-<option>Tucumán</option>
-</select>
-</div>
-<div class="form-field">
-<label for="checkout-postal">CÓDIGO POSTAL</label>
-<input autocomplete="postal-code" id="checkout-postal" maxlength="12" name="codigo_postal" required="" type="text"/>
-</div>
-<div class="form-field">
-<label for="checkout-delivery">ENTREGA</label>
-<select id="checkout-delivery" name="entrega" required="">
-<option value="envio">Envío a domicilio</option>
-<option value="coordinar">Coordinar entrega/retiro</option>
-</select>
-</div>
-<div class="form-field full">
-<label for="checkout-notes">ACLARACIONES (OPCIONAL)</label>
-<textarea id="checkout-notes" maxlength="500" name="notas" placeholder="Piso, departamento, referencias, horario, etc."></textarea>
-</div>
-</div>
-<div class="checkout-delivery-note">
+
+            <form id="checkout-form" class="checkout-form" novalidate>
+                <div class="form-grid">
+                    <div class="form-field full">
+                        <label for="checkout-name">NOMBRE Y APELLIDO</label>
+                        <input id="checkout-name" name="nombre" type="text" autocomplete="name" maxlength="100" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="checkout-email">EMAIL</label>
+                        <input id="checkout-email" name="email" type="email" autocomplete="email" maxlength="160" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="checkout-phone">TELÉFONO</label>
+                        <input id="checkout-phone" name="telefono" type="tel" autocomplete="tel" maxlength="40" required>
+                    </div>
+
+                    <div class="form-field full">
+                        <label for="checkout-address">DOMICILIO</label>
+                        <input id="checkout-address" name="domicilio" type="text" autocomplete="street-address" maxlength="180" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="checkout-city">CIUDAD / LOCALIDAD</label>
+                        <input id="checkout-city" name="ciudad" type="text" autocomplete="address-level2" maxlength="100" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="checkout-province">PROVINCIA</label>
+                        <select id="checkout-province" name="provincia" autocomplete="address-level1" required>
+                            <option value="">Elegí una provincia</option>
+                            <option>Buenos Aires</option>
+                            <option>Ciudad Autónoma de Buenos Aires</option>
+                            <option>Catamarca</option>
+                            <option>Chaco</option>
+                            <option>Chubut</option>
+                            <option>Córdoba</option>
+                            <option>Corrientes</option>
+                            <option>Entre Ríos</option>
+                            <option>Formosa</option>
+                            <option>Jujuy</option>
+                            <option>La Pampa</option>
+                            <option>La Rioja</option>
+                            <option>Mendoza</option>
+                            <option>Misiones</option>
+                            <option>Neuquén</option>
+                            <option>Río Negro</option>
+                            <option>Salta</option>
+                            <option>San Juan</option>
+                            <option>San Luis</option>
+                            <option>Santa Cruz</option>
+                            <option>Santa Fe</option>
+                            <option>Santiago del Estero</option>
+                            <option>Tierra del Fuego</option>
+                            <option>Tucumán</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="checkout-postal">CÓDIGO POSTAL</label>
+                        <input id="checkout-postal" name="codigo_postal" type="text" autocomplete="postal-code" maxlength="12" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="checkout-delivery">ENTREGA</label>
+                        <select id="checkout-delivery" name="entrega" required>
+                            <option value="envio">Envío a domicilio</option>
+                            <option value="coordinar">Coordinar entrega/retiro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field full">
+                        <label for="checkout-notes">ACLARACIONES (OPCIONAL)</label>
+                        <textarea id="checkout-notes" name="notas" maxlength="500" placeholder="Piso, departamento, referencias, horario, etc."></textarea>
+                    </div>
+                </div>
+
+                <div class="checkout-delivery-note">
                     El total mostrado corresponde a los productos. El costo de envío no se calcula automáticamente:
                     FER⚡ELECTRO lo coordina según localidad, correo y modalidad elegida.
                 </div>
-<label class="checkout-consent">
-<input id="checkout-consent" required="" type="checkbox"/>
-<span>
+
+                <label class="checkout-consent">
+                    <input id="checkout-consent" type="checkbox" required>
+                    <span>
                         Confirmo que los datos ingresados son correctos y acepto que FER⚡ELECTRO los utilice
                         únicamente para gestionar esta compra, el pago y la entrega.
                     </span>
-</label>
-<div class="checkout-error" id="checkout-error" role="alert"></div>
-<button class="gold-btn checkout-pay" id="checkout-pay" type="submit">
+                </label>
+
+                <div id="checkout-error" class="checkout-error" role="alert"></div>
+
+                <button type="submit" class="gold-btn checkout-pay" id="checkout-pay">
                     PAGAR CON MERCADO PAGO →
                 </button>
-<div class="checkout-secure">
+
+                <div class="checkout-secure">
                     🔒 El pago se procesa en Mercado Pago. FER⚡ELECTRO no recibe ni guarda los datos de tu tarjeta.
                 </div>
-</form>
-</section>
-<aside class="checkout-side">
-<h3>Resumen del pedido</h3>
-<div class="checkout-summary-list" id="checkout-summary-list"></div>
-<div class="checkout-summary-total">
-<div class="checkout-summary-row">
-<span>Productos</span>
-<strong id="checkout-summary-units">0 unidades</strong>
-</div>
-<div class="checkout-summary-row">
-<span>Envío</span>
-<strong>A coordinar</strong>
-</div>
-<div class="checkout-summary-row total">
-<span>TOTAL PRODUCTOS</span>
-<strong id="checkout-summary-total">$0</strong>
-</div>
-</div>
-<div class="checkout-shipping">
+            </form>
+        </section>
+
+        <aside class="checkout-side">
+            <h3>Resumen del pedido</h3>
+            <div id="checkout-summary-list" class="checkout-summary-list"></div>
+
+            <div class="checkout-summary-total">
+                <div class="checkout-summary-row">
+                    <span>Productos</span>
+                    <strong id="checkout-summary-units">0 unidades</strong>
+                </div>
+                <div class="checkout-summary-row">
+                    <span>Envío</span>
+                    <strong>A coordinar</strong>
+                </div>
+                <div class="checkout-summary-row total">
+                    <span>TOTAL PRODUCTOS</span>
+                    <strong id="checkout-summary-total">$0</strong>
+                </div>
+            </div>
+
+            <div class="checkout-shipping">
                 El valor del envío no está incluido en este total. Para una entrega fuera de Posadas se coordina
                 la empresa de transporte y el costo correspondiente.
             </div>
-<button class="checkout-whatsapp" onclick="finalizarPorWhatsApp()" type="button">
+
+            <button type="button" class="checkout-whatsapp" onclick="finalizarPorWhatsApp()">
                 PREFIERO COORDINAR POR WHATSAPP
             </button>
-</aside>
+        </aside>
+    </div>
 </div>
-</div>
+
+
 <!-- =========================
      CARRITO DE COMPRAS
 ========================= -->
-<div aria-hidden="true" class="cart-overlay" id="cart-overlay" onclick="cerrarCarrito()"></div>
-<aside aria-hidden="true" aria-label="Carrito de compras" class="cart-drawer" id="cart-drawer">
-<div class="cart-head">
-<div class="cart-head-copy">
-<strong>Tu carrito</strong>
-<span id="cart-head-count">0 productos</span>
-</div>
-<button aria-label="Cerrar carrito" class="cart-close" onclick="cerrarCarrito()" type="button">×</button>
-</div>
-<div class="cart-items" id="cart-items"></div>
-<div class="cart-footer" id="cart-footer">
-<div class="cart-summary-row">
-<span>Productos</span>
-<strong id="cart-units">0 unidades</strong>
-</div>
-<div class="cart-total-row">
-<span>TOTAL</span>
-<strong id="cart-total">$0</strong>
-</div>
-<button class="gold-btn cart-checkout" id="cart-checkout" onclick="abrirCheckout()" type="button">
+
+<div
+    id="cart-overlay"
+    class="cart-overlay"
+    onclick="cerrarCarrito()"
+    aria-hidden="true"
+></div>
+
+<aside
+    id="cart-drawer"
+    class="cart-drawer"
+    aria-label="Carrito de compras"
+    aria-hidden="true"
+>
+    <div class="cart-head">
+        <div class="cart-head-copy">
+            <strong>Tu carrito</strong>
+            <span id="cart-head-count">0 productos</span>
+        </div>
+
+        <button
+            type="button"
+            class="cart-close"
+            onclick="cerrarCarrito()"
+            aria-label="Cerrar carrito"
+        ><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+
+    <div class="cart-items" id="cart-items"></div>
+
+    <div class="cart-footer" id="cart-footer">
+        <div class="cart-summary-row">
+            <span>Productos</span>
+            <strong id="cart-units">0 unidades</strong>
+        </div>
+
+        <div class="cart-total-row">
+            <span>TOTAL</span>
+            <strong id="cart-total">$0</strong>
+        </div>
+
+        <button
+            type="button"
+            class="gold-btn cart-checkout"
+            id="cart-checkout"
+            onclick="abrirCheckout()"
+        >
             CONTINUAR COMPRA →
         </button>
-<div class="cart-checkout-note">
+
+        <div class="cart-checkout-note">
             Completá tus datos y pagá de forma segura con Mercado Pago. El envío se coordina según tu ubicación.
         </div>
-<div class="cart-footer-actions">
-<button class="cart-link-button" onclick="cerrarCarrito()" type="button">
+
+        <div class="cart-footer-actions">
+            <button
+                type="button"
+                class="cart-link-button"
+                onclick="cerrarCarrito()"
+            >
                 SEGUIR COMPRANDO
             </button>
-<button class="cart-link-button" onclick="vaciarCarrito()" type="button">
+
+            <button
+                type="button"
+                class="cart-link-button"
+                onclick="vaciarCarrito()"
+            >
                 VACIAR CARRITO
             </button>
-</div>
-</div>
+        </div>
+    </div>
 </aside>
-<div aria-atomic="true" aria-live="polite" class="cart-toast" id="cart-toast" role="status">
-<span class="cart-toast-icon">✓</span>
-<div>
-<strong>Producto agregado</strong>
-<span>Se agregó al carrito correctamente.</span>
+
+<div id="cart-toast" class="cart-toast" role="status" aria-live="polite" aria-atomic="true">
+    <span class="cart-toast-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7"/></svg></span>
+    <div>
+        <strong>Producto agregado</strong>
+        <span>Se agregó al carrito correctamente.</span>
+    </div>
 </div>
-</div>
+
+
 <script>
 const FER_CART_KEY = "ferCarrito";
 const FER_WHATSAPP = "543764863227";
@@ -4189,7 +4724,7 @@ async function cargarProductosDesdeSupabase() {
                             class="gold-btn add-card-product"
                             ${sinStock ? "disabled" : ""}
                         >
-                            ${sinStock ? "SIN STOCK" : "🛒 AGREGAR AL CARRITO"}
+                            ${sinStock ? "SIN STOCK" : "Agregar al carrito"}
                         </button>
                     </div>
                 </div>
@@ -4362,7 +4897,7 @@ function verProducto(producto) {
     if (boton) {
         boton.disabled = stock <= 0;
         boton.textContent =
-            stock > 0 ? "🛒 AGREGAR AL CARRITO" : "SIN STOCK";
+            stock > 0 ? "Agregar al carrito" : "SIN STOCK";
 
         boton.onclick = () => {
             if (stock <= 0) return;
@@ -4403,9 +4938,28 @@ function mostrarToastCarrito(
 
     const tituloToast = toast.querySelector("strong");
     const mensajeToast = toast.querySelector("div span");
+    const iconoToast = toast.querySelector(".cart-toast-icon");
 
     if (tituloToast) tituloToast.textContent = titulo;
     if (mensajeToast) mensajeToast.textContent = mensaje;
+
+    const tituloNormalizado = String(titulo || "").toLowerCase();
+    let tipoToast = "add";
+    let icono = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.2 4.2L19 7"/></svg>';
+
+    if (tituloNormalizado.includes("eliminado")) {
+        tipoToast = "remove";
+        icono = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg>';
+    } else if (tituloNormalizado.includes("vacío")) {
+        tipoToast = "empty";
+        icono = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 7.5h15l-1.2 11a2 2 0 0 1-2 1.8H7.7a2 2 0 0 1-2-1.8l-1.2-11ZM8.5 9V6a3.5 3.5 0 0 1 7 0v3"/></svg>';
+    } else if (tituloNormalizado.includes("stock") || tituloNormalizado.includes("sin stock")) {
+        tipoToast = "warning";
+        icono = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 17h.01"/><path d="M10.3 3.9 2.6 17.2A2 2 0 0 0 4.3 20h15.4a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>';
+    }
+
+    toast.dataset.type = tipoToast;
+    if (iconoToast) iconoToast.innerHTML = icono;
 
     toast.classList.remove("active");
     void toast.offsetWidth;
@@ -4533,6 +5087,7 @@ function renderCarrito() {
     const carrito = leerCarrito();
     const contenedor = document.getElementById("cart-items");
     const contador = document.getElementById("cart-count");
+    const contadorMobile = document.getElementById("mobile-cart-count");
     const contadorCabecera = document.getElementById("cart-head-count");
     const unidadesTexto = document.getElementById("cart-units");
     const totalTexto = document.getElementById("cart-total");
@@ -4554,6 +5109,11 @@ function renderCarrito() {
             "aria-label",
             `${unidades} ${unidades === 1 ? "producto" : "productos"} en el carrito`
         );
+    }
+
+    if (contadorMobile) {
+        contadorMobile.textContent = unidades > 99 ? "99+" : String(unidades);
+        contadorMobile.style.display = unidades > 0 ? "grid" : "none";
     }
 
     if (contadorCabecera) {
@@ -4579,7 +5139,7 @@ function renderCarrito() {
         contenedor.innerHTML = `
             <div class="cart-empty">
                 <div class="cart-empty-inner">
-                    <div class="cart-empty-icon">🛒</div>
+                    <div class="cart-empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 7.5h15l-1.2 11a2 2 0 0 1-2 1.8H7.7a2 2 0 0 1-2-1.8l-1.2-11Z"/><path d="M8.5 9V6a3.5 3.5 0 0 1 7 0v3"/></svg></div>
                     <h3>Tu carrito está vacío</h3>
                     <p>
                         Elegí tus productos, seleccioná la cantidad y agregalos al carrito.
@@ -4631,7 +5191,9 @@ function renderCarrito() {
                         class="cart-remove"
                         aria-label="Eliminar ${textoSeguro(item.nombre || "producto")} del carrito"
                     >
-                        ×
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/>
+                        </svg>
                     </button>
                 </div>
 
@@ -5024,805 +5586,29 @@ document.getElementById("checkout-modal")?.addEventListener("click", evento => {
 renderCarrito();
 cargarProductosDesdeSupabase();
 comprobarRetornoPago();
-</script>
-<script>
 
-/* FER⚡ELECTRO — movimiento editorial progresivo */
-(() => {
-  const root = document.documentElement;
-  root.classList.add('js-motion');
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const nav = document.querySelector('.nav');
-  const stage = document.querySelector('.hero-stage');
+// Navegación móvil: resalta la sección visible sin interferir con el carrito.
+(function configurarDockMovil(){
+    const items = Array.from(document.querySelectorAll('.mobile-dock-item[data-dock]'));
+    if (!items.length) return;
 
-  const updateNav = () => {
-    if (!nav) return;
-    nav.classList.toggle('fe-scrolled', window.scrollY > 24);
-  };
-  updateNav();
-  window.addEventListener('scroll', updateNav, {passive:true});
+    const actualizar = () => {
+        const productos = document.getElementById('productos');
+        const y = window.scrollY + window.innerHeight * 0.34;
+        const enProductos = productos && y >= productos.offsetTop;
+        items.forEach(item => {
+            item.classList.toggle('active', enProductos ? item.dataset.dock === 'productos' : item.dataset.dock === 'inicio');
+        });
+    };
 
-  if (!reduceMotion && stage && window.matchMedia('(pointer:fine)').matches) {
-    let raf = 0;
-    stage.addEventListener('pointermove', (event) => {
-      const rect = stage.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - .5) * 18;
-      const y = ((event.clientY - rect.top) / rect.height - .5) * 18;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        stage.style.setProperty('--mx', `${x}px`);
-        stage.style.setProperty('--my', `${y}px`);
-      });
-    });
-    stage.addEventListener('pointerleave', () => {
-      stage.style.setProperty('--mx','0px');
-      stage.style.setProperty('--my','0px');
-    });
-  }
-
-  if (reduceMotion || !('IntersectionObserver' in window)) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('fe-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:.13, rootMargin:'0px 0px -7% 0px'});
-
-  const hookReveal = (scope=document) => {
-    scope.querySelectorAll('.section-head,.feature,.about-visual,.about-copy,.point,.location-copy,.map,.contact-socials,.footer-main').forEach((el) => {
-      if (el.classList.contains('fe-reveal')) return;
-      el.classList.add('fe-reveal');
-      observer.observe(el);
-    });
-  };
-  hookReveal();
-
-  const productGrid = document.getElementById('products-grid');
-  if (productGrid) {
-    const productsObserver = new MutationObserver(() => {
-      productGrid.querySelectorAll('.product').forEach((card) => {
-        if (card.dataset.motionReady) return;
-        card.dataset.motionReady = '1';
-      });
-    });
-    productsObserver.observe(productGrid,{childList:true});
-  }
+    window.addEventListener('scroll', actualizar, { passive:true });
+    window.addEventListener('resize', actualizar);
+    actualizar();
 })();
-</script>
-<script id="fe-premium-motion">
-(() => {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const progress = document.createElement('div');
-  progress.className = 'fe-progress';
-  document.body.appendChild(progress);
-  const updateProgress = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
-  };
-  updateProgress();
-  addEventListener('scroll', updateProgress, {passive:true});
 
-  if (!reduce && matchMedia('(pointer:fine)').matches) {
-    document.documentElement.classList.add('has-fine-pointer');
-    const glow = document.createElement('div');
-    glow.className = 'fe-cursor-glow'; document.body.appendChild(glow);
-    addEventListener('pointermove', e => { glow.style.left=e.clientX+'px'; glow.style.top=e.clientY+'px'; }, {passive:true});
-    const stage = document.querySelector('[data-parallax-stage]');
-    const card = stage?.querySelector('.fe-stage-product-card');
-    if (stage && card) {
-      stage.addEventListener('pointermove', e => {
-        const r = stage.getBoundingClientRect();
-        const x = (e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
-        card.style.setProperty('--ry', `${x*7}deg`);
-        card.style.setProperty('--rx', `${-y*5}deg`);
-      });
-      stage.addEventListener('pointerleave', () => { card.style.setProperty('--ry','0deg'); card.style.setProperty('--rx','0deg'); });
-    }
-  }
-
-  if (!reduce && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('fe-in'); observer.unobserve(entry.target); }
-    }), {threshold:.12, rootMargin:'0px 0px -6% 0px'});
-    const prepare = (root=document) => root.querySelectorAll('.fe-products-head,.product,.fe-about-main,.fe-manifesto,.fe-exp-side,.fe-exp-grid article,.location-copy,.map,.contact-socials').forEach((el,i)=>{
-      if(el.classList.contains('fe-reveal-100')) return;
-      el.classList.add('fe-reveal-100');
-      el.style.transitionDelay = Math.min((i%4)*70,210)+'ms'; observer.observe(el);
-    });
-    prepare();
-    const grid = document.getElementById('products-grid');
-    if(grid) new MutationObserver(()=>prepare(grid)).observe(grid,{childList:true,subtree:true});
-  }
-})();
-</script>
-
-
-
-<style id="fe-signature-120">
-:root{
-  --sig-ink:#0b0b0b;
-  --sig-ink-2:#171715;
-  --sig-paper:#f5f2ea;
-  --sig-paper-2:#fbfaf6;
-  --sig-white:#fff;
-  --sig-gold:#b8891d;
-  --sig-gold-2:#d8b95b;
-  --sig-muted:#6c685f;
-  --sig-line:rgba(11,11,11,.11);
-  --sig-ease:cubic-bezier(.22,.75,.16,1);
-  --sig-shadow:0 26px 90px rgba(20,17,11,.10);
-}
-html{scroll-padding-top:96px;background:var(--sig-paper-2)}
-body{background:var(--sig-paper-2);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--sig-ink);letter-spacing:-.01em}
-body,button,input,textarea,select{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-button,a{-webkit-tap-highlight-color:transparent}
-.topbar{background:var(--sig-ink);height:28px;font-size:8px;letter-spacing:.16em;color:#f6f1e6}
-.fe-nav{padding:10px 18px;background:rgba(251,250,246,.78);backdrop-filter:blur(22px) saturate(150%)}
-.fe-nav-inner{height:66px;border-radius:22px;border:1px solid rgba(11,11,11,.08);background:rgba(255,255,255,.88);box-shadow:0 8px 28px rgba(20,17,11,.05);padding:0 20px}
-.fe-brand-center .nav-logo{width:152px;height:46px}
-.fe-nav-left a,.fe-nav-whatsapp{font-size:10px;letter-spacing:.055em}
-.fe-nav .cart-trigger{border-radius:16px;background:var(--sig-ink);height:44px;min-width:108px}
-
-/* hero editorial */
-.fe-hero{padding:12px 18px 28px;background:var(--sig-paper-2)}
-.fe-hero-shell{width:min(1440px,100%);min-height:calc(100svh - 132px);border-radius:32px;border:1px solid rgba(11,11,11,.08);background:
-  radial-gradient(circle at 22% 18%,rgba(216,185,91,.18),transparent 30%),
-  radial-gradient(circle at 82% 74%,rgba(184,137,29,.08),transparent 28%),
-  linear-gradient(155deg,#fff 0%,#f8f5ed 58%,#f1ebdc 100%);
-  box-shadow:var(--sig-shadow)
-}
-.fe-hero-gridlines{opacity:.45;background-size:84px 84px}
-.fe-hero-glow{display:none}
-.fe-hero-topline{padding:24px 30px 0;color:#767166;font-size:8px}
-.fe-hero-center{padding:34px 24px 12px;max-width:1020px}
-.fe-hero-eyebrow{display:inline-flex;align-items:center;justify-content:center;min-height:26px;padding:0 11px;border:1px solid rgba(11,11,11,.10);border-radius:999px;background:rgba(255,255,255,.58);font-size:8px;letter-spacing:.18em;color:#6c685f;margin-bottom:18px}
-.fe-hero-logo{width:clamp(166px,17vw,238px);margin-bottom:22px;filter:none}
-.fe-hero h1{font-size:clamp(68px,8.7vw,140px);line-height:.81;letter-spacing:-.076em;font-weight:780}
-.fe-hero h1 em{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-weight:400;color:var(--sig-gold);font-size:.56em;letter-spacing:-.04em;margin-top:12px}
-.fe-hero-center>p{font-size:clamp(15px,1.2vw,18px);line-height:1.65;max-width:560px;color:#5f5b53;margin-top:26px}
-.fe-hero-cta-row{margin-top:24px;gap:10px}
-.fe-btn-primary,.fe-btn-ghost{height:50px;border-radius:16px;padding:0 20px;font-size:10px;letter-spacing:.045em;transition:.35s var(--sig-ease)}
-.fe-btn-primary{background:var(--sig-ink);box-shadow:0 12px 28px rgba(11,11,11,.12)}
-.fe-btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(11,11,11,.16)}
-.fe-btn-ghost{border-color:rgba(11,11,11,.12);background:rgba(255,255,255,.7)}
-.fe-product-stage{height:320px;width:min(900px,80vw);grid-template-columns:1fr 350px 1fr;margin:-4px auto 2px}
-.fe-stage-product-card{height:292px;border-radius:26px;border:1px solid rgba(11,11,11,.08);background:rgba(255,255,255,.72);box-shadow:0 22px 70px rgba(35,29,17,.10);backdrop-filter:blur(8px)}
-.fe-stage-product-card::before{inset:12px;border-radius:18px;border-color:rgba(11,11,11,.055)}
-.fe-stage-product-img{width:84%;height:76%;filter:drop-shadow(0 24px 24px rgba(0,0,0,.15));animation:feFloat 6s var(--sig-ease) infinite}
-.fe-stage-badge{top:18px;left:18px;background:rgba(255,255,255,.84);font-size:7px}
-.fe-stage-caption{left:20px;right:20px;bottom:16px}
-.fe-stage-copy small{font-size:9px;color:#7b766b}
-.fe-hero-bottom{padding:0 30px 24px;gap:18px}
-.fe-hero-bottom>div{border-top:1px solid rgba(11,11,11,.10)}
-.fe-scroll-pill{width:78px;height:78px;background:var(--sig-ink)}
-
-.fe-marquee{background:var(--sig-ink);border:0}
-.fe-marquee-track{padding:11px 0;gap:24px}
-.fe-marquee span{font-size:8px;letter-spacing:.19em}
-.fe-trust{margin:12px auto 0;border-radius:22px;border:1px solid var(--sig-line);background:#fff;overflow:hidden;box-shadow:0 18px 60px rgba(20,17,11,.05)}
-.fe-trust-item{padding:22px 24px}
-.fe-trust-item strong{font-size:12px;letter-spacing:-.01em}.fe-trust-item small{font-size:10px}
-
-/* catalog */
-#productos.section{padding:116px 5.5% 128px;background:var(--sig-paper-2)}
-.fe-products-head{max-width:1320px;margin:0 auto 54px;text-align:left;display:grid;grid-template-columns:.34fr 1.2fr .78fr;column-gap:34px;align-items:end}
-.fe-section-index{grid-column:1;grid-row:1 / span 3;align-self:start;padding-top:8px;font-size:8px;letter-spacing:.16em;color:#928d83}
-.fe-products-head .kicker{grid-column:2;margin:0 0 12px;font-size:9px;letter-spacing:.17em;color:#8b6c1b}
-.fe-products-head .section-title{grid-column:2;font-size:clamp(52px,6.2vw,86px);line-height:.88;letter-spacing:-.062em;font-weight:780;margin:0}
-.fe-products-head .section-title span{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-weight:400;font-style:italic;color:var(--sig-gold)}
-.fe-products-head .section-desc{grid-column:3;grid-row:2;align-self:end;margin:0;font-size:13px;line-height:1.7;color:#6b675f;max-width:360px}
-.fe-head-rule{grid-column:2 / 4;margin-top:24px}
-.products{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
-.product{border-radius:24px!important;border:1px solid rgba(11,11,11,.09)!important;background:#fff!important;box-shadow:0 14px 50px rgba(20,17,11,.045)!important;transition:.45s var(--sig-ease)!important}
-.product:hover{transform:translateY(-7px)!important;box-shadow:0 28px 70px rgba(20,17,11,.10)!important;border-color:rgba(184,137,29,.22)!important}
-.product-img{height:360px!important;background:linear-gradient(155deg,#f7f4ec,#eee8dc)!important}
-.product-img::after{inset:12px;border-radius:17px;border-color:rgba(11,11,11,.055)}
-.product-real-image{width:84%!important;height:84%!important;filter:drop-shadow(0 22px 20px rgba(0,0,0,.12))}
-.product-info{padding:24px!important}
-.product-info h3{font-size:20px!important;font-weight:720!important;letter-spacing:-.03em!important}
-.product-card-description{font-size:12px!important;color:#6d685f!important;min-height:auto}
-.product-price{font-size:27px!important;font-weight:760!important;margin-top:18px!important}
-.product-stock{color:#8f897f!important}
-.view-product,.add-card-product{border-radius:14px!important}
-.add-card-product{background:var(--sig-ink)!important;height:50px!important}
-.view-product{height:46px!important;background:#f8f6f0!important}
-
-/* dark brand story */
-.fe-about{padding:122px 5.5%;background:#0d0d0c}
-.fe-about-main{gap:68px;padding:62px 0}
-.fe-about-logo-wrap{height:440px;border-radius:28px;background:radial-gradient(circle at 50% 46%,rgba(216,185,91,.16),transparent 48%);border-color:rgba(255,255,255,.10)}
-.fe-about-logo-wrap img{width:min(58%,300px)}
-.fe-about-copy h2{font-size:clamp(50px,5.8vw,82px);letter-spacing:-.06em;font-weight:760}
-.fe-about-copy h2 em{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;color:#d6b454}
-.fe-about-copy>p{font-size:15px;max-width:610px}
-.fe-about-points>div{padding:18px 0}.fe-about-points strong{font-size:13px}.fe-about-points small{font-size:10px}
-.fe-manifesto{font-size:clamp(22px,2.5vw,38px);gap:13px}
-
-.fe-experience{padding:116px 5.5%;background:#efeae0;gap:64px}
-.fe-exp-side h2{font-size:clamp(54px,6.4vw,92px);font-weight:760;letter-spacing:-.065em}
-.fe-exp-side h2 em{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;color:var(--sig-gold)}
-.fe-exp-grid article{min-height:240px;padding:28px}.fe-exp-grid h3{font-size:23px}
-.location{padding:116px 5.5%!important;background:var(--sig-paper-2)!important}
-.location-copy,.map{border-radius:24px!important}.location-copy{padding:38px!important}
-.social-card{border-radius:18px!important}
-
-/* Product modal + checkout feel more like native sheets */
-.product-detail-inner{border-radius:28px!important;box-shadow:0 34px 100px rgba(0,0,0,.24)!important}
-.product-detail-image{background:linear-gradient(155deg,#f7f4ec,#eee8dc)!important}
-.product-info-section{border-top:1px solid rgba(11,11,11,.08);padding-top:18px}
-.checkout-card{border-radius:28px!important}
-
-/* Mobile dock hidden on desktop */
-.fe-mobile-dock{display:none}
-
-@media(max-width:900px){
-  html{scroll-padding-top:80px}
-  body{padding-bottom:0}
-  .topbar{height:26px;font-size:7px;letter-spacing:.12em}
-  .fe-nav{padding:7px 8px}
-  .fe-nav-inner{height:58px;border-radius:18px;padding:0 10px;grid-template-columns:44px 1fr 44px}
-  .fe-brand-center{grid-column:2}.fe-brand-center .nav-logo{width:140px;height:42px}
-  .fe-nav-right{grid-column:3}.fe-nav .cart-trigger{width:42px;height:42px;min-width:42px;border-radius:13px;padding:0}.fe-nav .cart-trigger svg{width:16px}.fe-nav .cart-count{top:-3px;right:-3px}
-  .fe-nav-left,.fe-nav-whatsapp,.cart-trigger-label{display:none!important}
-
-  .fe-hero{padding:6px 8px 14px}
-  .fe-hero-shell{min-height:auto;border-radius:24px;box-shadow:0 16px 54px rgba(20,17,11,.07);grid-template-rows:auto auto auto auto}
-  .fe-hero-gridlines{background-size:54px 54px;opacity:.35}
-  .fe-hero-topline{justify-content:center;padding:18px 16px 0;font-size:6.5px;letter-spacing:.15em}.fe-live-dot{display:none}
-  .fe-hero-center{padding:24px 16px 14px}
-  .fe-hero-eyebrow{min-height:24px;font-size:7px;margin-bottom:14px;padding:0 9px}
-  .fe-hero-logo{width:164px;margin-bottom:16px}
-  .fe-hero h1{font-size:clamp(50px,14.2vw,70px);line-height:.84;letter-spacing:-.065em}
-  .fe-hero h1 em{font-size:.54em;line-height:1.02;margin-top:10px}
-  .fe-hero-center>p{font-size:14px;line-height:1.55;margin-top:18px;max-width:360px}
-  .fe-hero-cta-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:410px;margin:20px auto 0}
-  .fe-btn-primary,.fe-btn-ghost{height:48px;width:100%;border-radius:14px;padding:0 12px;font-size:9px;gap:8px}
-
-  .fe-product-stage{width:calc(100% - 26px);height:286px;grid-template-columns:1fr;margin:6px auto 12px}
-  .fe-stage-product-card{height:272px;border-radius:22px;box-shadow:0 16px 44px rgba(25,21,13,.10)}
-  .fe-stage-product-card::before{inset:10px;border-radius:15px}
-  .fe-stage-product-img{width:90%;height:77%;animation:feFloat 6.5s ease-in-out infinite}
-  .fe-stage-badge{top:14px;left:14px;font-size:6.5px;padding:6px 9px}
-  .fe-stage-caption{left:16px;right:16px;bottom:13px}.fe-stage-caption span{font-size:9px}.fe-stage-caption small{font-size:7px}
-  .fe-stage-copy,.fe-stage-orbit{display:none}
-  .fe-hero-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:0 12px 12px}
-  .fe-hero-bottom>div{border:1px solid rgba(11,11,11,.08);background:rgba(255,255,255,.62);border-radius:14px;padding:10px 8px;min-width:0}
-  .fe-hero-bottom strong{font-size:7px;letter-spacing:.08em}.fe-hero-bottom span{font-size:7.5px;line-height:1.25}.fe-scroll-pill{display:none}
-
-  .fe-marquee-track{padding:9px 0;gap:18px}.fe-marquee span{font-size:7px}
-  .fe-trust{width:calc(100% - 16px);margin:8px auto 0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border:0;border-radius:0;background:transparent;box-shadow:none;gap:8px;padding:0 0 6px;scrollbar-width:none}.fe-trust::-webkit-scrollbar{display:none}
-  .fe-trust-item{flex:0 0 78%;scroll-snap-align:center;border:1px solid var(--sig-line)!important;border-radius:18px;background:#fff;padding:18px 18px;min-height:86px}
-  .fe-trust-item span{font-size:8px}.fe-trust-item strong{font-size:13px}.fe-trust-item small{font-size:10px}
-
-  #productos.section{padding:78px 14px 92px}
-  .fe-products-head{display:block;margin-bottom:30px}
-  .fe-section-index{font-size:7px;margin-bottom:20px}.fe-products-head .kicker{font-size:8px;margin-bottom:10px}
-  .fe-products-head .section-title{font-size:clamp(44px,12vw,60px);line-height:.89;letter-spacing:-.058em;max-width:340px}
-  .fe-products-head .section-desc{font-size:13px;line-height:1.62;margin-top:16px;max-width:330px}
-  .fe-head-rule{margin-top:20px}
-  .products{display:grid;grid-template-columns:1fr;gap:14px}
-  .product{border-radius:22px!important;box-shadow:0 10px 36px rgba(20,17,11,.055)!important}
-  .product:hover{transform:none!important}
-  .product-img{height:320px!important}
-  .product-info{padding:20px!important}
-  .product-info h3{font-size:19px!important}.product-card-description{font-size:12px!important}
-  .product-price{font-size:26px!important}
-  .view-product,.add-card-product{height:48px!important;border-radius:13px!important}
-
-  .fe-about{padding:82px 14px}
-  .fe-about-main{grid-template-columns:1fr;gap:34px;padding:36px 0}
-  .fe-about-logo-wrap{height:300px;border-radius:22px}.fe-about-logo-wrap img{width:min(62%,220px)}
-  .fe-about-copy h2{font-size:clamp(46px,12vw,62px);line-height:.92}
-  .fe-about-copy>p{font-size:14px;line-height:1.65}
-  .fe-about-points>div{grid-template-columns:34px 1fr}.fe-about-points span{display:block}.fe-about-points small{display:block;text-align:left;margin-top:5px}
-  .fe-manifesto{font-size:22px;line-height:1.08}
-
-  .fe-experience{padding:82px 14px;grid-template-columns:1fr;gap:32px}
-  .fe-exp-side h2{font-size:clamp(50px,13vw,68px);position:static;margin-top:12px}
-  .fe-exp-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border:0;gap:10px;padding-bottom:4px;scrollbar-width:none}.fe-exp-grid::-webkit-scrollbar{display:none}
-  .fe-exp-grid article{flex:0 0 84%;scroll-snap-align:center;border:1px solid var(--sig-line);border-radius:18px;background:rgba(255,255,255,.4);min-height:220px;padding:22px}
-
-  .location{padding:82px 14px 100px!important}.location-box{grid-template-columns:1fr!important;gap:12px!important}.location-copy{padding:26px!important;border-radius:20px!important}.location-copy h2{font-size:clamp(40px,11vw,56px)!important}.map{min-height:300px!important;border-radius:20px!important}.contact-socials{grid-template-columns:1fr!important;gap:10px!important}.social-card{border-radius:16px!important}
-
-  .product-detail{padding:0!important;align-items:flex-end!important;background:rgba(10,10,10,.50)!important;backdrop-filter:blur(10px)}
-  .product-detail-inner{width:100%!important;max-height:94dvh!important;border-radius:24px 24px 0 0!important;grid-template-columns:1fr!important;overflow:auto!important}
-  .product-detail-image{min-height:300px!important;height:36dvh!important}.product-detail-info{padding:24px 18px calc(24px + env(safe-area-inset-bottom))!important}
-  .product-detail-close{position:sticky!important;top:12px!important;margin-left:auto!important;z-index:6!important}
-
-  .checkout-modal{padding:0!important;align-items:flex-end!important}.checkout-card{max-height:94dvh!important;border-radius:24px 24px 0 0!important;grid-template-columns:1fr!important;overflow:auto!important}
-
-  .float-wa{display:none!important}
-  .fe-mobile-dock{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));height:64px;padding:6px;border:1px solid rgba(11,11,11,.10);border-radius:20px;background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(150%);box-shadow:0 18px 50px rgba(0,0,0,.15);z-index:170}
-  .fe-mobile-dock a,.fe-mobile-dock button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:0;background:transparent;color:#6e695f;border-radius:14px;font:inherit;text-decoration:none;min-width:0}
-  .fe-mobile-dock a:active,.fe-mobile-dock button:active{background:#f0ece2;transform:scale(.97)}
-  .fe-dock-icon{font-size:18px;line-height:1;color:#171715}.fe-mobile-dock small{font-size:7px;font-weight:700;letter-spacing:.02em}
-  .fe-mobile-dock b{position:absolute;right:9px;top:6px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--sig-gold);color:#111;font-size:8px;line-height:16px}
-  body{padding-bottom:calc(82px + env(safe-area-inset-bottom))}
-  .cart-toast{bottom:calc(82px + env(safe-area-inset-bottom))!important;left:12px!important;right:12px!important;min-width:0!important;max-width:none!important}
-}
-
-@media(max-width:430px){
-  .topbar{font-size:6.5px;white-space:nowrap;overflow:hidden}
-  .fe-nav-inner{height:56px}.fe-brand-center .nav-logo{width:134px}
-  .fe-hero{padding:4px 6px 12px}.fe-hero-shell{border-radius:20px}
-  .fe-hero-topline{padding-top:15px}
-  .fe-hero-center{padding:20px 14px 12px}
-  .fe-hero-logo{width:154px;margin-bottom:14px}
-  .fe-hero h1{font-size:clamp(46px,13.7vw,60px)}
-  .fe-hero-center>p{font-size:13.5px;max-width:330px}
-  .fe-hero-cta-row{grid-template-columns:1fr;gap:7px}.fe-btn-primary,.fe-btn-ghost{height:46px}
-  .fe-product-stage{height:252px;width:calc(100% - 20px)}.fe-stage-product-card{height:242px}.fe-stage-product-img{width:92%;height:78%}
-  .fe-stage-caption small{display:none}
-  .fe-hero-bottom{grid-template-columns:1fr 1fr 1fr;gap:5px;padding:0 9px 9px}.fe-hero-bottom>div{padding:9px 6px}.fe-hero-bottom span{font-size:6.8px}
-  .fe-trust-item{flex-basis:86%}
-  #productos.section{padding-left:12px;padding-right:12px}
-  .product-img{height:292px!important}
-  .fe-about,.fe-experience{padding-left:12px;padding-right:12px}
-  .fe-about-logo-wrap{height:260px}.fe-manifesto{font-size:20px}
-  .fe-exp-grid article{flex-basis:88%}
-  .location{padding-left:12px!important;padding-right:12px!important}
-}
-
-@media(min-width:901px){
-  .fe-hero-shell{transition:transform .5s var(--sig-ease),box-shadow .5s var(--sig-ease)}
-  .fe-hero-shell:hover{box-shadow:0 38px 110px rgba(20,17,11,.12)}
-  .product{will-change:transform}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .fe-stage-product-img{animation:none!important}
-  .fe-mobile-dock,.product,.fe-btn-primary,.fe-btn-ghost{transition:none!important}
-}
-</style>
-
-<script id="fe-mobile-cart-sync">
-(function(){
-  function syncMobileCartCount(){
-    var desktop=document.getElementById('cart-count');
-    var mobile=document.getElementById('mobile-cart-count');
-    if(!desktop||!mobile) return;
-    mobile.textContent=desktop.textContent||'0';
-  }
-  document.addEventListener('DOMContentLoaded',function(){
-    syncMobileCartCount();
-    var desktop=document.getElementById('cart-count');
-    if(desktop && 'MutationObserver' in window){
-      new MutationObserver(syncMobileCartCount).observe(desktop,{childList:true,characterData:true,subtree:true});
-    }
-  });
-})();
-</script>
-
-
-<style id="fe-cinematic-backgrounds-v1">
-/* =========================================================
-   FER⚡ELECTRO — FONDOS CINEMÁTICOS / HTML + CSS PURO
-   Sin imágenes de fondo. Formas, luces y movimiento hechos
-   con CSS para mantener nitidez en desktop y móvil.
-========================================================= */
-:root{
-  --cin-black:#090806;
-  --cin-black-2:#12100c;
-  --cin-cream:#f7f2e7;
-  --cin-paper:#fffdf8;
-  --cin-gold:#c9972b;
-  --cin-gold-soft:#f0cf79;
-  --cin-line:rgba(240,207,121,.26);
-  --cin-ease:cubic-bezier(.18,.78,.22,1);
-}
-
-/* Base más premium */
-body{
-  background:
-    radial-gradient(circle at 12% 3%,rgba(201,151,43,.08),transparent 22%),
-    var(--cin-paper);
-}
-
-/* NAV: logo realmente centrado y marco más limpio */
-.fe-nav{background:rgba(255,253,248,.82)!important;backdrop-filter:blur(24px) saturate(145%)!important}
-.fe-nav-inner{position:relative!important;grid-template-columns:1fr auto 1fr!important}
-.fe-brand-center{grid-column:2!important;justify-self:center!important}
-.fe-nav-left{justify-self:start!important}
-.fe-nav-right{justify-self:end!important}
-.fe-brand-center .nav-logo{object-fit:contain!important;display:block!important;margin:auto!important}
-
-/* ---------- HERO NEGRO / DORADO CON FONDO VIVO ---------- */
-.fe-hero{
-  background:
-    radial-gradient(circle at 50% -20%,rgba(201,151,43,.16),transparent 34%),
-    linear-gradient(180deg,#f9f5eb 0%,#f4eee1 100%)!important;
-  padding-top:10px!important;
-}
-.fe-hero-shell{
-  position:relative!important;
-  isolation:isolate!important;
-  overflow:hidden!important;
-  color:#fff!important;
-  border:1px solid rgba(255,255,255,.10)!important;
-  background:
-    radial-gradient(circle at 50% 44%,rgba(201,151,43,.12),transparent 25%),
-    radial-gradient(circle at 75% 26%,rgba(255,230,170,.07),transparent 22%),
-    linear-gradient(135deg,#080705 0%,#0f0d09 48%,#070604 100%)!important;
-  box-shadow:0 38px 100px rgba(20,15,7,.28), inset 0 0 0 1px rgba(255,255,255,.03)!important;
-}
-
-/* cinta líquida 1 */
-.fe-hero-shell::before{
-  content:"";
-  position:absolute;
-  width:120%;
-  height:48%;
-  left:-10%;
-  top:27%;
-  z-index:-3;
-  pointer-events:none;
-  background:
-    linear-gradient(92deg,
-      transparent 0%,
-      rgba(98,68,15,.10) 18%,
-      rgba(201,151,43,.58) 38%,
-      rgba(255,232,170,.90) 48%,
-      rgba(201,151,43,.38) 58%,
-      rgba(255,255,255,.08) 68%,
-      transparent 84%);
-  border-radius:50%;
-  filter:blur(18px) saturate(135%);
-  transform:translate3d(calc(var(--cin-x,0px) * .14),calc(var(--cin-y,0px) * .08),0) rotate(-10deg) skewX(-10deg);
-  animation:cinematicRibbonA 12s ease-in-out infinite alternate;
-  opacity:.78;
-}
-
-/* cinta líquida 2 */
-.fe-hero-shell::after{
-  content:"";
-  position:absolute;
-  width:82%;
-  height:72%;
-  right:-30%;
-  top:-16%;
-  z-index:-4;
-  pointer-events:none;
-  border:1px solid rgba(240,207,121,.22);
-  border-left-color:rgba(240,207,121,.46);
-  border-bottom-color:rgba(240,207,121,.10);
-  border-radius:50%;
-  box-shadow:
-    0 0 70px rgba(201,151,43,.18),
-    inset 0 0 90px rgba(201,151,43,.08);
-  transform:translate3d(calc(var(--cin-x,0px) * -.09),calc(var(--cin-y,0px) * -.05),0) rotate(-18deg);
-  animation:cinematicOrbit 18s linear infinite;
-}
-
-.fe-hero-gridlines{
-  z-index:-5!important;
-  opacity:.30!important;
-  background-image:
-    linear-gradient(rgba(255,255,255,.032) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.032) 1px,transparent 1px)!important;
-  background-size:76px 76px!important;
-  mask-image:linear-gradient(to bottom,rgba(0,0,0,.7),black 35%,rgba(0,0,0,.28))!important;
-}
-.fe-hero-gridlines::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:repeating-radial-gradient(ellipse at center,transparent 0 56px,rgba(240,207,121,.045) 57px 58px,transparent 59px 92px);
-  opacity:.5;
-}
-
-.fe-hero-topline{color:rgba(255,255,255,.52)!important}
-.fe-live-dot i{background:#d9b34d!important;box-shadow:0 0 0 5px rgba(217,179,77,.10)!important}
-.fe-hero-eyebrow{
-  color:#e9d9aa!important;
-  border-color:rgba(240,207,121,.22)!important;
-  background:rgba(255,255,255,.04)!important;
-  backdrop-filter:blur(12px)!important;
-}
-.fe-hero-logo{filter:invert(1) brightness(1.12) drop-shadow(0 12px 28px rgba(0,0,0,.26))!important}
-.fe-hero h1{color:#fff!important;text-shadow:0 12px 36px rgba(0,0,0,.28)!important}
-.fe-hero h1 em{color:var(--cin-gold-soft)!important;text-shadow:none!important}
-.fe-hero-center>p{color:rgba(255,255,255,.66)!important}
-.fe-btn-primary{
-  background:linear-gradient(135deg,#f4d47e,#b7831c)!important;
-  color:#100d07!important;
-  box-shadow:0 18px 42px rgba(201,151,43,.22)!important;
-}
-.fe-btn-primary b{color:#100d07!important}
-.fe-btn-ghost{
-  color:#fff!important;
-  background:rgba(255,255,255,.055)!important;
-  border-color:rgba(255,255,255,.16)!important;
-  backdrop-filter:blur(10px)!important;
-}
-.fe-btn-ghost:hover{background:rgba(255,255,255,.10)!important}
-
-/* Producto destacado: claro sobre fondo oscuro */
-.fe-stage-product-card{
-  background:
-    radial-gradient(circle at 52% 42%,rgba(255,255,255,.98),rgba(247,240,222,.90) 58%,rgba(230,215,175,.74) 100%)!important;
-  border-color:rgba(240,207,121,.30)!important;
-  box-shadow:0 34px 90px rgba(0,0,0,.46),0 0 0 1px rgba(255,255,255,.05)!important;
-}
-.fe-stage-product-card::after{
-  content:"";
-  position:absolute;
-  inset:-40% -10%;
-  background:linear-gradient(100deg,transparent 34%,rgba(255,255,255,.48) 48%,transparent 61%);
-  transform:translateX(-120%) rotate(10deg);
-  animation:cinematicSheen 8s ease-in-out infinite;
-  pointer-events:none;
-}
-.fe-stage-copy strong{color:#f3e2b3!important}.fe-stage-copy small{color:rgba(255,255,255,.44)!important}
-.fe-stage-caption span{color:#17130c!important}.fe-stage-caption small{color:#777060!important}
-.fe-stage-orbit{border-color:rgba(240,207,121,.22)!important}
-.fe-stage-badge{background:rgba(10,9,7,.88)!important;color:#f2d47f!important;border-color:rgba(255,255,255,.10)!important}
-.fe-hero-bottom>div{border-top-color:rgba(255,255,255,.15)!important}.fe-hero-bottom strong{color:#f3dd9f!important}.fe-hero-bottom span{color:rgba(255,255,255,.48)!important}
-.fe-scroll-pill{background:#fff!important;color:#111!important}.fe-scroll-pill span{color:#111!important}.fe-scroll-pill i{color:#9c6d10!important}
-
-/* ---------- CATÁLOGO CON DECORACIÓN DE FONDO ---------- */
-#productos.section{
-  position:relative!important;
-  isolation:isolate!important;
-  overflow:hidden!important;
-  background:
-    radial-gradient(circle at 8% 12%,rgba(201,151,43,.09),transparent 18%),
-    radial-gradient(circle at 92% 58%,rgba(201,151,43,.07),transparent 20%),
-    linear-gradient(180deg,#fffdf8 0%,#f6f1e6 100%)!important;
-}
-#productos.section::before{
-  content:"";
-  position:absolute;
-  width:760px;
-  height:760px;
-  left:-420px;
-  top:10%;
-  border-radius:50%;
-  border:1px solid rgba(184,137,29,.16);
-  box-shadow:0 0 0 44px rgba(184,137,29,.025),0 0 0 92px rgba(184,137,29,.018);
-  z-index:-1;
-  animation:cinematicOrbit 28s linear infinite reverse;
-}
-#productos.section::after{
-  content:"";
-  position:absolute;
-  right:-18%;
-  bottom:-18%;
-  width:72%;
-  height:42%;
-  background:linear-gradient(105deg,transparent,rgba(201,151,43,.13),rgba(255,255,255,.02),transparent);
-  filter:blur(26px);
-  transform:rotate(-11deg);
-  z-index:-1;
-}
-.fe-products-head{position:relative;z-index:2!important}
-.fe-products-head::after{
-  content:"FER⚡ELECTRO";
-  position:absolute;
-  right:0;
-  top:-70px;
-  font-size:clamp(70px,10vw,160px);
-  font-weight:900;
-  letter-spacing:-.06em;
-  color:rgba(17,17,15,.028);
-  white-space:nowrap;
-  pointer-events:none;
-  z-index:-1;
-}
-.product{
-  position:relative!important;
-  backdrop-filter:blur(10px)!important;
-  background:rgba(255,255,255,.90)!important;
-}
-.product::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  pointer-events:none;
-  background:linear-gradient(135deg,rgba(255,255,255,.66),transparent 38%,rgba(201,151,43,.025));
-  z-index:0;
-}
-.product>*{position:relative;z-index:1}
-
-/* ---------- NUEVO BLOQUE CINEMÁTICO ---------- */
-.fe-cinematic-break{
-  position:relative;
-  min-height:clamp(520px,72vw,820px);
-  overflow:hidden;
-  display:grid;
-  place-items:center;
-  isolation:isolate;
-  background:
-    radial-gradient(circle at 50% 50%,rgba(201,151,43,.10),transparent 30%),
-    linear-gradient(135deg,#070604 0%,#100d08 55%,#070604 100%);
-  color:#fff;
-}
-.fe-cinema-noise{
-  position:absolute;inset:0;z-index:-5;opacity:.18;
-  background-image:
-    radial-gradient(circle at 20% 20%,rgba(255,255,255,.09) 0 1px,transparent 1.2px),
-    radial-gradient(circle at 70% 40%,rgba(255,255,255,.045) 0 1px,transparent 1.2px);
-  background-size:21px 21px,31px 31px;
-  mix-blend-mode:soft-light;
-}
-.fe-cinema-flow{position:absolute;z-index:-3;pointer-events:none;border-radius:50%;filter:blur(9px)}
-.fe-cinema-flow-a{
-  width:120%;height:36%;left:-10%;top:26%;
-  background:linear-gradient(96deg,transparent 0%,rgba(113,76,14,.08) 15%,rgba(205,154,45,.48) 39%,rgba(255,227,156,.88) 48%,rgba(201,151,43,.27) 61%,transparent 84%);
-  transform:rotate(-12deg) skewX(-14deg);
-  animation:cinematicFlow 13s ease-in-out infinite alternate;
-}
-.fe-cinema-flow-b{
-  width:96%;height:18%;right:-24%;bottom:8%;
-  background:linear-gradient(92deg,transparent,rgba(255,255,255,.05),rgba(201,151,43,.30),transparent);
-  transform:rotate(17deg);
-  animation:cinematicFlowB 16s ease-in-out infinite alternate;
-}
-.fe-cinema-orbit{position:absolute;z-index:-4;border-radius:50%;border:1px solid rgba(240,207,121,.19);pointer-events:none}
-.fe-cinema-orbit-a{width:780px;height:780px;left:-270px;top:-180px;animation:cinematicOrbit 30s linear infinite}
-.fe-cinema-orbit-b{width:660px;height:660px;right:-240px;bottom:-220px;border-style:dashed;animation:cinematicOrbit 36s linear infinite reverse}
-.fe-cinema-content{width:min(1080px,calc(100% - 36px));text-align:center;padding:100px 20px;position:relative;z-index:2}
-.fe-cinema-kicker{display:inline-block;font-size:9px;letter-spacing:.24em;color:#e8cf8d;margin-bottom:30px}
-.fe-cinematic-break h2{font-size:clamp(68px,10vw,150px);line-height:.79;letter-spacing:-.07em;margin:0;font-weight:820}
-.fe-cinematic-break h2 em{display:inline-block;font-family:"Iowan Old Style",Georgia,serif;font-weight:400;font-style:italic;color:#e6c773;letter-spacing:-.04em}
-.fe-cinematic-break p{max-width:590px;margin:32px auto 0;font-size:clamp(14px,1.35vw,18px);line-height:1.7;color:rgba(255,255,255,.56)}
-.fe-cinema-line{display:flex;align-items:center;gap:14px;max-width:460px;margin:38px auto 0}.fe-cinema-line span{height:1px;flex:1;background:linear-gradient(90deg,transparent,#d5b35c)}.fe-cinema-line small{font-size:8px;letter-spacing:.2em;color:#cab274}.fe-cinema-index{position:absolute;right:30px;bottom:28px;font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.34)}
-
-/* ---------- ABOUT: FONDO NEGRO EDITORIAL ---------- */
-.fe-about{
-  position:relative!important;
-  isolation:isolate!important;
-  overflow:hidden!important;
-  background:
-    radial-gradient(circle at 74% 28%,rgba(201,151,43,.12),transparent 23%),
-    linear-gradient(180deg,#0d0b08 0%,#090806 100%)!important;
-  color:#fff!important;
-}
-.fe-about::before{
-  content:"FER ELECTRO";
-  position:absolute;
-  left:-2vw;
-  bottom:-.18em;
-  font-size:clamp(100px,19vw,300px);
-  font-weight:900;
-  letter-spacing:-.075em;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.045);
-  white-space:nowrap;
-  z-index:-2;
-}
-.fe-about::after{
-  content:"";
-  position:absolute;
-  width:70%;height:34%;right:-12%;top:12%;
-  background:linear-gradient(100deg,transparent,rgba(201,151,43,.20),rgba(255,234,182,.16),transparent);
-  filter:blur(24px);
-  transform:rotate(-15deg);
-  z-index:-3;
-}
-.fe-about-label{color:rgba(255,255,255,.34)!important}
-.fe-about-copy h2,.fe-about-copy p,.fe-about-points strong{color:#fff!important}
-.fe-about-copy h2 em{color:#e4c36a!important}
-.fe-about-copy>p,.fe-about-points small{color:rgba(255,255,255,.52)!important}
-.fe-about-points>div{border-color:rgba(255,255,255,.10)!important}
-.fe-about-logo-wrap{background:rgba(255,255,255,.04)!important;border-color:rgba(255,255,255,.11)!important;box-shadow:0 30px 90px rgba(0,0,0,.30)!important}
-.fe-about-logo-wrap img{filter:invert(1) brightness(1.2)!important}
-.fe-about-logo-wrap span{color:rgba(255,255,255,.45)!important}
-.fe-about-ring{border-color:rgba(235,199,103,.22)!important}
-.fe-manifesto{border-color:rgba(255,255,255,.10)!important;color:rgba(255,255,255,.42)!important}.fe-manifesto i{color:#dfc06d!important}
-
-/* ---------- EXPERIENCIA ---------- */
-.fe-experience{
-  position:relative!important;
-  overflow:hidden!important;
-  background:
-    radial-gradient(circle at 15% 25%,rgba(201,151,43,.10),transparent 20%),
-    linear-gradient(180deg,#f7f2e7 0%,#fffdf8 100%)!important;
-}
-.fe-experience::after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(115deg,transparent 0 62%,rgba(184,137,29,.055) 63% 64%,transparent 65% 100%);
-  background-size:72px 72px;
-}
-.fe-exp-side,.fe-exp-grid{position:relative;z-index:1}
-.fe-exp-grid article{background:rgba(255,255,255,.66)!important;backdrop-filter:blur(9px)!important}
-
-/* ---------- UBICACIÓN / CONTACTO ---------- */
-.location{
-  position:relative!important;
-  overflow:hidden!important;
-  background:linear-gradient(180deg,#fffdf8 0%,#f0eadc 100%)!important;
-}
-.location::before{
-  content:"";position:absolute;width:540px;height:540px;right:-260px;top:-120px;border-radius:50%;border:1px solid rgba(184,137,29,.15);box-shadow:0 0 0 42px rgba(184,137,29,.025),0 0 0 86px rgba(184,137,29,.018);pointer-events:none
-}
-.location-box{position:relative;z-index:1}
-
-/* Movimiento del fondo, no de todo el contenido */
-@keyframes cinematicRibbonA{0%{transform:translate3d(-3%,2%,0) rotate(-13deg) skewX(-10deg) scale(1)}100%{transform:translate3d(4%,-2%,0) rotate(-8deg) skewX(-6deg) scale(1.05)}}
-@keyframes cinematicOrbit{to{transform:rotate(360deg)}}
-@keyframes cinematicSheen{0%,60%{transform:translateX(-135%) rotate(10deg)}82%,100%{transform:translateX(135%) rotate(10deg)}}
-@keyframes cinematicFlow{0%{transform:translateX(-3%) rotate(-14deg) skewX(-14deg) scale(1)}100%{transform:translateX(5%) rotate(-9deg) skewX(-8deg) scale(1.06)}}
-@keyframes cinematicFlowB{0%{transform:translateX(4%) rotate(20deg) scale(1)}100%{transform:translateX(-5%) rotate(14deg) scale(1.08)}}
-
-/* ---------- MÓVIL: COMPOSICIÓN HECHA APARTE ---------- */
-@media(max-width:900px){
-  .fe-hero{padding:5px 6px 14px!important;background:#f5efe2!important}
-  .fe-hero-shell{border-radius:24px!important;min-height:auto!important}
-  .fe-hero-shell::before{width:170%;height:32%;left:-40%;top:50%;filter:blur(14px);opacity:.66;animation-duration:15s}
-  .fe-hero-shell::after{width:120%;height:54%;right:-64%;top:8%;opacity:.78}
-  .fe-hero-gridlines{background-size:48px 48px!important;opacity:.23!important}
-  .fe-hero-topline{padding-top:17px!important;color:rgba(255,255,255,.38)!important}
-  .fe-hero-center{padding:26px 15px 10px!important}
-  .fe-hero-logo{width:152px!important;margin-bottom:16px!important}
-  .fe-hero h1{font-size:clamp(49px,14.6vw,70px)!important;line-height:.81!important}
-  .fe-hero-center>p{font-size:13.5px!important;line-height:1.55!important;color:rgba(255,255,255,.62)!important;max-width:330px!important}
-  .fe-hero-cta-row{grid-template-columns:1fr!important;max-width:340px!important}
-  .fe-product-stage{height:280px!important;width:calc(100% - 22px)!important;margin:8px auto 10px!important}
-  .fe-stage-product-card{height:266px!important;border-radius:22px!important}
-  .fe-stage-product-img{width:88%!important;height:75%!important}
-  .fe-hero-bottom{grid-template-columns:repeat(3,1fr)!important;gap:5px!important;padding:0 9px 9px!important}
-  .fe-hero-bottom>div{background:rgba(255,255,255,.045)!important;border:1px solid rgba(255,255,255,.09)!important;border-radius:14px!important;padding:10px 7px!important;text-align:center!important}
-  .fe-hero-bottom strong{font-size:7px!important}.fe-hero-bottom span{font-size:6.8px!important;color:rgba(255,255,255,.43)!important}
-
-  #productos.section{padding-top:84px!important}
-  #productos.section::before{width:460px;height:460px;left:-330px;top:5%}
-  .fe-products-head::after{font-size:80px;top:-32px;right:-30px}
-
-  .fe-cinematic-break{min-height:560px}
-  .fe-cinema-content{padding:88px 18px}
-  .fe-cinema-kicker{font-size:7px;letter-spacing:.19em;margin-bottom:22px}
-  .fe-cinematic-break h2{font-size:clamp(56px,16vw,82px);line-height:.82}
-  .fe-cinematic-break p{font-size:13.5px;max-width:330px;margin-top:24px}
-  .fe-cinema-flow-a{width:180%;height:26%;left:-40%;top:38%}
-  .fe-cinema-flow-b{width:150%;right:-55%;bottom:7%}
-  .fe-cinema-orbit-a{width:500px;height:500px;left:-330px;top:-110px}
-  .fe-cinema-orbit-b{width:440px;height:440px;right:-310px;bottom:-110px}
-  .fe-cinema-index{right:14px;bottom:16px;font-size:7px}
-
-  .fe-about::before{font-size:120px;left:-40px;bottom:-10px}
-  .fe-about::after{width:120%;height:22%;right:-55%;top:18%}
-}
-
-@media(max-width:430px){
-  .fe-hero-shell{border-radius:20px!important}
-  .fe-hero-center{padding-top:22px!important}
-  .fe-hero-logo{width:145px!important}
-  .fe-hero h1{font-size:clamp(46px,14vw,60px)!important}
-  .fe-product-stage{height:250px!important}.fe-stage-product-card{height:238px!important}
-  .fe-hero-bottom>div{padding:9px 5px!important}.fe-hero-bottom span{font-size:6.3px!important}
-  .fe-cinematic-break{min-height:520px}
-  .fe-cinematic-break h2{font-size:clamp(52px,15vw,68px)}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .fe-hero-shell::before,.fe-hero-shell::after,.fe-stage-product-card::after,.fe-cinema-flow,.fe-cinema-orbit{animation:none!important}
-}
-</style>
-
-<script id="fe-cinematic-pointer-v1">
-(() => {
-  const hero = document.querySelector('.fe-hero-shell');
-  if (!hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (matchMedia('(pointer:fine)').matches) {
-    hero.addEventListener('pointermove', (e) => {
-      const r = hero.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - .5) * 28;
-      const y = ((e.clientY - r.top) / r.height - .5) * 20;
-      hero.style.setProperty('--cin-x', `${x}px`);
-      hero.style.setProperty('--cin-y', `${y}px`);
-    }, {passive:true});
-    hero.addEventListener('pointerleave', () => {
-      hero.style.setProperty('--cin-x','0px');
-      hero.style.setProperty('--cin-y','0px');
-    });
-  }
-})();
 </script>
 
 </body>
+
 </html>
