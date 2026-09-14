@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
     try {
         const response = await fetch(
-            `${url}/rest/v1/productos?select=id,nombre,descripcion,precio,imagen,categoria,stock,activo&activo=eq.true&order=id.asc`,
+            `${url}/rest/v1/productos?select=id,nombre,descripcion,caracteristicas,precio,imagen,categoria,stock,activo&activo=eq.true&order=id.asc`,
             {
                 headers: {
                     apikey: key,
@@ -38,6 +38,7 @@ export default async function handler(req, res) {
                 id: p.id,
                 nombre: String(p.nombre || ""),
                 descripcion: String(p.descripcion || ""),
+                caracteristicas: String(p.caracteristicas || ""),
                 precio: Math.max(0, Number(p.precio) || 0),
                 imagen: String(p.imagen || ""),
                 categoria: String(p.categoria || ""),
