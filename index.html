@@ -1036,11 +1036,25 @@ padding:13px;
     margin:0 0 20px;
 }
 
+.product-info-section{
+    margin-bottom:24px;
+}
+
+.product-info-section-title{
+    margin:0 0 10px;
+    font-size:12px;
+    line-height:1.2;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    color:#222;
+    font-weight:850;
+}
+
 .dynamic-product-description{
-    font-size:16px;
-    line-height:1.7;
+    font-size:15px;
+    line-height:1.75;
     color:#666;
-    margin-bottom:25px;
+    margin:0;
 }
 
 .dynamic-product-description p{
@@ -1071,6 +1085,42 @@ padding:13px;
     height:4px;
 }
 
+.product-features-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px 16px;
+}
+
+.product-features-list li{
+    position:relative;
+    padding:10px 12px 10px 31px;
+    border:1px solid #ece8df;
+    border-radius:12px;
+    background:#faf9f6;
+    color:#555;
+    font-size:13px;
+    line-height:1.45;
+}
+
+.product-features-list li::before{
+    content:"✓";
+    position:absolute;
+    left:11px;
+    top:10px;
+    color:#9a7417;
+    font-weight:900;
+}
+
+.product-features-empty{
+    margin:0;
+    color:#777;
+    font-size:14px;
+    line-height:1.6;
+}
+
 .dynamic-product-price{
     font-size:32px;
     font-weight:800;
@@ -1085,6 +1135,12 @@ padding:13px;
 
 .dynamic-add-cart{
     width:100%;
+}
+
+@media(max-width:650px){
+    .product-features-list{grid-template-columns:1fr}
+    .product-info-section{margin-bottom:20px}
+    .product-info-section-title{font-size:11px}
 }
 
 /* =========================
@@ -2135,9 +2191,17 @@ VER EN GOOGLE MAPS
                 Producto
             </h2>
 
-            <p class="dynamic-product-description">
-                Descripción del producto.
-            </p>
+            <section class="product-info-section dynamic-description-section">
+                <h3 class="product-info-section-title">Descripción</h3>
+                <div class="dynamic-product-description">
+                    Descripción del producto.
+                </div>
+            </section>
+
+            <section class="product-info-section dynamic-features-section">
+                <h3 class="product-info-section-title">Características principales</h3>
+                <div class="dynamic-product-features"></div>
+            </section>
 
             <div class="dynamic-product-price">
                 $0
@@ -4097,6 +4161,20 @@ function descripcionFormateada(valor) {
     return html;
 }
 
+function caracteristicasFormateadas(valor) {
+    const lineas = String(valor ?? "")
+        .replace(/\r\n/g, "\n")
+        .split("\n")
+        .map(linea => linea.trim().replace(/^[-•*]\s*/, ""))
+        .filter(Boolean);
+
+    if (!lineas.length) return "";
+
+    return `<ul class="product-features-list">${lineas
+        .map(linea => `<li>${textoSeguro(linea).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")}</li>`)
+        .join("")}</ul>`;
+}
+
 function imagenSegura(valor) {
     const imagen = String(valor || "").trim();
 
@@ -4444,6 +4522,12 @@ function verProducto(producto) {
     if (descripcion) {
         descripcion.innerHTML = descripcionFormateada(producto.descripcion);
     }
+
+    const featuresSection = modal.querySelector(".dynamic-features-section");
+    const features = modal.querySelector(".dynamic-product-features");
+    const featuresHtml = caracteristicasFormateadas(producto.caracteristicas);
+    if (features) features.innerHTML = featuresHtml;
+    if (featuresSection) featuresSection.hidden = !featuresHtml;
 
     const precio = modal.querySelector(".dynamic-product-price");
     if (precio) precio.textContent = formatearPrecio(producto.precio);

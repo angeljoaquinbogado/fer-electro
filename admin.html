@@ -278,7 +278,14 @@ td strong{font-size:11px}
 
                     <div class="field">
                         <label for="product-description">DESCRIPCIÓN</label>
-                        <textarea id="product-description" maxlength="1200"></textarea>
+                        <textarea id="product-description" maxlength="1600" placeholder="Contá brevemente qué es el producto, para qué sirve y sus beneficios principales."></textarea>
+                        <div class="file-help">Usá este campo solo para la descripción. Las especificaciones van separadas abajo.</div>
+                    </div>
+
+                    <div class="field">
+                        <label for="product-features">CARACTERÍSTICAS PRINCIPALES</label>
+                        <textarea id="product-features" maxlength="3000" placeholder="Una característica por línea&#10;Sonido estéreo&#10;Conexión inalámbrica&#10;Diseño plegable&#10;Color negro"></textarea>
+                        <div class="file-help">Escribí una característica por línea. Podés usar emojis si querés.</div>
                     </div>
 
                     <div class="field">
@@ -516,7 +523,7 @@ async function loadProducts(){
     const tbody=document.getElementById("products-table");
     tbody.innerHTML='<tr><td colspan="6" class="loading">Cargando productos...</td></tr>';
 
-    const r=await sb("/rest/v1/productos?select=id,nombre,descripcion,precio,imagen,categoria,stock,activo&order=id.asc");
+    const r=await sb("/rest/v1/productos?select=id,nombre,descripcion,caracteristicas,precio,imagen,categoria,stock,activo&order=id.asc");
     const d=await r.json().catch(()=>[]);
     if(!r.ok)throw new Error("No se pudieron cargar los productos.");
     productos=Array.isArray(d)?d:[];
@@ -563,6 +570,7 @@ function editProduct(id){
     document.getElementById("product-id").value=p.id;
     document.getElementById("product-name").value=p.nombre||"";
     document.getElementById("product-description").value=p.descripcion||"";
+    document.getElementById("product-features").value=p.caracteristicas||"";
     document.getElementById("product-price").value=Number(p.precio)||0;
     document.getElementById("product-stock").value=Number(p.stock)||0;
     document.getElementById("product-category").value=p.categoria||"";
@@ -616,6 +624,7 @@ async function saveProduct(event){
         const payload={
             nombre:document.getElementById("product-name").value.trim(),
             descripcion:document.getElementById("product-description").value.trim(),
+            caracteristicas:document.getElementById("product-features").value.trim(),
             precio:Number(document.getElementById("product-price").value),
             stock:Math.max(0,Math.floor(Number(document.getElementById("product-stock").value)||0)),
             categoria:document.getElementById("product-category").value.trim(),
