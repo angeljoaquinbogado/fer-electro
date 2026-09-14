@@ -1667,6 +1667,179 @@ img{max-width:100%;display:block}
 }
 </style>
 
+
+<style id="fe-adaptive-media-v8">
+/* FER⚡ELECTRO · encuadre adaptativo real por dispositivo.
+   Las mismas imágenes se recortan/escala automáticamente según ancho, alto y orientación. */
+
+/* Base segura para cualquier imagen del sitio */
+img{
+  max-width:100%;
+  height:auto;
+  image-rendering:auto;
+}
+
+/* Fondos principales: PC primero */
+.hero-bg::before{
+  background-size:cover!important;
+  background-position:50% 50%!important;
+}
+.about-luxury-bg::before{
+  background-size:cover!important;
+  background-position:50% 50%!important;
+}
+
+/* Logos: nunca se deforman */
+.nav-logo,.footer-logo,.about-real-logo{
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+/* Productos: marco estable + imagen completa, sin estirar */
+.product-img{
+  aspect-ratio:1.12 / 1!important;
+}
+.product-real-image{
+  width:min(84%,360px)!important;
+  height:84%!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+.product-detail-image{
+  min-height:clamp(420px,46vw,620px);
+}
+.dynamic-product-image{
+  width:min(92%,620px)!important;
+  height:min(92%,560px)!important;
+  max-width:100%!important;
+  max-height:560px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+/* Botones: tamaños fluidos, sin desbordes */
+.gold-btn,.outline-btn,.hero-secondary,.view-product,.add-card-product,
+.dynamic-add-cart,.dynamic-add-cart-mobile,.cart-checkout,.checkout-pay{
+  min-height:clamp(44px,3.4vw,52px);
+  max-width:100%;
+}
+.hero-actions{max-width:100%}
+.hero-btn,.hero-secondary{white-space:normal;text-align:center}
+
+/* Desktop amplio */
+@media (min-width:1281px){
+  .hero-bg::before{background-size:cover!important;background-position:50% 50%!important}
+  .about-luxury-bg::before{background-size:cover!important;background-position:50% 50%!important}
+  .product-img{aspect-ratio:1.15 / 1!important}
+  .product-real-image{width:min(82%,380px)!important;height:82%!important}
+}
+
+/* Notebook / tablet horizontal */
+@media (min-width:769px) and (max-width:1280px){
+  .hero-bg::before{background-size:cover!important;background-position:56% 50%!important}
+  .about-luxury-bg::before{background-size:cover!important;background-position:54% 50%!important}
+  .product-img{aspect-ratio:1.08 / 1!important}
+  .product-real-image{width:86%!important;height:84%!important}
+  .hero-btn,.hero-secondary{min-height:50px}
+}
+
+/* Tablet vertical */
+@media (min-width:641px) and (max-width:900px){
+  .hero-bg::before{
+    background-size:auto 108%!important;
+    background-position:60% 50%!important;
+  }
+  .about-luxury-bg::before{
+    background-size:auto 104%!important;
+    background-position:57% 50%!important;
+  }
+  .product-img{aspect-ratio:1.05 / 1!important}
+  .product-real-image{width:88%!important;height:86%!important}
+  .product-detail-image{min-height:390px!important}
+  .dynamic-product-image{width:min(88%,520px)!important;max-height:430px!important}
+}
+
+/* Celulares grandes: 391–640 px */
+@media (min-width:391px) and (max-width:640px){
+  .hero-bg::before{
+    background-size:auto 104%!important;
+    background-position:63% 50%!important;
+  }
+  .about-luxury-bg::before{
+    inset:-7%!important;
+    background-size:auto 102%!important;
+    background-position:58% 50%!important;
+  }
+  .product-img{aspect-ratio:1 / 1!important;min-height:0!important}
+  .product-real-image{width:88%!important;height:86%!important;max-height:320px!important}
+  .product-detail-image{min-height:38dvh!important;max-height:360px!important;padding:40px 18px 20px!important}
+  .dynamic-product-image{width:92%!important;height:auto!important;max-height:285px!important}
+  .hero-btn,.hero-secondary,.add-card-product,.dynamic-add-cart-mobile,.cart-checkout,.checkout-pay{
+    min-height:52px!important;
+    width:100%!important;
+  }
+  .qty-btn{width:42px!important;height:42px!important}
+  .qty-input{height:42px!important}
+  .quantity-selector{grid-template-columns:42px 46px 42px!important}
+}
+
+/* iPhone/Android típicos: 341–390 px */
+@media (min-width:341px) and (max-width:390px){
+  .hero-bg::before{
+    background-size:auto 102%!important;
+    background-position:64% 50%!important;
+  }
+  .about-luxury-bg::before{
+    inset:-6%!important;
+    background-size:auto 100%!important;
+    background-position:59% 50%!important;
+  }
+  .product-img{aspect-ratio:1 / 1!important}
+  .product-real-image{width:90%!important;height:86%!important;max-height:290px!important}
+  .dynamic-product-image{width:94%!important;height:auto!important;max-height:265px!important}
+  .hero-btn,.hero-secondary,.add-card-product,.dynamic-add-cart-mobile,.cart-checkout,.checkout-pay{
+    min-height:52px!important;
+    width:100%!important;
+  }
+  .feature{min-width:0!important}
+}
+
+/* Pantallas chicas: 320–340 px */
+@media (max-width:340px){
+  .hero-bg::before{
+    background-size:auto 100%!important;
+    background-position:65% 50%!important;
+  }
+  .about-luxury-bg::before{
+    inset:-5%!important;
+    background-size:auto 100%!important;
+    background-position:60% 50%!important;
+  }
+  .product-img{aspect-ratio:1 / 1!important}
+  .product-real-image{width:91%!important;height:84%!important;max-height:250px!important}
+  .dynamic-product-image{width:95%!important;height:auto!important;max-height:235px!important}
+  .hero-btn,.hero-secondary,.add-card-product,.dynamic-add-cart-mobile,.cart-checkout,.checkout-pay{
+    min-height:50px!important;
+    width:100%!important;
+  }
+}
+
+/* Celular acostado: evita un hero gigante y reencuadra el fondo */
+@media (max-width:900px) and (orientation:landscape) and (max-height:520px){
+  .hero{padding-top:20px!important;padding-bottom:44px!important}
+  .hero-shell{min-height:440px!important}
+  .hero-bg::before{background-size:cover!important;background-position:58% 50%!important}
+  .about-luxury-bg::before{background-size:cover!important;background-position:54% 50%!important}
+  .hero-actions{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+/* Evita animaciones pesadas cuando el sistema pide menos movimiento */
+@media (prefers-reduced-motion:reduce){
+  .hero-bg::before,.about-luxury-bg::before{animation:none!important}
+}
+</style>
+
 </head>
 <body><svg aria-hidden="true" class="icon-sprite" focusable="false">
 <symbol id="i-home" viewbox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-4.5v-6h-5v6H5a1.5 1.5 0 0 1-1.5-1.5v-9Z"></path></symbol>
