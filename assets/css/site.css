@@ -3913,3 +3913,104 @@ body.orders-open{overflow:hidden}
   }
 }
 
+/* =========================================================
+   PRODUCTO — CONTROLES DE COMPRA PREMIUM (FIX)
+   Mantener al final del archivo para que tenga prioridad.
+========================================================= */
+.product-detail .quantity-block{
+  margin-top:26px;
+  padding:16px 18px;
+  border:1px solid rgba(13,14,16,.08);
+  border-radius:18px;
+  background:#fafaf8;
+}
+
+.product-detail .quantity-label-row{
+  margin-bottom:12px;
+}
+
+.product-detail .quantity-selector{
+  display:inline-grid;
+  grid-template-columns:46px 54px 46px;
+  height:46px;
+  border:1px solid rgba(13,14,16,.12);
+  border-radius:14px;
+  background:#fff;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(13,14,16,.045);
+}
+
+.product-detail .qty-btn{
+  width:46px;
+  height:44px;
+  border:0;
+  background:#fff;
+  color:#303136;
+}
+
+.product-detail .qty-btn:hover:not(:disabled){
+  background:#f2f1ed;
+  color:#111;
+}
+
+.product-detail .qty-input{
+  width:54px;
+  height:44px;
+  border:0;
+  border-left:1px solid rgba(13,14,16,.09);
+  border-right:1px solid rgba(13,14,16,.09);
+  background:#fff;
+  font-size:13px;
+  font-weight:850;
+}
+
+.product-detail .dynamic-add-cart{
+  width:100%;
+  min-height:54px;
+  margin-top:14px;
+  border-radius:16px;
+  background:#151619;
+  box-shadow:0 10px 26px rgba(13,14,16,.12);
+  letter-spacing:.035em;
+}
+
+.product-detail .dynamic-add-cart:hover:not(:disabled){
+  background:#050505;
+  transform:translateY(-1px);
+  box-shadow:0 14px 30px rgba(13,14,16,.17);
+}
+
+@media (max-width:640px){
+  .product-detail .quantity-block{
+    margin-top:20px;
+    padding:13px 14px;
+    border-radius:16px;
+  }
+
+  .product-detail .quantity-selector{
+    grid-template-columns:42px 50px 42px;
+    height:42px;
+    border-radius:13px;
+  }
+
+  .product-detail .qty-btn{
+    width:42px;
+    height:40px;
+  }
+
+  .product-detail .qty-input{
+    width:50px;
+    height:40px;
+  }
+
+  .product-mobile-buybar{
+    gap:10px;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  }
+
+  .product-detail .dynamic-add-cart-mobile{
+    min-height:48px;
+    border-radius:15px;
+  }
+}
+
