@@ -293,69 +293,20 @@ img{max-width:100%;display:block}
 }
 .view-product:hover{color:#7d641c}
 .view-product .ui-icon{width:16px;height:16px}
-.card-quantity-row{
-  margin:14px 0 14px;
-  padding:10px 12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  border:1px solid rgba(13,14,16,.07);
-  border-radius:14px;
-  background:#f7f7f4
-}
-.card-quantity-row>span{
-  font-size:8px;
-  color:#777a80;
-  font-weight:850;
-  letter-spacing:.1em
-}
+.card-quantity-row{margin:10px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card-quantity-row>span{font-size:8px;color:#92949a;font-weight:800;letter-spacing:.1em}
 .quantity-selector{
-  display:inline-grid;
-  grid-template-columns:36px 42px 36px;
-  align-items:center;
-  height:38px;
-  border:1px solid rgba(13,14,16,.11);
-  border-radius:12px;
-  background:#fff;
-  overflow:hidden;
-  box-shadow:0 3px 10px rgba(13,14,16,.035)
+  display:inline-grid;grid-template-columns:34px 42px 34px;align-items:center;border:1px solid var(--line);border-radius:999px;background:#fafaf8;overflow:hidden
 }
 .qty-btn{
-  width:36px;
-  height:36px;
-  padding:0;
-  border:0;
-  background:#fff;
-  display:grid;
-  place-items:center;
-  color:#55575c;
-  transition:background .2s var(--ease),color .2s var(--ease)
+  width:34px;height:34px;padding:0;border:0;background:transparent;display:grid;place-items:center;color:#55575c;transition:background .2s var(--ease),color .2s var(--ease)
 }
 .qty-btn:hover:not(:disabled){background:#efefeb;color:#111}
 .qty-btn:disabled{opacity:.35;cursor:not-allowed}
 .qty-btn .ui-icon{width:14px;height:14px}
-.qty-input{
-  width:42px;
-  height:36px;
-  padding:0;
-  border:0;
-  border-left:1px solid rgba(13,14,16,.09);
-  border-right:1px solid rgba(13,14,16,.09);
-  outline:0;
-  background:#fff;
-  text-align:center;
-  font-size:11px;
-  font-weight:850;
-  appearance:textfield
-}
+.qty-input{width:42px;height:34px;padding:0;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);outline:0;background:transparent;text-align:center;font-size:11px;font-weight:800;appearance:textfield}
 .qty-input::-webkit-outer-spin-button,.qty-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.add-card-product{
-  width:100%;
-  min-height:48px;
-  border-radius:14px;
-  box-shadow:0 8px 22px rgba(13,14,16,.10)
-}
+.add-card-product{width:100%;min-height:44px}
 .add-card-product .ui-icon{width:16px;height:16px}
 
 .about{
@@ -2004,23 +1955,23 @@ body{background:var(--studio-bg)!important;color:var(--studio-ink)}
 .products{counter-reset:ferProduct;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:50px 22px!important}
 .product{counter-increment:ferProduct;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;transition:none!important}
 .product:hover{transform:none!important;box-shadow:none!important;border-color:transparent!important}
-.product-img{aspect-ratio:1/1!important;border-radius:2px!important;background:#eae7df!important;overflow:hidden!important;transition:background .25s ease!important}
+.product-img{aspect-ratio:1/1!important;border-radius:22px!important;background:#eae7df!important;overflow:hidden!important;transition:background .25s ease!important}
 .product-img::before{content:"0" counter(ferProduct);position:absolute;z-index:5;left:14px;bottom:12px;color:rgba(0,0,0,.34);font-size:8px;font-weight:850;letter-spacing:.12em}
 .product-img::after{inset:auto 12% 5% 12%!important;opacity:.65!important}
 .product-real-image{width:80%!important;height:80%!important;filter:drop-shadow(0 18px 16px rgba(0,0,0,.10))!important;transition:transform .5s cubic-bezier(.2,.8,.2,1)!important}
 .product:hover .product-real-image{transform:scale(1.045) translateY(-3px)!important}
-.badge{left:14px!important;top:14px!important;padding:7px 9px!important;border-radius:2px!important;background:rgba(251,250,246,.88)!important;border:0!important;color:#4f504e!important;font-size:7px!important;letter-spacing:.12em!important;backdrop-filter:blur(8px)!important}
+.badge{left:14px!important;top:14px!important;padding:7px 10px!important;border-radius:999px!important;background:rgba(251,250,246,.88)!important;border:0!important;color:#4f504e!important;font-size:7px!important;letter-spacing:.12em!important;backdrop-filter:blur(8px)!important}
 .product-info{padding:18px 2px 0!important}
 .product-info h3{min-height:auto!important;font-size:16px!important;line-height:1.35!important;font-weight:760!important;letter-spacing:-.025em!important}
 .product-card-description{min-height:38px!important;margin-top:8px!important;color:#77766f!important;font-size:10px!important;line-height:1.55!important}
 .product-price{margin-top:14px!important;font-size:22px!important;font-weight:800!important}
 .product-stock{margin-top:5px!important;font-size:7px!important;letter-spacing:.10em!important}
-.product-actions{margin-top:16px!important;padding-top:14px!important;border-top:1px solid #cbc7bd!important}
+.product-actions{margin-top:18px!important;padding-top:16px!important;border-top:1px solid rgba(13,14,16,.10)!important}
 .view-product{min-height:34px!important;font-size:9px!important;letter-spacing:.04em!important;text-transform:uppercase!important}
 .card-quantity-row{margin:9px 0 11px!important}
 .card-quantity-row>span{font-size:7px!important}
-.quantity-selector{border-radius:2px!important;background:transparent!important}
-.add-card-product{min-height:44px!important;border-radius:2px!important;background:#0c0d0e!important;color:#fff!important;border-color:#0c0d0e!important;box-shadow:none!important;font-size:9px!important;letter-spacing:.03em!important}
+.quantity-selector{border-radius:999px!important;background:#fafaf8!important}
+.add-card-product{min-height:46px!important;border-radius:999px!important;background:#0c0d0e!important;color:#fff!important;border-color:#0c0d0e!important;box-shadow:none!important;font-size:9px!important;letter-spacing:.03em!important}
 .add-card-product:hover:not(:disabled){background:#c9a445!important;color:#090909!important;border-color:#c9a445!important;transform:none!important}
 
 /* purchase process chapter */
