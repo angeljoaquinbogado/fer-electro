@@ -178,7 +178,22 @@
           </div>
           <div class="card orders-card">
             <div class="orders-toolbar"><div><h2>Pedidos</h2><p>Seguimiento de compras y preparación.</p></div><span class="privacy-chip"><svg viewBox="0 0 24 24"><path d="M6 10V7a6 6 0 0 1 12 0v3"/><rect x="4" y="10" width="16" height="11" rx="3"/></svg> Datos privados solo para administradores</span></div>
-            <div class="table-wrap"><table><thead><tr><th>FECHA</th><th>CLIENTE</th><th>CONTACTO</th><th>TOTAL</th><th>PAGO</th><th>PREPARACIÓN</th><th>ACCIONES</th></tr></thead><tbody id="orders-table"><tr><td colspan="7" class="loading">Cargando pedidos...</td></tr></tbody></table></div>
+
+            <div class="orders-bulkbar">
+              <label class="orders-select-all">
+                <input id="orders-select-all" type="checkbox">
+                <span>Seleccionar todos</span>
+              </label>
+              <div class="orders-bulk-actions">
+                <span id="orders-selected-count">0 seleccionados</span>
+                <button id="delete-selected-orders" class="danger orders-delete-selected" type="button" disabled>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v5M14 11v5"/></svg>
+                  ELIMINAR SELECCIONADOS
+                </button>
+              </div>
+            </div>
+
+            <div class="table-wrap"><table><thead><tr><th class="order-check-head"><input id="orders-select-all-head" type="checkbox" aria-label="Seleccionar todos los pedidos"></th><th>FECHA</th><th>CLIENTE</th><th>CONTACTO</th><th>TOTAL</th><th>PAGO</th><th>PREPARACIÓN</th><th>ACCIONES</th></tr></thead><tbody id="orders-table"><tr><td colspan="8" class="loading">Cargando pedidos...</td></tr></tbody></table></div>
           </div>
         </section>
       </main>

@@ -2,6 +2,7 @@ const SESSION_KEY = "ferAdminSession";
 let CONFIG = null;
 let session = null;
 let productos = [];
+let selectedOrders = new Set();
 
 const money = new Intl.NumberFormat("es-AR", {
     style:"currency",
@@ -392,6 +393,85 @@ async function deleteProduct(id,name){
     }
 }
 
+
+function updateOrderSelectionUI(){
+    const checkboxes=Array.from(document.querySelectorAll(".order-checkbox"));
+    const selectedVisible=checkboxes.filter(cb=>selectedOrders.has(cb.dataset.orderId)).length;
+    const allVisible=checkboxes.length>0&&selectedVisible===checkboxes.length;
+
+    const master=document.getElementById("orders-select-all");
+    const masterHead=document.getElementById("orders-select-all-head");
+    const count=document.getElementById("orders-selected-count");
+    const deleteButton=document.getElementById("delete-selected-orders");
+
+    if(master){master.checked=allVisible;master.indeterminate=selectedVisible>0&&!allVisible;}
+    if(masterHead){masterHead.checked=allVisible;masterHead.indeterminate=selectedVisible>0&&!allVisible;}
+    if(count)count.textContent=`${selectedOrders.size} ${selectedOrders.size===1?"seleccionado":"seleccionados"}`;
+    if(deleteButton)deleteButton.disabled=selectedOrders.size===0;
+
+    checkboxes.forEach(cb=>{
+        const selected=selectedOrders.has(cb.dataset.orderId);
+        cb.checked=selected;
+        cb.closest("tr")?.classList.toggle("is-selected",selected);
+    });
+}
+
+function setAllVisibleOrdersSelected(checked){
+    document.querySelectorAll(".order-checkbox").forEach(cb=>{
+        const id=String(cb.dataset.orderId||"");
+        if(!id)return;
+        if(checked)selectedOrders.add(id);
+        else selectedOrders.delete(id);
+    });
+    updateOrderSelectionUI();
+}
+
+async function deleteSelectedOrders(){
+    const ids=Array.from(selectedOrders);
+    if(!ids.length)return;
+
+    const ok=await confirmAction({
+        title:ids.length===1?"Eliminar pedido":"Eliminar pedidos",
+        text:ids.length===1
+            ?"Vas a eliminar definitivamente este pedido y sus productos asociados. Esta acción no se puede deshacer."
+            :`Vas a eliminar definitivamente ${ids.length} pedidos y sus productos asociados. Esta acción no se puede deshacer.`,
+        confirmText:ids.length===1?"ELIMINAR PEDIDO":"ELIMINAR PEDIDOS",
+        danger:true
+    });
+    if(!ok)return;
+
+    const button=document.getElementById("delete-selected-orders");
+    const original=button?.innerHTML||"";
+    if(button){button.disabled=true;button.textContent="ELIMINANDO...";}
+
+    try{
+        await refreshSessionIfNeeded();
+        const r=await fetch("/api/admin-delete-orders",{
+            method:"POST",
+            headers:{
+                Authorization:`Bearer ${session.access_token}`,
+                "Content-Type":"application/json",
+                Accept:"application/json"
+            },
+            body:JSON.stringify({ids})
+        });
+        const d=await r.json().catch(()=>({}));
+        if(!r.ok)throw new Error(d.error||"No se pudieron eliminar los pedidos.");
+
+        selectedOrders.clear();
+        await loadOrders();
+        showToast(`${Number(d.deleted)||ids.length} ${ids.length===1?"pedido eliminado":"pedidos eliminados"}.`);
+    }catch(e){
+        showToast(e.message||"No se pudieron eliminar los pedidos.","error");
+        updateOrderSelectionUI();
+    }finally{
+        if(button){
+            button.innerHTML=original;
+            updateOrderSelectionUI();
+        }
+    }
+}
+
 function orderBadgeClass(status){
     if(status==="pagado")return "pagado";
     if(["pendiente","pago_pendiente"].includes(status))return "pendiente";
@@ -402,7 +482,9 @@ function orderBadgeClass(status){
 
 async function loadOrders(){
     const tbody=document.getElementById("orders-table");
-    tbody.innerHTML='<tr><td colspan="7" class="loading">Cargando pedidos...</td></tr>';
+    selectedOrders.clear();
+    tbody.innerHTML='<tr><td colspan="8" class="loading">Cargando pedidos...</td></tr>';
+    updateOrderSelectionUI();
 
     const r=await sb("/rest/v1/pedidos?select=id,created_at,cliente_nombre,cliente_email,cliente_telefono,domicilio,ciudad,provincia,codigo_postal,metodo_entrega,notas,total,estado,preparacion_estado&order=created_at.desc&limit=200");
     const d=await r.json().catch(()=>[]);
@@ -418,7 +500,8 @@ async function loadOrders(){
 
     tbody.innerHTML="";
     if(!Array.isArray(d)||!d.length){
-        tbody.innerHTML='<tr><td colspan="7" class="loading">Todavía no hay pedidos.</td></tr>';
+        tbody.innerHTML='<tr><td colspan="8" class="loading">Todavía no hay pedidos.</td></tr>';
+        updateOrderSelectionUI();
         return;
     }
 
@@ -426,6 +509,7 @@ async function loadOrders(){
         const tr=document.createElement("tr");
         const date=new Date(o.created_at);
         tr.innerHTML=`
+            <td class="order-check-cell"><input class="order-checkbox" type="checkbox" data-order-id="${esc(o.id)}" aria-label="Seleccionar pedido #${esc(String(o.id).slice(0,8))}"></td>
             <td>${esc(date.toLocaleString("es-AR"))}</td>
             <td><strong>${esc(o.cliente_nombre)}</strong><div style="color:#888;margin-top:4px">#${esc(String(o.id).slice(0,8))}</div></td>
             <td>${esc(o.cliente_email)}<div style="margin-top:4px">${esc(o.cliente_telefono)}</div></td>
@@ -442,10 +526,19 @@ async function loadOrders(){
             </td>
             <td><button class="icon-btn order-view" type="button">${icon("eye")}<span>VER PEDIDO</span></button></td>
         `;
+        const checkbox=tr.querySelector(".order-checkbox");
+        checkbox?.addEventListener("change",()=>{
+            const id=String(o.id);
+            if(checkbox.checked)selectedOrders.add(id);
+            else selectedOrders.delete(id);
+            updateOrderSelectionUI();
+        });
         tr.querySelector(".fulfillment-select").addEventListener("change",e=>updateFulfillment(o.id,e.target.value));
         tr.querySelector(".order-view").addEventListener("click",()=>openOrder(o));
         tbody.appendChild(tr);
     });
+
+    updateOrderSelectionUI();
 }
 
 
@@ -558,6 +651,10 @@ document.querySelectorAll(".tab").forEach(button=>{
     });
 });
 
+
+document.getElementById("orders-select-all")?.addEventListener("change",e=>setAllVisibleOrdersSelected(e.target.checked));
+document.getElementById("orders-select-all-head")?.addEventListener("change",e=>setAllVisibleOrdersSelected(e.target.checked));
+document.getElementById("delete-selected-orders")?.addEventListener("click",deleteSelectedOrders);
 
 document.getElementById("product-search")?.addEventListener("input",renderProducts);
 document.getElementById("product-filter")?.addEventListener("change",renderProducts);
