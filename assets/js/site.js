@@ -1282,20 +1282,50 @@ async function cargarMisPedidos(force = false) {
                 cache: "no-store"
             });
             const data = await r.json().catch(() => ({}));
-            return r.ok ? data : null;
+
+            if (r.status === 404) {
+                return { missing: true, id: ref.id };
+            }
+
+            return r.ok ? { data } : { error: true };
         } catch {
-            return null;
+            return { error: true };
         }
     }));
 
-    const valid = results.filter(Boolean);
-    list.innerHTML = valid.length
-        ? valid.map(renderPedidoCliente).join("")
-        : `<div class="orders-empty">
-            <svg class="ui-icon"><use href="#i-alert"></use></svg>
-            <strong>No pudimos cargar tus pedidos</strong>
-            <span>Revisá tu conexión e intentá actualizar nuevamente.</span>
+    const missingIds = new Set(
+        results.filter(result => result?.missing).map(result => result.id)
+    );
+
+    if (missingIds.size) {
+        const cleaned = refs.filter(ref => !missingIds.has(ref.id));
+        localStorage.setItem(FER_ORDERS_KEY, JSON.stringify(cleaned));
+    }
+
+    const refsActuales = leerReferenciasPedidos();
+    if (count) {
+        count.textContent = `${refsActuales.length} ${refsActuales.length === 1 ? "pedido" : "pedidos"}`;
+    }
+
+    const valid = results
+        .filter(result => result?.data)
+        .map(result => result.data);
+
+    if (!refsActuales.length) {
+        list.innerHTML = `<div class="orders-empty">
+            <svg class="ui-icon"><use href="#i-package"></use></svg>
+            <strong>Todavía no hay pedidos guardados</strong>
+            <span>Cuando realices una compra, vas a poder seguirla desde acá.</span>
         </div>`;
+    } else {
+        list.innerHTML = valid.length
+            ? valid.map(renderPedidoCliente).join("")
+            : `<div class="orders-empty">
+                <svg class="ui-icon"><use href="#i-alert"></use></svg>
+                <strong>No pudimos cargar tus pedidos</strong>
+                <span>Revisá tu conexión e intentá actualizar nuevamente.</span>
+            </div>`;
+    }
 
     if (refresh) refresh.disabled = false;
 }
