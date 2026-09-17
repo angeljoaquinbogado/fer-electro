@@ -46,18 +46,24 @@ export default async function handler(req,res){
             return res.status(401).json({error:"La sesión venció o no es válida."});
         }
 
+        // Verify admin using the SAME logged-in user token that the panel
+        // already uses successfully for /admin_users.
         const adminResponse=await fetch(
             `${supabaseUrl}/rest/v1/admin_users?user_id=eq.${encodeURIComponent(user.id)}&select=user_id&limit=1`,
             {
                 headers:{
                     apikey:serviceKey,
-                    Authorization:`Bearer ${serviceKey}`,
+                    Authorization:`Bearer ${accessToken}`,
                     Accept:"application/json"
                 }
             }
         );
         const admins=await parseJson(adminResponse,[]);
-        if(!adminResponse.ok||!Array.isArray(admins)||!admins.length){
+        if(!adminResponse.ok){
+            console.error("Admin verification failed:",admins);
+            return res.status(500).json({error:"No pudimos verificar los permisos del administrador."});
+        }
+        if(!Array.isArray(admins)||!admins.length){
             return res.status(403).json({error:"No tenés permisos para eliminar pedidos."});
         }
 
