@@ -284,7 +284,23 @@ async function cargarProductosDesdeSupabase() {
                     </div>
 
                     <div class="product-stock">
-                        ${sinStock ? "SIN STOCK" : stock <= 3 ? `🔥 ¡Últimas ${stock} ${stock === 1 ? "unidad" : "unidades"}!` : `${stock} disponibles`}
+   
+                    ${sinStock
+       
+                        ? "SIN STOCK"
+        
+                        : stock === 1
+           
+                        ? "🔥 ¡Última unidad!"
+           
+                        : stock <= 3
+               
+                        ? `🔥 ¡Últimas ${stock} unidades!`
+                
+                        : `${stock} disponibles`
+  
+                    }
+
                     </div>
 
                     <div class="product-actions">
