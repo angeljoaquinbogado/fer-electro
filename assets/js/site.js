@@ -284,7 +284,7 @@ async function cargarProductosDesdeSupabase() {
                     </div>
 
                     <div class="product-stock">
-                        ${sinStock ? "SIN STOCK" : `${stock} disponibles`}
+                        ${sinStock ? "SIN STOCK" : stock <= 3 ? `🔥 ¡Últimas ${stock} ${stock === 1 ? "unidad" : "unidades"}!` : `${stock} disponibles`}
                     </div>
 
                     <div class="product-actions">
@@ -473,10 +473,15 @@ function verProducto(producto) {
     if (precioMobile) precioMobile.textContent = formatearPrecio(producto.precio);
 
     const stockElemento = modal.querySelector(".dynamic-product-stock");
-    if (stockElemento) {
-        stockElemento.textContent =
-            stock > 0 ? `${stock} disponibles` : "SIN STOCK";
-    }
+
+if (stockElemento) {
+    stockElemento.textContent =
+        stock <= 0
+            ? "SIN STOCK"
+            : stock <= 3
+                ? (stock === 1 ? "🔥 ¡Última unidad!" : `🔥 ¡Últimas ${stock} unidades!`)
+                : `${stock} disponibles`;
+}
 
     const bloqueCantidad = modal.querySelector(".quantity-block");
     const selector = modal.querySelector(".quantity-selector");
