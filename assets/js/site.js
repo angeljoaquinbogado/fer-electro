@@ -1145,6 +1145,61 @@ async function iniciarPagoMercadoPago(evento) {
     }
 }
 
+function cerrarResultadoPago() {
+    const modal = document.getElementById("payment-result");
+    if (!modal) return;
+
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("payment-result-open");
+}
+
+function mostrarResultadoPago({
+    estado = "success",
+    titulo = "¡Compra confirmada!",
+    mensaje = "Recibimos tu pago correctamente.",
+    pedido = "",
+    ayuda = "Guardá este número. Nos comunicaremos para coordinar la entrega."
+} = {}) {
+    const modal = document.getElementById("payment-result");
+    if (!modal) return false;
+
+    const icono = document.getElementById("payment-result-icon");
+    const tituloEl = document.getElementById("payment-result-title");
+    const mensajeEl = document.getElementById("payment-result-message");
+    const pedidoEl = document.getElementById("payment-result-order-id");
+    const ayudaEl = document.getElementById("payment-result-help");
+    const botonCerrar = document.getElementById("payment-result-close");
+
+    modal.dataset.status = estado;
+
+    if (tituloEl) tituloEl.textContent = titulo;
+    if (mensajeEl) mensajeEl.textContent = mensaje;
+    if (pedidoEl) pedidoEl.textContent = pedido || "—";
+    if (ayudaEl) ayudaEl.textContent = ayuda;
+
+    if (icono) {
+        const iconoId = estado === "failure" ? "i-alert" : estado === "pending" ? "i-clock" : "i-check";
+        icono.innerHTML = `<svg class="ui-icon" aria-hidden="true"><use href="#${iconoId}"></use></svg>`;
+    }
+
+    if (botonCerrar) {
+        botonCerrar.textContent = estado === "failure"
+            ? "VOLVER A INTENTAR"
+            : "CONTINUAR EN LA TIENDA";
+        botonCerrar.onclick = () => {
+            cerrarResultadoPago();
+            if (estado === "failure") abrirCheckout();
+        };
+    }
+
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("payment-result-open");
+
+    return true;
+}
+
 async function comprobarRetornoPago() {
     const params = new URLSearchParams(window.location.search);
     const estadoRetorno = params.get("checkout");
@@ -1152,38 +1207,86 @@ async function comprobarRetornoPago() {
 
     if (!estadoRetorno || !orderId) return;
 
-    let mensaje = "";
-
     try {
         const respuesta = await fetch(`/api/order-status?id=${encodeURIComponent(orderId)}`, {
-            headers: { "Accept": "application/json" }
+            headers: { "Accept": "application/json" },
+            cache: "no-store"
         });
 
         const data = await respuesta.json().catch(() => ({}));
+        const estadoReal = String(data?.status || "").toLowerCase();
 
-        if (respuesta.ok && data?.status === "pagado") {
+        if (respuesta.ok && estadoReal === "pagado") {
             localStorage.removeItem(FER_CART_KEY);
+            sessionStorage.removeItem("ferUltimoPedido");
             renderCarrito();
-            mensaje = "Pago aprobado. Tu pedido quedó confirmado.";
-            mostrarToastCarrito("¡Compra confirmada!", mensaje);
-        } else if (data?.status === "pendiente" || estadoRetorno === "pending") {
-            mostrarToastCarrito(
-                "Pago pendiente",
-                "Mercado Pago todavía está procesando el pago. Podés volver a consultar el estado más tarde."
-            );
+
+            if (!mostrarResultadoPago({
+                estado: "success",
+                titulo: "¡Compra confirmada!",
+                mensaje: "Tu pago fue aprobado y el pedido quedó confirmado correctamente.",
+                pedido: orderId,
+                ayuda: "Guardá este número de pedido. Nos comunicaremos para coordinar la entrega."
+            })) {
+                mostrarToastCarrito(
+                    "¡Compra confirmada!",
+                    "Pago aprobado. Tu pedido quedó confirmado."
+                );
+            }
+
+        } else if (estadoReal === "pendiente" || estadoRetorno === "pending") {
+            if (!mostrarResultadoPago({
+                estado: "pending",
+                titulo: "Pago pendiente",
+                mensaje: "Mercado Pago todavía está procesando tu pago.",
+                pedido: orderId,
+                ayuda: "No vuelvas a pagar este pedido. Cuando Mercado Pago lo apruebe, registraremos la confirmación automáticamente."
+            })) {
+                mostrarToastCarrito(
+                    "Pago pendiente",
+                    "Mercado Pago todavía está procesando el pago."
+                );
+            }
+
         } else if (estadoRetorno === "failure") {
-            mostrarToastCarrito(
-                "Pago no completado",
-                "El pago no se completó. Tu carrito sigue guardado para que puedas intentar nuevamente."
-            );
+            if (!mostrarResultadoPago({
+                estado: "failure",
+                titulo: "Pago no completado",
+                mensaje: "El pago fue rechazado, cancelado o no llegó a completarse.",
+                pedido: orderId,
+                ayuda: "Tu carrito sigue guardado. Podés volver a intentarlo sin tener que elegir los productos otra vez."
+            })) {
+                mostrarToastCarrito(
+                    "Pago no completado",
+                    "Tu carrito sigue guardado para que puedas intentar nuevamente."
+                );
+            }
+
         } else {
-            mostrarToastCarrito(
-                "Estado del pago",
-                "Estamos verificando tu compra. Si pagaste, la confirmación puede demorar unos instantes."
-            );
+            if (!mostrarResultadoPago({
+                estado: "pending",
+                titulo: "Verificando tu compra",
+                mensaje: "Todavía no pudimos confirmar el estado final del pago.",
+                pedido: orderId,
+                ayuda: "Si ya pagaste, no vuelvas a realizar el pago. La confirmación puede demorar unos instantes."
+            })) {
+                mostrarToastCarrito(
+                    "Estado del pago",
+                    "Estamos verificando tu compra. La confirmación puede demorar unos instantes."
+                );
+            }
         }
+
     } catch (error) {
         console.error("Error verificando pedido:", error);
+
+        mostrarResultadoPago({
+            estado: "pending",
+            titulo: "Verificando tu compra",
+            mensaje: "No pudimos consultar el estado del pago en este momento.",
+            pedido: orderId,
+            ayuda: "Si ya pagaste, no vuelvas a realizar el pago. Podés contactarnos por WhatsApp si necesitás ayuda."
+        });
     }
 
     history.replaceState({}, document.title, window.location.pathname + window.location.hash);
@@ -1192,6 +1295,11 @@ async function comprobarRetornoPago() {
 
 document.addEventListener("keydown", evento => {
     if (evento.key === "Escape") {
+        if (document.getElementById("payment-result")?.classList.contains("active")) {
+            cerrarResultadoPago();
+            return;
+        }
+
         if (document.getElementById("checkout-modal")?.classList.contains("active")) {
             cerrarCheckout();
             return;
@@ -1228,6 +1336,12 @@ document.getElementById("checkout-form")?.addEventListener("submit", iniciarPago
 document.getElementById("checkout-modal")?.addEventListener("click", evento => {
     if (evento.target.id === "checkout-modal") {
         cerrarCheckout();
+    }
+});
+
+document.getElementById("payment-result")?.addEventListener("click", evento => {
+    if (evento.target.id === "payment-result") {
+        cerrarResultadoPago();
     }
 });
 
