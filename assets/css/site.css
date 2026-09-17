@@ -3822,3 +3822,94 @@ body.orders-open{overflow:hidden}
     .mobile-dock-item{min-width:0}
     .mobile-dock-item span{font-size:7px}
 }
+
+/* =========================================================
+   PRODUCTO — CONTROLES DE COMPRA PREMIUM
+   Suaviza el selector de cantidad y el botón principal.
+========================================================= */
+.product-detail .quantity-block{
+  margin-top:28px;
+}
+
+.product-detail .quantity-label-row{
+  margin-bottom:10px;
+}
+
+.product-detail .quantity-selector{
+  grid-template-columns:44px 52px 44px;
+  min-height:44px;
+  border:1px solid rgba(13,14,16,.10);
+  border-radius:14px;
+  background:#f7f7f4;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+.product-detail .quantity-selector .qty-btn{
+  width:44px;
+  height:44px;
+  border-radius:11px;
+  color:#3f4145;
+}
+
+.product-detail .quantity-selector .qty-btn:hover:not(:disabled){
+  background:#fff;
+  color:#111;
+}
+
+.product-detail .quantity-selector .qty-input{
+  width:52px;
+  height:44px;
+  border-left:1px solid rgba(13,14,16,.08);
+  border-right:1px solid rgba(13,14,16,.08);
+  font-size:13px;
+  font-weight:850;
+}
+
+.product-detail .dynamic-add-cart{
+  width:100%;
+  min-height:54px;
+  margin-top:16px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#191a1d,#0d0e10);
+  box-shadow:0 12px 28px rgba(13,14,16,.13);
+  font-size:10px;
+  letter-spacing:.075em;
+}
+
+.product-detail .dynamic-add-cart:hover:not(:disabled){
+  transform:translateY(-2px);
+  background:linear-gradient(135deg,#111214,#000);
+  box-shadow:0 16px 34px rgba(13,14,16,.19);
+}
+
+.product-detail .dynamic-add-cart:active:not(:disabled){
+  transform:translateY(0) scale(.995);
+}
+
+@media (max-width:640px){
+  .product-detail .quantity-block{
+    margin-top:22px;
+  }
+
+  .product-detail .quantity-selector{
+    grid-template-columns:40px 48px 40px;
+    min-height:40px;
+    border-radius:13px;
+  }
+
+  .product-detail .quantity-selector .qty-btn{
+    width:40px;
+    height:40px;
+  }
+
+  .product-detail .quantity-selector .qty-input{
+    width:48px;
+    height:40px;
+  }
+
+  .dynamic-add-cart-mobile{
+    border-radius:14px;
+    box-shadow:0 10px 24px rgba(13,14,16,.13);
+  }
+}
+
