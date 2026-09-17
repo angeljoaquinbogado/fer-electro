@@ -475,12 +475,15 @@ function verProducto(producto) {
     const stockElemento = modal.querySelector(".dynamic-product-stock");
 
 if (stockElemento) {
-    stockElemento.textContent =
-        stock <= 0
-            ? "SIN STOCK"
-            : stock <= 3
-                ? (stock === 1 ? "🔥 ¡Última unidad!" : `🔥 ¡Últimas ${stock} unidades!`)
-                : `${stock} disponibles`;
+    if (stock <= 0) {
+        stockElemento.textContent = "SIN STOCK";
+    } else if (stock === 1) {
+        stockElemento.textContent = "🔥 ¡Última unidad!";
+    } else if (stock <= 3) {
+        stockElemento.textContent = `🔥 ¡Últimas ${stock} unidades!`;
+    } else {
+        stockElemento.textContent = `${stock} disponibles`;
+    }
 }
 
     const bloqueCantidad = modal.querySelector(".quantity-block");
