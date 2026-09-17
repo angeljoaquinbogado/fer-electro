@@ -40,6 +40,25 @@ export default async function handler(req, res) {
     }
 
     try {
+        const topic = String(
+    req.query?.topic ||
+    req.query?.type ||
+    req.body?.type ||
+    req.body?.topic ||
+    ""
+).toLowerCase();
+
+// Mercado Pago también puede enviar notificaciones de merchant_order.
+// Ese ID NO es un payment_id, por lo que no debemos consultarlo
+// mediante /v1/payments/:id.
+if (topic === "merchant_order") {
+    console.log("Webhook merchant_order ignorado correctamente");
+    return res.status(200).json({
+        ok: true,
+        ignored: true,
+        reason: "merchant_order"
+    });
+}
         const paymentId = extractPaymentId(req);
 
         if (!paymentId) {
