@@ -15,6 +15,7 @@ export default async function handler(req,res){
 
     const supabaseUrl=process.env.SUPABASE_URL;
     const serviceKey=process.env.SUPABASE_SERVICE_ROLE_KEY;
+
     if(!supabaseUrl||!serviceKey){
         return res.status(500).json({error:"Configuración incompleta del servidor."});
     }
@@ -34,79 +35,43 @@ export default async function handler(req,res){
     }
 
     try{
-        const userResponse=await fetch(`${supabaseUrl}/auth/v1/user`,{
-            headers:{
-                apikey:serviceKey,
-                Authorization:`Bearer ${accessToken}`,
-                Accept:"application/json"
-            }
-        });
-        const user=await parseJson(userResponse,{});
-        if(!userResponse.ok||!user?.id){
-            return res.status(401).json({error:"La sesión venció o no es válida."});
-        }
-
-        // Verify admin using the SAME logged-in user token that the panel
-        // already uses successfully for /admin_users.
-        const adminResponse=await fetch(
-            `${supabaseUrl}/rest/v1/admin_users?user_id=eq.${encodeURIComponent(user.id)}&select=user_id&limit=1`,
+        const rpcResponse=await fetch(
+            `${supabaseUrl}/rest/v1/rpc/admin_delete_orders`,
             {
+                method:"POST",
                 headers:{
                     apikey:serviceKey,
                     Authorization:`Bearer ${accessToken}`,
+                    "Content-Type":"application/json",
                     Accept:"application/json"
-                }
+                },
+                body:JSON.stringify({p_ids:ids})
             }
         );
-        const admins=await parseJson(adminResponse,[]);
-        if(!adminResponse.ok){
-            console.error("Admin verification failed:",admins);
-            return res.status(500).json({error:"No pudimos verificar los permisos del administrador."});
-        }
-        if(!Array.isArray(admins)||!admins.length){
-            return res.status(403).json({error:"No tenés permisos para eliminar pedidos."});
-        }
 
-        const inFilter=`in.(${ids.join(",")})`;
+        const result=await parseJson(rpcResponse,null);
 
-        const itemsResponse=await fetch(
-            `${supabaseUrl}/rest/v1/pedido_items?pedido_id=${inFilter}`,
-            {
-                method:"DELETE",
-                headers:{
-                    apikey:serviceKey,
-                    Authorization:`Bearer ${serviceKey}`,
-                    Prefer:"return=minimal"
-                }
+        if(!rpcResponse.ok){
+            console.error("admin_delete_orders RPC failed:",result);
+
+            if(result?.code==="42501"){
+                return res.status(403).json({error:"No tenés permisos para eliminar pedidos."});
             }
-        );
-        if(!itemsResponse.ok){
-            const detail=await parseJson(itemsResponse,{});
-            console.error("Delete pedido_items failed:",detail);
-            return res.status(502).json({error:"No se pudieron eliminar los productos asociados a los pedidos."});
-        }
 
-        const ordersResponse=await fetch(
-            `${supabaseUrl}/rest/v1/pedidos?id=${inFilter}`,
-            {
-                method:"DELETE",
-                headers:{
-                    apikey:serviceKey,
-                    Authorization:`Bearer ${serviceKey}`,
-                    Prefer:"return=representation",
-                    Accept:"application/json"
-                }
+            if(result?.code==="PGRST202"){
+                return res.status(500).json({error:"Falta crear la función admin_delete_orders en Supabase."});
             }
-        );
-        const deleted=await parseJson(ordersResponse,[]);
-        if(!ordersResponse.ok){
-            console.error("Delete pedidos failed:",deleted);
-            return res.status(502).json({error:"No se pudieron eliminar los pedidos."});
+
+            return res.status(502).json({
+                error:result?.message
+                    ? `Supabase rechazó el borrado: ${result.message}`
+                    : "No se pudieron eliminar los pedidos."
+            });
         }
 
         return res.status(200).json({
             ok:true,
-            deleted:Array.isArray(deleted)?deleted.length:ids.length
+            deleted:Number(result)||0
         });
     }catch(error){
         console.error("Admin delete orders error:",error);
