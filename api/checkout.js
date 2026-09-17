@@ -192,6 +192,12 @@ export default async function handler(req, res) {
 
         const order = orderData[0];
         const orderId = order.id;
+        const trackingToken = String(order.tracking_token || "");
+
+        if (!trackingToken) {
+            console.error("Order tracking token missing:", orderId);
+            return res.status(500).json({ error: "No pudimos preparar el seguimiento del pedido." });
+        }
 
         const itemsResponse = await supabaseFetch(
             "/rest/v1/pedido_items",
@@ -230,9 +236,9 @@ export default async function handler(req, res) {
             external_reference: String(orderId),
             notification_url: `${origin}/api/mercadopago-webhook`,
             back_urls: {
-                success: `${origin}/?checkout=success&order=${encodeURIComponent(orderId)}`,
-                pending: `${origin}/?checkout=pending&order=${encodeURIComponent(orderId)}`,
-                failure: `${origin}/?checkout=failure&order=${encodeURIComponent(orderId)}`
+                success: `${origin}/?checkout=success&order=${encodeURIComponent(orderId)}&tracking=${encodeURIComponent(trackingToken)}`,
+                pending: `${origin}/?checkout=pending&order=${encodeURIComponent(orderId)}&tracking=${encodeURIComponent(trackingToken)}`,
+                failure: `${origin}/?checkout=failure&order=${encodeURIComponent(orderId)}&tracking=${encodeURIComponent(trackingToken)}`
             },
             auto_return: "approved",
             statement_descriptor: "FER ELECTRO",
@@ -273,6 +279,7 @@ export default async function handler(req, res) {
 
         return res.status(200).json({
             order_id: orderId,
+            tracking_token: trackingToken,
             init_point: mpData.init_point
         });
 

@@ -80,6 +80,10 @@
 <svg class="ui-icon"><use href="#i-whatsapp"></use></svg>
 <span>WhatsApp</span>
 </a>
+<button aria-controls="orders-drawer" aria-expanded="false" aria-label="Ver mis pedidos" class="orders-trigger" id="orders-trigger" onclick="abrirMisPedidos()" type="button">
+<svg class="ui-icon"><use href="#i-package"></use></svg>
+<span>Mis pedidos</span>
+</button>
 <button aria-controls="cart-drawer" aria-expanded="false" aria-label="Abrir carrito de compras" class="cart-trigger" id="cart-trigger" onclick="abrirCarrito()" type="button">
 <svg class="ui-icon"><use href="#i-cart"></use></svg>
 <span class="cart-trigger-label">Carrito</span>
@@ -403,6 +407,9 @@
 <a aria-label="WhatsApp" class="mobile-dock-item" href="https://wa.me/543764863227" rel="noopener" target="_blank">
 <svg class="ui-icon"><use href="#i-whatsapp"></use></svg><span>WhatsApp</span>
 </a>
+<button aria-label="Ver mis pedidos" class="mobile-dock-item mobile-dock-orders" onclick="abrirMisPedidos()" type="button">
+<svg class="ui-icon"><use href="#i-package"></use></svg><span>Pedidos</span>
+</button>
 <button aria-label="Abrir carrito" class="mobile-dock-item mobile-dock-cart" onclick="abrirCarrito()" type="button">
 <span class="mobile-dock-iconwrap">
 <svg class="ui-icon"><use href="#i-cart"></use></svg>
@@ -542,6 +549,40 @@
 </aside>
 </div>
 </div>
+<!-- =========================
+     MIS PEDIDOS
+========================= -->
+<div aria-hidden="true" class="orders-overlay" id="orders-overlay" onclick="cerrarMisPedidos()"></div>
+<aside aria-hidden="true" aria-label="Mis pedidos" class="orders-drawer" id="orders-drawer">
+    <div class="orders-head">
+        <div>
+            <span class="orders-kicker">FER⚡ELECTRO</span>
+            <strong>Mis pedidos</strong>
+            <small>Seguimiento de tus compras en este dispositivo</small>
+        </div>
+        <button aria-label="Cerrar mis pedidos" class="orders-close" onclick="cerrarMisPedidos()" type="button">
+            <svg class="ui-icon"><use href="#i-close"></use></svg>
+        </button>
+    </div>
+    <div class="orders-toolbar">
+        <span id="orders-count">0 pedidos</span>
+        <button type="button" id="orders-refresh" onclick="cargarMisPedidos(true)">
+            ACTUALIZAR
+        </button>
+    </div>
+    <div class="orders-list" id="orders-list">
+        <div class="orders-empty">
+            <svg class="ui-icon"><use href="#i-package"></use></svg>
+            <strong>Todavía no hay pedidos guardados</strong>
+            <span>Cuando realices una compra, vas a poder seguirla desde acá.</span>
+        </div>
+    </div>
+    <div class="orders-foot">
+        <svg class="ui-icon"><use href="#i-shield"></use></svg>
+        <span>Solo mostramos pedidos guardados de forma privada en este navegador.</span>
+    </div>
+</aside>
+
 <!-- =========================
      CARRITO DE COMPRAS
 ========================= -->

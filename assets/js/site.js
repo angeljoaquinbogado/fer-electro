@@ -1,4 +1,5 @@
 const FER_CART_KEY = "ferCarrito";
+const FER_ORDERS_KEY = "ferMisPedidos";
 const FER_WHATSAPP = "543764863227";
 
 const catalogoProductos = new Map();
@@ -1132,7 +1133,10 @@ async function iniciarPagoMercadoPago(evento) {
             throw new Error("Mercado Pago no devolvió un enlace de pago.");
         }
 
-        sessionStorage.setItem("ferUltimoPedido", String(data.order_id || ""));
+        const orderId = String(data.order_id || "");
+        const trackingToken = String(data.tracking_token || "");
+        if (orderId && trackingToken) guardarReferenciaPedido(orderId, trackingToken);
+        sessionStorage.setItem("ferUltimoPedido", orderId);
         window.location.assign(data.init_point);
 
     } catch (error) {
@@ -1144,6 +1148,184 @@ async function iniciarPagoMercadoPago(evento) {
         boton.innerHTML = htmlOriginal;
     }
 }
+
+
+function leerReferenciasPedidos() {
+    try {
+        const value = JSON.parse(localStorage.getItem(FER_ORDERS_KEY) || "[]");
+        if (!Array.isArray(value)) return [];
+        return value
+            .filter(x => x && typeof x.id === "string" && typeof x.tracking === "string")
+            .slice(0, 20);
+    } catch {
+        return [];
+    }
+}
+
+function guardarReferenciaPedido(id, tracking) {
+    id = String(id || "").trim();
+    tracking = String(tracking || "").trim();
+    if (!id || !tracking) return;
+
+    const pedidos = leerReferenciasPedidos().filter(p => p.id !== id);
+    pedidos.unshift({ id, tracking, saved_at: Date.now() });
+    localStorage.setItem(FER_ORDERS_KEY, JSON.stringify(pedidos.slice(0, 20)));
+}
+
+function formatoPedido(id) {
+    return "#" + String(id || "").slice(0, 8).toUpperCase();
+}
+
+function escPedido(value) {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function estadoPreparacionInfo(value, paymentStatus) {
+    const prep = String(value || "nuevo").toLowerCase();
+    const payment = String(paymentStatus || "").toLowerCase();
+
+    if (prep === "cancelado") return { label: "Cancelado", step: -1, cancelled: true };
+    if (payment !== "pagado") return { label: "Esperando pago", step: 0, cancelled: false };
+    if (prep === "entregado") return { label: "Entregado", step: 4, cancelled: false };
+    if (prep === "enviado") return { label: "Enviado", step: 3, cancelled: false };
+    if (prep === "preparando") return { label: "Preparando", step: 2, cancelled: false };
+    return { label: "Nuevo", step: 1, cancelled: false };
+}
+
+function renderPedidoCliente(data) {
+    const info = estadoPreparacionInfo(data.preparation_status, data.status);
+    const fecha = data.created_at
+        ? new Date(data.created_at).toLocaleString("es-AR", { dateStyle: "medium", timeStyle: "short" })
+        : "";
+    const total = new Intl.NumberFormat("es-AR", {
+        style: "currency", currency: "ARS", maximumFractionDigits: 0
+    }).format(Number(data.total) || 0);
+
+    const steps = [
+        ["i-check", "Pedido"],
+        ["i-card", "Pagado"],
+        ["i-package", "Preparando"],
+        ["i-truck", "Enviado"],
+        ["i-home", "Entregado"]
+    ];
+
+    const progress = steps.map((step, index) => {
+        let cls = "";
+        if (!info.cancelled) {
+            if (index < info.step) cls = "done";
+            else if (index === info.step) cls = "active";
+        }
+        return `<div class="order-track-step ${cls}">
+            <span class="order-track-dot"><svg class="ui-icon"><use href="#${step[0]}"></use></svg></span>
+            <small>${step[1]}</small>
+        </div>`;
+    }).join("");
+
+    const items = (Array.isArray(data.items) ? data.items : []).map(item => {
+        const qty = Math.max(1, Number(item.quantity) || 1);
+        const unit = Number(item.unit_price) || 0;
+        const subtotal = new Intl.NumberFormat("es-AR", {
+            style: "currency", currency: "ARS", maximumFractionDigits: 0
+        }).format(unit * qty);
+        return `<div class="customer-order-item">
+            <span><strong>${escPedido(item.name)}</strong><small>${qty} × unidad</small></span>
+            <strong>${subtotal}</strong>
+        </div>`;
+    }).join("");
+
+    return `<article class="customer-order-card ${info.cancelled ? "is-cancelled" : ""}">
+        <div class="customer-order-top">
+            <div>
+                <span class="customer-order-number">${formatoPedido(data.id)}</span>
+                <small>${escPedido(fecha)}</small>
+            </div>
+            <span class="customer-order-status">${escPedido(info.label)}</span>
+        </div>
+        ${info.cancelled
+            ? '<div class="customer-order-cancelled"><svg class="ui-icon"><use href="#i-alert"></use></svg>Este pedido figura como cancelado.</div>'
+            : `<div class="order-track">${progress}</div>`}
+        <div class="customer-order-items">${items || '<div class="orders-loading">Sin detalle de productos.</div>'}</div>
+        <div class="customer-order-total"><span>Total</span><strong>${total}</strong></div>
+    </article>`;
+}
+
+async function cargarMisPedidos(force = false) {
+    const list = document.getElementById("orders-list");
+    const count = document.getElementById("orders-count");
+    const refresh = document.getElementById("orders-refresh");
+    if (!list) return;
+
+    const refs = leerReferenciasPedidos();
+    if (count) count.textContent = `${refs.length} ${refs.length === 1 ? "pedido" : "pedidos"}`;
+
+    if (!refs.length) {
+        list.innerHTML = `<div class="orders-empty">
+            <svg class="ui-icon"><use href="#i-package"></use></svg>
+            <strong>Todavía no hay pedidos guardados</strong>
+            <span>Cuando realices una compra, vas a poder seguirla desde acá.</span>
+        </div>`;
+        return;
+    }
+
+    if (refresh) refresh.disabled = true;
+    list.innerHTML = '<div class="orders-loading"><span></span>Actualizando tus pedidos…</div>';
+
+    const results = await Promise.all(refs.map(async ref => {
+        try {
+            const r = await fetch(`/api/order-status?id=${encodeURIComponent(ref.id)}&tracking=${encodeURIComponent(ref.tracking)}`, {
+                headers: { Accept: "application/json" },
+                cache: "no-store"
+            });
+            const data = await r.json().catch(() => ({}));
+            return r.ok ? data : null;
+        } catch {
+            return null;
+        }
+    }));
+
+    const valid = results.filter(Boolean);
+    list.innerHTML = valid.length
+        ? valid.map(renderPedidoCliente).join("")
+        : `<div class="orders-empty">
+            <svg class="ui-icon"><use href="#i-alert"></use></svg>
+            <strong>No pudimos cargar tus pedidos</strong>
+            <span>Revisá tu conexión e intentá actualizar nuevamente.</span>
+        </div>`;
+
+    if (refresh) refresh.disabled = false;
+}
+
+function abrirMisPedidos() {
+    cerrarCarrito();
+    const drawer = document.getElementById("orders-drawer");
+    const overlay = document.getElementById("orders-overlay");
+    if (!drawer || !overlay) return;
+
+    drawer.classList.add("active");
+    overlay.classList.add("active");
+    drawer.setAttribute("aria-hidden", "false");
+    overlay.setAttribute("aria-hidden", "false");
+    document.getElementById("orders-trigger")?.setAttribute("aria-expanded", "true");
+    document.body.classList.add("orders-open");
+    cargarMisPedidos();
+}
+
+function cerrarMisPedidos() {
+    const drawer = document.getElementById("orders-drawer");
+    const overlay = document.getElementById("orders-overlay");
+    drawer?.classList.remove("active");
+    overlay?.classList.remove("active");
+    drawer?.setAttribute("aria-hidden", "true");
+    overlay?.setAttribute("aria-hidden", "true");
+    document.getElementById("orders-trigger")?.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("orders-open");
+}
+
 
 function cerrarResultadoPago() {
     const modal = document.getElementById("payment-result");
@@ -1179,7 +1361,7 @@ function mostrarResultadoPago({
     if (ayudaEl) ayudaEl.textContent = ayuda;
 
     if (icono) {
-        const iconoId = estado === "failure" ? "i-alert" : estado === "pending" ? "i-clock" : "i-check";
+        const iconoId = estado === "failure" ? "i-alert" : estado === "pending" ? "i-alert" : "i-check";
         icono.innerHTML = `<svg class="ui-icon" aria-hidden="true"><use href="#${iconoId}"></use></svg>`;
     }
 
@@ -1204,11 +1386,13 @@ async function comprobarRetornoPago() {
     const params = new URLSearchParams(window.location.search);
     const estadoRetorno = params.get("checkout");
     const orderId = params.get("order");
+    const trackingToken = params.get("tracking");
 
     if (!estadoRetorno || !orderId) return;
+    if (trackingToken) guardarReferenciaPedido(orderId, trackingToken);
 
     try {
-        const respuesta = await fetch(`/api/order-status?id=${encodeURIComponent(orderId)}`, {
+        const respuesta = await fetch(`/api/order-status?id=${encodeURIComponent(orderId)}&tracking=${encodeURIComponent(trackingToken || "")}`, {
             headers: { "Accept": "application/json" },
             cache: "no-store"
         });
@@ -1295,6 +1479,11 @@ async function comprobarRetornoPago() {
 
 document.addEventListener("keydown", evento => {
     if (evento.key === "Escape") {
+        if (document.getElementById("orders-drawer")?.classList.contains("active")) {
+            cerrarMisPedidos();
+            return;
+        }
+
         if (document.getElementById("payment-result")?.classList.contains("active")) {
             cerrarResultadoPago();
             return;
