@@ -106,3 +106,21 @@
     font-size:9px;
   }
 }
+
+/* Fix táctil: permite seleccionar sugerencias en iOS/Android sin que
+   el blur del input cierre la lista antes del toque. */
+.checkout-address-option{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+
+@media(max-width:640px){
+  .checkout-address-suggestions{
+    max-height:min(38dvh,300px);
+  }
+
+  .checkout-address-option{
+    min-height:58px;
+  }
+}
+

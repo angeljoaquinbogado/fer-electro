@@ -1901,6 +1901,7 @@ comprobarRetornoPago();
     let lastQuery = "";
     let suppressNextInput = false;
     let selectedAddressValue = "";
+    let selectingSuggestion = false;
 
     function normalizar(value) {
         return String(value || "")
@@ -2051,11 +2052,35 @@ comprobarRetornoPago();
             button.appendChild(main);
             if (meta.textContent) button.appendChild(meta);
 
-            button.addEventListener("mousedown", event => {
+            /* En celular, el blur del input puede ocurrir antes del click.
+               Seleccionamos en pointerdown para que iOS/Android no cierre la
+               lista antes de poder completar la dirección. */
+            button.addEventListener("pointerdown", event => {
+                selectingSuggestion = true;
                 event.preventDefault();
+                chooseSuggestion(index);
+                window.setTimeout(() => {
+                    selectingSuggestion = false;
+                }, 0);
             });
 
-            button.addEventListener("click", () => chooseSuggestion(index));
+            /* Fallback para navegadores sin Pointer Events. */
+            button.addEventListener("touchstart", event => {
+                if (window.PointerEvent) return;
+                selectingSuggestion = true;
+                event.preventDefault();
+                chooseSuggestion(index);
+                window.setTimeout(() => {
+                    selectingSuggestion = false;
+                }, 0);
+            }, { passive: false });
+
+            button.addEventListener("click", event => {
+                event.preventDefault();
+                if (list.hidden) return;
+                chooseSuggestion(index);
+            });
+
             list.appendChild(button);
         });
 
@@ -2169,6 +2194,8 @@ comprobarRetornoPago();
     });
 
     input.addEventListener("blur", () => {
+        if (selectingSuggestion) return;
+
         const current = String(input.value || "").trim();
 
         /* Si el cliente escribió una dirección completa manualmente
@@ -2181,7 +2208,9 @@ comprobarRetornoPago();
             helper.classList.add("selected");
         }
 
-        window.setTimeout(closeSuggestions, 100);
+        window.setTimeout(() => {
+            if (!selectingSuggestion) closeSuggestions();
+        }, 180);
     });
 
     provinceSelect.addEventListener("change", () => {
