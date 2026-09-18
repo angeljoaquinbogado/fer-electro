@@ -493,3 +493,47 @@
     backdrop-filter:none!important;
   }
 }
+
+/* =========================================================
+   MOBILE — SIN MENÚ HAMBURGUESA
+   En desktop la navegación superior se mantiene igual.
+   En celular usamos el dock inferior y dejamos el header limpio.
+========================================================= */
+@media (max-width: 980px){
+  #menu-toggle,
+  .menu-toggle{
+    display:none!important;
+  }
+
+  #primary-navigation,
+  .navlinks{
+    display:none!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+  }
+
+  .nav{
+    grid-template-columns:1fr auto!important;
+  }
+
+  .brand{
+    grid-column:1!important;
+    justify-self:start!important;
+  }
+
+  .nav-actions{
+    grid-column:2!important;
+    justify-self:end!important;
+  }
+
+  /* El menú móvil ya no existe, por lo que esta clase no debe bloquear la página. */
+  body.menu-open{
+    overflow:auto!important;
+  }
+
+  body.menu-open .mobile-dock{
+    display:grid!important;
+  }
+}
+
