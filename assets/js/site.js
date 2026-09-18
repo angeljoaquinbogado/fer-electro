@@ -1993,6 +1993,37 @@ comprobarRetornoPago();
             return;
         }
 
+        /* Si ya hay localidad/provincia cargadas y una sola sugerencia coincide,
+           la seleccionamos automáticamente. Esto evita dejar el desplegable abierto
+           cuando el domicilio ya está claro. */
+        const cityValue = normalizar(cityInput.value);
+        const provinceValue = normalizar(
+            provinceSelect.options[provinceSelect.selectedIndex]?.textContent ||
+            provinceSelect.value
+        );
+
+        if (/\d/.test(String(input.value || ""))) {
+            const matchingIndexes = suggestions
+                .map((item, index) => ({ item, index }))
+                .filter(({ item }) => {
+                    const sameCity = !cityValue || normalizar(item.city) === cityValue;
+                    const sameProvince = !provinceValue ||
+                        normalizar(item.province) === provinceValue;
+                    return sameCity && sameProvince;
+                })
+                .map(({ index }) => index);
+
+            if (matchingIndexes.length === 1) {
+                chooseSuggestion(matchingIndexes[0]);
+                return;
+            }
+
+            if (suggestions.length === 1) {
+                chooseSuggestion(0);
+                return;
+            }
+        }
+
         suggestions.forEach((item, index) => {
             const button = document.createElement("button");
             button.type = "button";
@@ -2130,7 +2161,19 @@ comprobarRetornoPago();
     });
 
     input.addEventListener("blur", () => {
-        window.setTimeout(closeSuggestions, 140);
+        const current = String(input.value || "").trim();
+
+        /* Si el cliente escribió una dirección completa manualmente
+           (calle + número) y pasa al siguiente campo, la damos por cargada.
+           No volvemos a abrir sugerencias salvo que modifique el domicilio. */
+        if (current.length >= 4 && /\d/.test(current)) {
+            selectedAddressValue = normalizar(current);
+            lastQuery = current;
+            helper.textContent = "Dirección cargada.";
+            helper.classList.add("selected");
+        }
+
+        window.setTimeout(closeSuggestions, 100);
     });
 
     provinceSelect.addEventListener("change", () => {
