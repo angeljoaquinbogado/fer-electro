@@ -1891,6 +1891,8 @@ comprobarRetornoPago();
     let suggestions = [];
     let activeIndex = -1;
     let lastQuery = "";
+    let suppressNextInput = false;
+    let selectedAddressValue = "";
 
     function normalizar(value) {
         return String(value || "")
@@ -1948,7 +1950,17 @@ comprobarRetornoPago();
         const item = suggestions[index];
         if (!item) return;
 
-        input.value = item.address || item.label || "";
+        clearTimeout(timer);
+        controller?.abort();
+
+        const selectedValue = item.address || item.label || "";
+        selectedAddressValue = normalizar(selectedValue);
+        lastQuery = selectedValue;
+
+        /* Evita que el "input" programático vuelva a disparar
+           una búsqueda justo después de seleccionar una dirección. */
+        suppressNextInput = true;
+        input.value = selectedValue;
         input.dispatchEvent(new Event("input", { bubbles: true }));
         input.dispatchEvent(new Event("change", { bubbles: true }));
 
@@ -2063,8 +2075,27 @@ comprobarRetornoPago();
     }
 
     input.addEventListener("input", () => {
-        helper.classList.remove("selected");
         clearTimeout(timer);
+
+        if (suppressNextInput) {
+            suppressNextInput = false;
+            closeSuggestions();
+            return;
+        }
+
+        const currentValue = normalizar(input.value);
+
+        /* Si el cliente ya eligió una sugerencia y el valor no cambió,
+           no mostramos otra vez el desplegable. */
+        if (selectedAddressValue && currentValue === selectedAddressValue) {
+            helper.textContent = "Dirección seleccionada. Completá el código postal.";
+            helper.classList.add("selected");
+            closeSuggestions();
+            return;
+        }
+
+        selectedAddressValue = "";
+        helper.classList.remove("selected");
         timer = window.setTimeout(searchAddress, 420);
     });
 
@@ -2086,6 +2117,12 @@ comprobarRetornoPago();
     });
 
     input.addEventListener("focus", () => {
+        if (selectedAddressValue &&
+            normalizar(input.value) === selectedAddressValue) {
+            closeSuggestions();
+            return;
+        }
+
         if (suggestions.length) {
             list.hidden = false;
             input.setAttribute("aria-expanded", "true");
