@@ -1846,3 +1846,264 @@ comprobarRetornoPago();
     productObserver.observe(productGrid, { childList:true });
   }
 })();
+
+/* =========================================================
+   CHECKOUT — AUTOCOMPLETADO DE DIRECCIÓN (ARGENTINA)
+   Mientras el cliente escribe calle + altura, muestra
+   sugerencias y completa automáticamente localidad/provincia.
+   Si el servicio no responde, el checkout sigue manual.
+========================================================= */
+(function iniciarAutocompletadoDireccion() {
+    const input = document.getElementById("checkout-address");
+    const cityInput = document.getElementById("checkout-city");
+    const provinceSelect = document.getElementById("checkout-province");
+    const postalInput = document.getElementById("checkout-postal");
+
+    if (!input || !cityInput || !provinceSelect) return;
+
+    const field = input.closest(".checkout-field");
+    if (!field) return;
+
+    field.classList.add("checkout-address-field");
+
+    input.setAttribute("aria-autocomplete", "list");
+    input.setAttribute("aria-expanded", "false");
+    input.setAttribute("aria-controls", "checkout-address-suggestions");
+    input.setAttribute("spellcheck", "false");
+    input.placeholder = "Ej.: Av. Corrientes 1234";
+
+    const helper = document.createElement("div");
+    helper.className = "checkout-address-helper";
+    helper.id = "checkout-address-helper";
+    helper.textContent = "Escribí calle y altura para ver sugerencias.";
+
+    const list = document.createElement("div");
+    list.className = "checkout-address-suggestions";
+    list.id = "checkout-address-suggestions";
+    list.setAttribute("role", "listbox");
+    list.hidden = true;
+
+    field.appendChild(helper);
+    field.appendChild(list);
+
+    let timer = null;
+    let controller = null;
+    let suggestions = [];
+    let activeIndex = -1;
+    let lastQuery = "";
+
+    function normalizar(value) {
+        return String(value || "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function setProvince(nombre) {
+        if (!nombre) return;
+
+        const target = normalizar(nombre);
+        const option = Array.from(provinceSelect.options).find(opt => {
+            const value = normalizar(opt.value || opt.textContent);
+            return value === target;
+        });
+
+        if (option) {
+            provinceSelect.value = option.value;
+            provinceSelect.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+    }
+
+    function closeSuggestions() {
+        suggestions = [];
+        activeIndex = -1;
+        list.innerHTML = "";
+        list.hidden = true;
+        input.setAttribute("aria-expanded", "false");
+        input.removeAttribute("aria-activedescendant");
+    }
+
+    function setActive(index) {
+        const options = Array.from(list.querySelectorAll("[role='option']"));
+        if (!options.length) return;
+
+        activeIndex = Math.max(0, Math.min(index, options.length - 1));
+
+        options.forEach((option, idx) => {
+            const active = idx === activeIndex;
+            option.classList.toggle("active", active);
+            option.setAttribute("aria-selected", active ? "true" : "false");
+        });
+
+        const active = options[activeIndex];
+        if (active) {
+            input.setAttribute("aria-activedescendant", active.id);
+            active.scrollIntoView({ block: "nearest" });
+        }
+    }
+
+    function chooseSuggestion(index) {
+        const item = suggestions[index];
+        if (!item) return;
+
+        input.value = item.address || item.label || "";
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+
+        if (item.city) {
+            cityInput.value = item.city;
+            cityInput.dispatchEvent(new Event("input", { bubbles: true }));
+            cityInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        if (item.province) {
+            setProvince(item.province);
+        }
+
+        helper.textContent = "Dirección seleccionada. Completá el código postal.";
+        helper.classList.add("selected");
+        closeSuggestions();
+
+        if (postalInput) {
+            window.setTimeout(() => postalInput.focus(), 80);
+        }
+    }
+
+    function renderSuggestions(items) {
+        suggestions = Array.isArray(items) ? items : [];
+        activeIndex = -1;
+        list.innerHTML = "";
+
+        if (!suggestions.length) {
+            closeSuggestions();
+            return;
+        }
+
+        suggestions.forEach((item, index) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "checkout-address-option";
+            button.id = `checkout-address-option-${index}`;
+            button.setAttribute("role", "option");
+            button.setAttribute("aria-selected", "false");
+
+            const main = document.createElement("strong");
+            main.textContent = item.address || item.label || "Dirección";
+
+            const meta = document.createElement("span");
+            meta.textContent = [item.city, item.province]
+                .filter(Boolean)
+                .join(" · ");
+
+            button.appendChild(main);
+            if (meta.textContent) button.appendChild(meta);
+
+            button.addEventListener("mousedown", event => {
+                event.preventDefault();
+            });
+
+            button.addEventListener("click", () => chooseSuggestion(index));
+            list.appendChild(button);
+        });
+
+        list.hidden = false;
+        input.setAttribute("aria-expanded", "true");
+        helper.textContent = "Elegí la dirección correcta de la lista.";
+    }
+
+    async function searchAddress() {
+        const q = String(input.value || "").trim();
+
+        if (q.length < 4) {
+            helper.textContent = "Escribí calle y altura para ver sugerencias.";
+            helper.classList.remove("selected");
+            closeSuggestions();
+            return;
+        }
+
+        if (q === lastQuery && suggestions.length) return;
+        lastQuery = q;
+
+        controller?.abort();
+        controller = new AbortController();
+
+        const params = new URLSearchParams({ q });
+        if (provinceSelect.value) {
+            params.set("provincia", provinceSelect.value);
+        }
+
+        helper.textContent = "Buscando dirección…";
+        helper.classList.remove("selected");
+
+        try {
+            const response = await fetch(`/api/address-search?${params.toString()}`, {
+                headers: { "Accept": "application/json" },
+                signal: controller.signal
+            });
+
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) throw new Error("ADDRESS_SEARCH_FAILED");
+
+            if (String(input.value || "").trim() !== q) return;
+
+            renderSuggestions(data?.suggestions || []);
+
+            if (!data?.suggestions?.length) {
+                helper.textContent = data?.unavailable
+                    ? "Podés completar la dirección manualmente."
+                    : "No encontramos coincidencias. Podés escribirla manualmente.";
+            }
+        } catch (error) {
+            if (error?.name === "AbortError") return;
+            closeSuggestions();
+            helper.textContent = "Podés completar la dirección manualmente.";
+        }
+    }
+
+    input.addEventListener("input", () => {
+        helper.classList.remove("selected");
+        clearTimeout(timer);
+        timer = window.setTimeout(searchAddress, 420);
+    });
+
+    input.addEventListener("keydown", event => {
+        if (list.hidden || !suggestions.length) return;
+
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            setActive(activeIndex < 0 ? 0 : activeIndex + 1);
+        } else if (event.key === "ArrowUp") {
+            event.preventDefault();
+            setActive(activeIndex <= 0 ? suggestions.length - 1 : activeIndex - 1);
+        } else if (event.key === "Enter" && activeIndex >= 0) {
+            event.preventDefault();
+            chooseSuggestion(activeIndex);
+        } else if (event.key === "Escape") {
+            closeSuggestions();
+        }
+    });
+
+    input.addEventListener("focus", () => {
+        if (suggestions.length) {
+            list.hidden = false;
+            input.setAttribute("aria-expanded", "true");
+        }
+    });
+
+    input.addEventListener("blur", () => {
+        window.setTimeout(closeSuggestions, 140);
+    });
+
+    provinceSelect.addEventListener("change", () => {
+        lastQuery = "";
+    });
+
+    document.getElementById("checkout-modal")?.addEventListener("click", event => {
+        if (event.target.id === "checkout-modal") {
+            closeSuggestions();
+        }
+    });
+})();
+
