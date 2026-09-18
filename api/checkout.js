@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+
 const MAX_ITEMS = 40;
 const MAX_QTY = 99;
 
@@ -14,6 +16,49 @@ function originFromRequest(req) {
     const host = clean(req.headers.host || "", 200);
     if (!host) return "https://fer-electro.vercel.app";
     return `${forwarded}://${host}`;
+}
+
+function clientIp(req) {
+    const forwarded = req.headers["x-forwarded-for"];
+    const raw = Array.isArray(forwarded)
+        ? forwarded[0]
+        : String(forwarded || req.socket?.remoteAddress || "unknown");
+
+    return raw.split(",")[0].trim().slice(0, 120) || "unknown";
+}
+
+function checkoutRateKey(req) {
+    // No guardamos la IP: sólo un hash irreversible para limitar abuso.
+    return createHash("sha256")
+        .update(`fer-checkout-v1|${clientIp(req)}`)
+        .digest("hex");
+}
+
+async function consumeCheckoutRateLimit(req) {
+    const key = checkoutRateKey(req);
+
+    const response = await supabaseFetch(
+        "/rest/v1/rpc/consume_checkout_rate_limit",
+        {
+            method: "POST",
+            body: JSON.stringify({
+                p_key_hash: key,
+                p_limit: 10,
+                p_window_seconds: 600
+            })
+        }
+    );
+
+    const data = await response.json().catch(() => null);
+
+    if (!response.ok) {
+        console.error("Checkout rate limit error:", data);
+        throw new Error("RATE_LIMIT_UNAVAILABLE");
+    }
+
+    return data && typeof data === "object"
+        ? data
+        : { allowed: true, retry_after: 0 };
 }
 
 async function supabaseFetch(path, options = {}) {
@@ -65,6 +110,16 @@ export default async function handler(req, res) {
     }
 
     try {
+        const rate = await consumeCheckoutRateLimit(req);
+
+        if (rate?.allowed === false) {
+            const retryAfter = Math.max(1, Number(rate.retry_after) || 60);
+            res.setHeader("Retry-After", String(retryAfter));
+            return res.status(429).json({
+                error: "Hubo demasiados intentos de compra desde esta conexión. Esperá unos minutos y volvé a intentar."
+            });
+        }
+
         const body = req.body && typeof req.body === "object" ? req.body : {};
         const clienteRaw = body.cliente || {};
         const itemsRaw = Array.isArray(body.items) ? body.items : [];
