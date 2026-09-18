@@ -101,7 +101,7 @@ img{max-width:100%;display:block}
 .hero-bg{position:absolute;inset:-7%;z-index:-1;overflow:hidden;pointer-events:none;background:#070707}
 .hero-bg::before{
   content:"";position:absolute;inset:-5%;
-  background-image:url("../images/backgrounds/hero-bg-fer-electro.png");
+  background-image:url("../images/backgrounds/hero-bg-fer-electro.webp");
   background-size:cover;background-position:center center;background-repeat:no-repeat;
   transform:scale(1.06);will-change:transform,background-position;
   animation:heroBgMotion 18s cubic-bezier(.45,.05,.55,.95) infinite alternate;
@@ -1421,7 +1421,7 @@ img{max-width:100%;display:block}
   content:""!important;
   position:absolute!important;
   inset:-8%!important;
-  background-image:url('../images/backgrounds/sobre-nosotros-bg.png')!important;
+  background-image:url('../images/backgrounds/sobre-nosotros-bg.webp')!important;
   background-repeat:no-repeat!important;
   background-position:50% 50%!important;
   background-size:cover!important;
@@ -1878,7 +1878,7 @@ body{background:var(--studio-bg)!important;color:var(--studio-ink)}
 .hero{width:100%!important;max-width:none!important;margin:0!important;min-height:calc(100svh - 106px)!important;padding:0!important;background:#08090a!important;overflow:hidden!important}
 .hero-bg{inset:0!important;background:#08090a!important}
 .hero-bg::before{
-  inset:-3%!important;background-image:linear-gradient(90deg,rgba(6,7,8,.96) 0%,rgba(6,7,8,.86) 38%,rgba(6,7,8,.36) 72%,rgba(6,7,8,.62) 100%),url('../images/backgrounds/hero-bg-fer-electro.png')!important;
+  inset:-3%!important;background-image:linear-gradient(90deg,rgba(6,7,8,.96) 0%,rgba(6,7,8,.86) 38%,rgba(6,7,8,.36) 72%,rgba(6,7,8,.62) 100%),url('../images/backgrounds/hero-bg-fer-electro.webp')!important;
   background-size:cover!important;background-position:60% 50%!important;filter:saturate(.78) contrast(1.05)!important;
   animation:none!important;transform:scale(1.025)!important;opacity:.94!important;
 }
@@ -2076,7 +2076,7 @@ body{background:var(--studio-bg)!important;color:var(--studio-ink)}
   body.menu-open .float-wa{display:none!important}
 
   .hero{min-height:calc(100svh - 66px)!important}
-  .hero-bg::before{background-image:linear-gradient(180deg,rgba(7,8,9,.76),rgba(7,8,9,.86) 58%,#08090a 100%),url('../images/backgrounds/hero-bg-fer-electro.png')!important;background-position:64% 50%!important;background-size:auto 103%!important}
+  .hero-bg::before{background-image:linear-gradient(180deg,rgba(7,8,9,.76),rgba(7,8,9,.86) 58%,#08090a 100%),url('../images/backgrounds/hero-bg-fer-electro.webp')!important;background-position:64% 50%!important;background-size:auto 103%!important}
   .hero-shell{min-height:calc(100svh - 66px)!important;width:var(--studio-container)!important;padding:64px 0 52px!important;display:block!important}
   .hero-content{text-align:left!important;max-width:none!important}
   .hero-index{margin-bottom:24px!important}
@@ -2883,7 +2883,7 @@ body{background:var(--studio-bg)!important;color:var(--studio-ink)}
 .hero-bg{inset:0!important;overflow:hidden!important;background:#08090a!important}
 .hero-bg::before{
   inset:-5%!important;
-  background-image:linear-gradient(90deg,rgba(5,6,7,.80) 0%,rgba(5,6,7,.60) 38%,rgba(5,6,7,.22) 68%,rgba(5,6,7,.34) 100%),url('../images/backgrounds/hero-bg-fer-electro.png')!important;
+  background-image:linear-gradient(90deg,rgba(5,6,7,.80) 0%,rgba(5,6,7,.60) 38%,rgba(5,6,7,.22) 68%,rgba(5,6,7,.34) 100%),url('../images/backgrounds/hero-bg-fer-electro.webp')!important;
   background-size:cover!important;
   background-position:50% 50%!important;
   background-repeat:no-repeat!important;
@@ -3138,7 +3138,7 @@ html.motion-enhanced .motion-heading{transform-origin:left center}
 }
 .hero-bg::before{
   inset:-5%!important;
-  background-image:url("../images/backgrounds/hero-bg-fer-electro.png")!important;
+  background-image:url("../images/backgrounds/hero-bg-fer-electro.webp")!important;
   background-size:cover!important;
   background-position:center center!important;
   background-repeat:no-repeat!important;
@@ -3212,7 +3212,7 @@ html.motion-enhanced .motion-heading{transform-origin:left center}
   inset:-10%;
   z-index:0;
   pointer-events:none;
-  background-image:url('../images/backgrounds/hero-bg-fer-electro.png');
+  background-image:url('../images/backgrounds/hero-bg-fer-electro.webp');
   background-repeat:no-repeat;
   background-size:cover;
   background-position:48% 50%;
@@ -3410,7 +3410,7 @@ html.motion-enhanced .motion-heading{transform-origin:left center}
   inset:-6%!important;
   background-image:
     linear-gradient(90deg,rgba(5,6,7,.76) 0%,rgba(5,6,7,.56) 36%,rgba(5,6,7,.18) 68%,rgba(5,6,7,.30) 100%),
-    url('../images/backgrounds/hero-bg-fer-electro.png')!important;
+    url('../images/backgrounds/hero-bg-fer-electro.webp')!important;
   background-size:cover!important;
   background-repeat:no-repeat!important;
   background-position:50% 50%!important;
@@ -3912,3 +3912,35 @@ body.orders-open{overflow:hidden}
     box-shadow:0 10px 24px rgba(13,14,16,.13);
   }
 }
+
+/* ===== SEGUIMIENTO PROFESIONAL DE PEDIDOS ===== */
+.customer-order-review{
+  display:flex;align-items:flex-start;gap:9px;margin:12px 0;padding:11px 12px;border-radius:14px;
+  background:#fff5dd;border:1px solid #efd69a;color:#76520a;font-size:9px;line-height:1.5
+}
+.customer-order-review .ui-icon{width:17px;height:17px;flex:0 0 auto}
+.customer-order-review strong{display:block;margin-bottom:2px}
+.customer-order-link{
+  margin-top:12px;min-height:42px;padding:0 14px;border-radius:999px;border:1px solid #e0d9cd;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  font-size:8px;font-weight:800;letter-spacing:.06em;color:#303236;background:#faf9f6
+}
+.customer-order-link:hover{border-color:#c8a13a;background:#fffdf7}
+.customer-order-link .ui-icon{width:16px;height:16px}
+
+.payment-result-tracking{
+  min-height:48px;border-radius:999px;padding:0 18px;display:flex;align-items:center;justify-content:center;gap:9px;
+  background:#f5f2ea;border:1px solid #ded7ca;color:#222427;font-size:9px;font-weight:800;letter-spacing:.05em
+}
+.payment-result-tracking:hover{border-color:#c8a13a;background:#fffaf0}
+.payment-result-tracking[hidden]{display:none!important}
+@media(max-width:640px){
+  .customer-order-link{min-height:46px;font-size:8px}
+  .payment-result-tracking{min-height:50px;width:100%}
+}
+
+
+/* ===== Accesibilidad: navegación por teclado ===== */
+.skip-link{position:fixed;left:12px;top:10px;z-index:10000;transform:translateY(-160%);padding:11px 15px;border-radius:10px;background:#fff;color:#111;font-size:12px;font-weight:900;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.skip-link:focus{transform:translateY(0)}
+:where(a,button,input,select,textarea):focus-visible{outline:3px solid rgba(212,175,55,.72);outline-offset:3px}

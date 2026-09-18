@@ -1,3 +1,5 @@
+import { sendOrderConfirmationEmail } from "../lib/order-email.js";
+
 async function supabaseFetch(path, options = {}) {
     const url = process.env.SUPABASE_URL;
     const service = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -17,6 +19,15 @@ function extractPaymentId(req) {
     const bodyId = req.body?.data?.id || req.body?.id;
     const queryId = req.query?.["data.id"] || req.query?.id;
     return String(bodyId || queryId || "").trim();
+}
+
+function publicOrigin(req) {
+    const configured = String(process.env.PUBLIC_SITE_URL || "").trim().replace(/\/$/, "");
+    if (/^https:\/\//i.test(configured)) return configured;
+
+    const proto = String(req.headers["x-forwarded-proto"] || "https").split(",")[0].trim();
+    const host = String(req.headers.host || "fer-electro.vercel.app").trim();
+    return `${proto === "http" ? "http" : "https"}://${host}`;
 }
 
 export default async function handler(req, res) {
@@ -95,7 +106,7 @@ if (topic === "merchant_order") {
         }
 
         const orderResponse = await supabaseFetch(
-            `/rest/v1/pedidos?id=eq.${encodeURIComponent(orderId)}&select=id,total,estado`
+            `/rest/v1/pedidos?id=eq.${encodeURIComponent(orderId)}&select=id,total,estado,cliente_nombre,cliente_email,tracking_token`
         );
 
         const orders = await orderResponse.json().catch(() => []);
@@ -145,6 +156,29 @@ if (topic === "merchant_order") {
             if (!rpcResponse.ok) {
                 console.error("confirmar_pago_pedido failed:", rpcData);
                 return res.status(500).json({ error: "No se pudo confirmar el pedido" });
+            }
+
+            // El email es un extra: nunca bloquea la confirmación del pago.
+            // Si RESEND_API_KEY / EMAIL_FROM no están configurados, se omite.
+            if (rpcData?.ok) {
+                try {
+                    const itemsResponse = await supabaseFetch(
+                        `/rest/v1/pedido_items?pedido_id=eq.${encodeURIComponent(orderId)}&select=nombre,cantidad,precio_unitario&order=id.asc`
+                    );
+                    const items = await itemsResponse.json().catch(() => []);
+
+                    if (itemsResponse.ok && Array.isArray(items)) {
+                        await sendOrderConfirmationEmail({
+                            order,
+                            items,
+                            origin: publicOrigin(req)
+                        });
+                    } else {
+                        console.error("Order email items lookup failed:", orderId);
+                    }
+                } catch (emailError) {
+                    console.error("Order confirmation email failed:", emailError?.message || emailError);
+                }
             }
 
             return res.status(200).json({ ok: true, result: rpcData });

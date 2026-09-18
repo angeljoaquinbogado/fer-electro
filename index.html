@@ -5,6 +5,11 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="#090a0b" name="theme-color"/>
+<meta name="robots" content="index,follow,max-image-preview:large"/>
+<link rel="canonical" href="https://fer-electro.vercel.app/"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/brand/favicon-32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/brand/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
 <meta content="FER ELECTRO — tecnología, audio y accesorios en Posadas, Misiones. Compra segura, stock actualizado y atención personalizada." name="description"/>
 <title>FER⚡ELECTRO | Tecnología, audio y accesorios</title>
 <meta property="og:title" content="FER⚡ELECTRO | Tecnología, audio y accesorios"/>
@@ -16,6 +21,28 @@
 <meta name="twitter:title" content="FER⚡ELECTRO | Tecnología, audio y accesorios"/>
 <meta name="twitter:description" content="Tecnología seleccionada, compra simple y atención personalizada."/>
 <meta name="twitter:image" content="https://fer-electro.vercel.app/assets/images/brand/logo-fer-electro.png"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "FER ELECTRO",
+  "url": "https://fer-electro.vercel.app/",
+  "logo": "https://fer-electro.vercel.app/assets/images/brand/logo-fer-electro.png",
+  "image": "https://fer-electro.vercel.app/assets/images/brand/logo-fer-electro.png",
+  "description": "Tecnología, audio y accesorios seleccionados con atención personalizada.",
+  "telephone": "+54 9 3764 863227",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Posadas",
+    "addressRegion": "Misiones",
+    "addressCountry": "AR"
+  },
+  "sameAs": [
+    "https://www.instagram.com/ferchoo_ferchoo"
+  ]
+}
+</script>
+
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -25,7 +52,7 @@
 <link rel="stylesheet" href="assets/css/site.css"/>
 <link rel="stylesheet" href="assets/css/mobile.css"/>
 </head>
-<body><svg aria-hidden="true" class="icon-sprite" focusable="false">
+<body><a class="skip-link" href="#inicio">Saltar al contenido</a><svg aria-hidden="true" class="icon-sprite" focusable="false">
 <symbol id="i-home" viewbox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-4.5v-6h-5v6H5a1.5 1.5 0 0 1-1.5-1.5v-9Z"></path></symbol>
 <symbol id="i-grid" viewbox="0 0 24 24"><rect height="7" rx="1.5" width="7" x="3" y="3"></rect><rect height="7" rx="1.5" width="7" x="14" y="3"></rect><rect height="7" rx="1.5" width="7" x="3" y="14"></rect><rect height="7" rx="1.5" width="7" x="14" y="14"></rect></symbol>
 <symbol id="i-cart" viewbox="0 0 24 24"><path d="M3 4h2l2 10h10.5l2-7H7"></path><circle cx="9.5" cy="19" r="1.2"></circle><circle cx="17" cy="19" r="1.2"></circle></symbol>
@@ -73,7 +100,7 @@
 <a href="#contacto">Contacto</a>
 </nav>
 <a aria-label="FER ELECTRO — Inicio" class="brand" href="#inicio">
-<img alt="FER⚡ELECTRO" class="nav-logo" src="assets/images/brand/logo-fer-electro.png"/>
+<img alt="FER⚡ELECTRO" class="nav-logo" src="assets/images/brand/logo-fer-electro.webp"/>
 </a>
 <div class="nav-actions">
 <button aria-controls="primary-navigation" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" id="menu-toggle" type="button"><span></span><span></span></button>
@@ -302,7 +329,7 @@
 <div class="product-detail-inner">
 <button aria-label="Cerrar" class="product-detail-close" onclick="cerrarProductoDinamico()" type="button"><svg class="ui-icon"><use href="#i-close"></use></svg></button>
 <div class="product-detail-image">
-<img alt="" class="dynamic-product-image" src="assets/images/brand/logo-fer-electro.png"/>
+<img alt="" class="dynamic-product-image" src="assets/images/brand/logo-fer-electro.webp"/>
 </div>
 <div class="product-detail-info">
 <div class="kicker dynamic-product-category">
@@ -360,7 +387,7 @@
 <footer class="site-footer">
 <div class="footer-main">
 <div class="footer-brand-box">
-<img alt="FER⚡ELECTRO" class="footer-logo" loading="lazy" src="assets/images/brand/logo-fer-electro.png"/>
+<img alt="FER⚡ELECTRO" class="footer-logo" loading="lazy" src="assets/images/brand/logo-fer-electro.webp"/>
 <p>Tecnología seleccionada, atención cercana y una experiencia de compra clara.</p>
 <div class="footer-badges">
 <span><svg class="ui-icon"><use href="#i-shield"></use></svg> Compra segura</span>
@@ -380,6 +407,7 @@
 <a href="#contacto">Envíos y entrega</a>
 <a href="#productos">Stock disponible</a>
 <a href="#contacto">Ubicación</a>
+<a href="/politicas.html">Políticas de compra y privacidad</a>
 </div>
 <div class="footer-column footer-contact">
 <h4>Contacto</h4>
@@ -650,6 +678,10 @@
             Guardá este número. Nos comunicaremos para coordinar la entrega.
         </p>
         <div class="payment-result-actions">
+            <a href="/pedido.html" id="payment-result-tracking" class="payment-result-tracking" hidden>
+                <svg class="ui-icon" aria-hidden="true"><use href="#i-package"></use></svg>
+                VER SEGUIMIENTO
+            </a>
             <button class="gold-btn" id="payment-result-close" type="button">CONTINUAR EN LA TIENDA</button>
             <a href="https://wa.me/543764863227" target="_blank" rel="noopener" class="payment-result-whatsapp">
                 <svg class="ui-icon" aria-hidden="true"><use href="#i-whatsapp"></use></svg>

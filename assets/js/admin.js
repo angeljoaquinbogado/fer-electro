@@ -2,6 +2,7 @@ const SESSION_KEY = "ferAdminSession";
 let CONFIG = null;
 let session = null;
 let productos = [];
+let pedidos = [];
 let selectedOrders = new Set();
 
 const money = new Intl.NumberFormat("es-AR", {
@@ -9,6 +10,45 @@ const money = new Intl.NumberFormat("es-AR", {
     currency:"ARS",
     maximumFractionDigits:0
 });
+
+function orderCode(id){
+    const raw=String(id||"").replaceAll("-","").toUpperCase();
+    return raw ? `FE-${raw.slice(0,10)}` : "FE-—";
+}
+
+function orderPaymentGroup(status){
+    const value=String(status||"").toLowerCase();
+    if(value==="pagado")return "pagado";
+    if(["pagado_revisar_stock","pago_revisar_monto"].includes(value))return "revision";
+    if(["pendiente","pago_pendiente","error_pago"].includes(value))return "pendiente";
+    if(["pago_rechazado","pago_cancelado","reembolsado","contracargo"].includes(value))return "fallido";
+    return value||"pendiente";
+}
+
+function orderStatusLabel(status){
+    const value=String(status||"pendiente").toLowerCase();
+    const labels={
+        pagado:"PAGADO",
+        pagado_revisar_stock:"PAGADO · REVISAR STOCK",
+        pago_revisar_monto:"PAGO · REVISAR MONTO",
+        pendiente:"PENDIENTE",
+        pago_pendiente:"PAGO PENDIENTE",
+        error_pago:"ERROR AL INICIAR PAGO",
+        pago_rechazado:"PAGO RECHAZADO",
+        pago_cancelado:"PAGO CANCELADO",
+        reembolsado:"REEMBOLSADO",
+        contracargo:"CONTRACARGO"
+    };
+    return labels[value]||value.toUpperCase().replaceAll("_"," ");
+}
+
+function trackingLink(order){
+    const id=String(order?.id||"").trim();
+    const token=String(order?.tracking_token||"").trim();
+    return id&&token
+        ? `${location.origin}/pedido.html?id=${encodeURIComponent(id)}&tracking=${encodeURIComponent(token)}`
+        : "";
+}
 
 function esc(value){
     return String(value ?? "")
@@ -74,16 +114,16 @@ function confirmAction({title="Confirmar acción",text="¿Querés continuar?",co
 function resolveAdminImage(src){
     const value=String(src||"").trim();
     const legacy={
-        "logo-2.PNG":"assets/images/brand/logo-fer-electro.png",
-        "/logo-2.PNG":"assets/images/brand/logo-fer-electro.png",
-        "logo.PNG":"assets/images/brand/logo-admin.png",
-        "/logo.PNG":"assets/images/brand/logo-admin.png",
+        "logo-2.PNG":"assets/images/brand/logo-fer-electro.webp",
+        "/logo-2.PNG":"assets/images/brand/logo-fer-electro.webp",
+        "logo.PNG":"assets/images/brand/logo-admin.webp",
+        "/logo.PNG":"assets/images/brand/logo-admin.webp",
         "logo.jpg":"assets/images/brand/logo-legacy.jpg",
         "/logo.jpg":"assets/images/brand/logo-legacy.jpg",
-        "auriculares 2.PNG":"assets/images/products/auriculares-2.png",
-        "/auriculares 2.PNG":"assets/images/products/auriculares-2.png"
+        "auriculares 2.PNG":"assets/images/products/auriculares-2.webp",
+        "/auriculares 2.PNG":"assets/images/products/auriculares-2.webp"
     };
-    return legacy[value]||value||"assets/images/brand/logo-fer-electro.png";
+    return legacy[value]||value||"assets/images/brand/logo-fer-electro.webp";
 }
 
 function setImagePreview(src){
@@ -221,6 +261,14 @@ async function loadProducts(){
     document.getElementById("stat-products").textContent=productos.length;
     document.getElementById("stat-stock").textContent=productos.reduce((s,p)=>s+Math.max(0,Number(p.stock)||0),0);
     document.getElementById("stat-active").textContent=productos.filter(p=>p.activo).length;
+
+    const stockAlert=document.getElementById("product-stock-alert");
+    if(stockAlert){
+        const critical=productos.filter(p=>p.activo&&Math.max(0,Number(p.stock)||0)<=3).length;
+        stockAlert.hidden=critical===0;
+        stockAlert.textContent=critical===1?"1 PRODUCTO REQUIERE STOCK":`${critical} PRODUCTOS REQUIEREN STOCK`;
+    }
+
     renderProducts();
 }
 
@@ -343,7 +391,7 @@ async function saveProduct(event){
             precio:Number(document.getElementById("product-price").value),
             stock:Math.max(0,Math.floor(Number(document.getElementById("product-stock").value)||0)),
             categoria:document.getElementById("product-category").value.trim(),
-            imagen:imagen||"assets/images/brand/logo-fer-electro.png",
+            imagen:imagen||"assets/images/brand/logo-fer-electro.webp",
             activo:document.getElementById("product-active").value==="true"
         };
 
@@ -480,43 +528,115 @@ function orderBadgeClass(status){
     return "";
 }
 
-async function loadOrders(){
+function filteredOrders(){
+    const search=String(document.getElementById("order-search")?.value||"").trim().toLowerCase();
+    const payment=String(document.getElementById("order-payment-filter")?.value||"all");
+    const prep=String(document.getElementById("order-prep-filter")?.value||"all");
+    const dateFrom=String(document.getElementById("order-date-from")?.value||"");
+    const dateTo=String(document.getElementById("order-date-to")?.value||"");
+    const fromTs=dateFrom?new Date(`${dateFrom}T00:00:00`).getTime():null;
+    const toTs=dateTo?new Date(`${dateTo}T23:59:59.999`).getTime():null;
+
+    return pedidos.filter(order=>{
+        const haystack=[
+            orderCode(order.id),
+            order.id,
+            order.cliente_nombre,
+            order.cliente_email,
+            order.cliente_telefono,
+            order.ciudad,
+            order.provincia
+        ].map(v=>String(v||"").toLowerCase()).join(" ");
+
+        const createdTs=new Date(order.created_at).getTime();
+        const matchesSearch=!search||haystack.includes(search);
+        const matchesPayment=payment==="all"||orderPaymentGroup(order.estado)===payment;
+        const matchesPrep=prep==="all"||String(order.preparacion_estado||"nuevo")===prep;
+        const matchesFrom=fromTs===null||(!Number.isNaN(createdTs)&&createdTs>=fromTs);
+        const matchesTo=toTs===null||(!Number.isNaN(createdTs)&&createdTs<=toTs);
+        return matchesSearch&&matchesPayment&&matchesPrep&&matchesFrom&&matchesTo;
+    });
+}
+
+function csvCell(value){
+    let text=String(value??"").replaceAll('"','""');
+    // Evita que Excel interprete contenido de clientes como una fórmula.
+    if(/^[=+\-@]/.test(text))text=`'${text}`;
+    return `"${text}"`;
+}
+
+function exportFilteredOrders(){
+    const rows=filteredOrders();
+    if(!rows.length){
+        showToast("No hay pedidos para exportar con estos filtros.","error");
+        return;
+    }
+
+    const header=["Pedido","Fecha","Cliente","Email","Teléfono","Total ARS","Pago","Preparación","Ciudad","Provincia"];
+    const lines=[header.map(csvCell).join(",")];
+
+    rows.forEach(order=>{
+        lines.push([
+            orderCode(order.id),
+            new Date(order.created_at).toLocaleString("es-AR"),
+            order.cliente_nombre,
+            order.cliente_email,
+            order.cliente_telefono,
+            Number(order.total)||0,
+            orderStatusLabel(order.estado),
+            String(order.preparacion_estado||"nuevo").toUpperCase(),
+            order.ciudad,
+            order.provincia
+        ].map(csvCell).join(","));
+    });
+
+    const blob=new Blob(["\ufeff"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url;
+    a.download=`fer-electro-pedidos-${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    showToast(`${rows.length} ${rows.length===1?"pedido exportado":"pedidos exportados"}.`);
+}
+
+function renderOrders(){
     const tbody=document.getElementById("orders-table");
-    selectedOrders.clear();
-    tbody.innerHTML='<tr><td colspan="8" class="loading">Cargando pedidos...</td></tr>';
-    updateOrderSelectionUI();
+    if(!tbody)return;
 
-    const r=await sb("/rest/v1/pedidos?select=id,created_at,cliente_nombre,cliente_email,cliente_telefono,domicilio,ciudad,provincia,codigo_postal,metodo_entrega,notas,total,estado,preparacion_estado&order=created_at.desc&limit=200");
-    const d=await r.json().catch(()=>[]);
-    if(!r.ok)throw new Error("No se pudieron cargar los pedidos.");
+    const visible=filteredOrders();
+    const visibleIds=new Set(visible.map(o=>String(o.id)));
 
-    const orders=Array.isArray(d)?d:[];
-    const totalEl=document.getElementById("order-stat-total");
-    const paidEl=document.getElementById("order-stat-paid");
-    const pendingEl=document.getElementById("order-stat-pending");
-    if(totalEl)totalEl.textContent=orders.length;
-    if(paidEl)paidEl.textContent=orders.filter(o=>String(o.estado||"")==="pagado").length;
-    if(pendingEl)pendingEl.textContent=orders.filter(o=>["pendiente","pago_pendiente"].includes(String(o.estado||""))).length;
+    // Nunca dejamos pedidos seleccionados pero ocultos por un filtro.
+    for(const id of [...selectedOrders]){
+        if(!visibleIds.has(id))selectedOrders.delete(id);
+    }
+
+    const count=document.getElementById("orders-list-count");
+    if(count)count.textContent=`${visible.length} de ${pedidos.length} pedidos`;
 
     tbody.innerHTML="";
-    if(!Array.isArray(d)||!d.length){
-        tbody.innerHTML='<tr><td colspan="8" class="loading">Todavía no hay pedidos.</td></tr>';
+    if(!visible.length){
+        tbody.innerHTML='<tr><td colspan="8" class="loading">No encontramos pedidos con esos filtros.</td></tr>';
         updateOrderSelectionUI();
         return;
     }
 
-    orders.forEach(o=>{
+    visible.forEach(o=>{
         const tr=document.createElement("tr");
         const date=new Date(o.created_at);
+        const code=orderCode(o.id);
         tr.innerHTML=`
-            <td class="order-check-cell"><input class="order-checkbox" type="checkbox" data-order-id="${esc(o.id)}" aria-label="Seleccionar pedido #${esc(String(o.id).slice(0,8))}"></td>
+            <td class="order-check-cell"><input class="order-checkbox" type="checkbox" data-order-id="${esc(o.id)}" aria-label="Seleccionar pedido ${esc(code)}"></td>
             <td>${esc(date.toLocaleString("es-AR"))}</td>
-            <td><strong>${esc(o.cliente_nombre)}</strong><div style="color:#888;margin-top:4px">#${esc(String(o.id).slice(0,8))}</div></td>
-            <td>${esc(o.cliente_email)}<div style="margin-top:4px">${esc(o.cliente_telefono)}</div></td>
+            <td><strong>${esc(o.cliente_nombre)}</strong><div class="cell-sub">${esc(code)}</div></td>
+            <td>${esc(o.cliente_email)}<div class="cell-sub">${esc(o.cliente_telefono)}</div></td>
             <td><strong>${esc(money.format(Number(o.total)||0))}</strong></td>
-            <td><span class="badge ${orderBadgeClass(String(o.estado||""))}">${esc(String(o.estado||"pendiente").toUpperCase().replaceAll("_"," "))}</span></td>
+            <td><span class="badge ${orderBadgeClass(String(o.estado||""))}">${esc(orderStatusLabel(o.estado))}</span></td>
             <td>
-                <select class="fulfillment-select" style="border:1px solid #ddd;border-radius:9px;padding:7px;font-size:9px">
+                <select class="fulfillment-select" aria-label="Estado de preparación de ${esc(code)}">
                     <option value="nuevo" ${o.preparacion_estado==="nuevo"?"selected":""}>NUEVO</option>
                     <option value="preparando" ${o.preparacion_estado==="preparando"?"selected":""}>PREPARANDO</option>
                     <option value="enviado" ${o.preparacion_estado==="enviado"?"selected":""}>ENVIADO</option>
@@ -533,12 +653,34 @@ async function loadOrders(){
             else selectedOrders.delete(id);
             updateOrderSelectionUI();
         });
-        tr.querySelector(".fulfillment-select").addEventListener("change",e=>updateFulfillment(o.id,e.target.value));
-        tr.querySelector(".order-view").addEventListener("click",()=>openOrder(o));
+        tr.querySelector(".fulfillment-select")?.addEventListener("change",e=>updateFulfillment(o.id,e.target.value));
+        tr.querySelector(".order-view")?.addEventListener("click",()=>openOrder(o));
         tbody.appendChild(tr);
     });
 
     updateOrderSelectionUI();
+}
+
+async function loadOrders(){
+    const tbody=document.getElementById("orders-table");
+    selectedOrders.clear();
+    tbody.innerHTML='<tr><td colspan="8" class="loading">Cargando pedidos...</td></tr>';
+    updateOrderSelectionUI();
+
+    const r=await sb("/rest/v1/pedidos?select=id,created_at,cliente_nombre,cliente_email,cliente_telefono,domicilio,ciudad,provincia,codigo_postal,metodo_entrega,notas,total,estado,preparacion_estado,tracking_token&order=created_at.desc&limit=300");
+    const d=await r.json().catch(()=>[]);
+    if(!r.ok)throw new Error("No se pudieron cargar los pedidos.");
+
+    pedidos=Array.isArray(d)?d:[];
+
+    const totalEl=document.getElementById("order-stat-total");
+    const paidEl=document.getElementById("order-stat-paid");
+    const pendingEl=document.getElementById("order-stat-pending");
+    if(totalEl)totalEl.textContent=pedidos.length;
+    if(paidEl)paidEl.textContent=pedidos.filter(o=>orderPaymentGroup(o.estado)==="pagado").length;
+    if(pendingEl)pendingEl.textContent=pedidos.filter(o=>orderPaymentGroup(o.estado)==="pendiente").length;
+
+    renderOrders();
 }
 
 
@@ -552,6 +694,9 @@ async function updateFulfillment(id,value){
             body:JSON.stringify({preparacion_estado:value})
         });
         if(!r.ok)throw new Error("No se pudo actualizar el estado de preparación.");
+        const local=pedidos.find(o=>String(o.id)===String(id));
+        if(local)local.preparacion_estado=value;
+        renderOrders();
         showToast("Estado del pedido actualizado.");
     }catch(e){
         showToast(e.message||"No se pudo actualizar el pedido.","error");
@@ -572,16 +717,35 @@ async function openOrder(order){
         const items=await r.json().catch(()=>[]);
         if(!r.ok)throw new Error("No se pudo cargar el detalle.");
 
+        const code=orderCode(order.id);
+        const link=trackingLink(order);
+        const phone=String(order.cliente_telefono||"").replace(/\D/g,"");
+        const waPhone=phone.startsWith("54")?phone:`54${phone}`;
+        const waHref=phone
+            ? `https://wa.me/${encodeURIComponent(waPhone)}?text=${encodeURIComponent(`Hola, te contactamos de FER ELECTRO por tu pedido ${code}.`)}`
+            : "";
+
         content.className="";
         content.innerHTML=`
+            <div class="order-modal-code">
+                <span>NÚMERO DE PEDIDO</span>
+                <strong>${esc(code)}</strong>
+                <small>${esc(new Date(order.created_at).toLocaleString("es-AR"))}</small>
+            </div>
             <div class="order-meta">
                 <div><span>CLIENTE</span><strong>${esc(order.cliente_nombre)}</strong></div>
                 <div><span>CONTACTO</span><strong>${esc(order.cliente_email)} · ${esc(order.cliente_telefono)}</strong></div>
                 <div><span>ENTREGA</span><strong>${esc(order.domicilio)}, ${esc(order.ciudad)}, ${esc(order.provincia)} · CP ${esc(order.codigo_postal)}</strong></div>
                 <div><span>TOTAL</span><strong>${esc(money.format(Number(order.total)||0))}</strong></div>
+                <div><span>PAGO</span><strong>${esc(orderStatusLabel(order.estado))}</strong></div>
+                <div><span>PREPARACIÓN</span><strong>${esc(String(order.preparacion_estado||"nuevo").toUpperCase())}</strong></div>
             </div>
-            ${order.notas?`<div style="padding:12px;border-radius:12px;background:#fafafa;font-size:10px"><strong>Aclaraciones:</strong> ${esc(order.notas)}</div>`:""}
-            <h3 style="font-size:13px;margin-top:18px">Productos</h3>
+            ${order.notas?`<div class="order-note"><strong>Aclaraciones:</strong> ${esc(order.notas)}</div>`:""}
+            <div class="order-modal-actions">
+                ${link?`<button class="secondary copy-tracking-link" type="button">COPIAR LINK DE SEGUIMIENTO</button>`:""}
+                ${waHref?`<a class="primary" href="${esc(waHref)}" target="_blank" rel="noopener">ESCRIBIR AL CLIENTE</a>`:""}
+            </div>
+            <h3 class="order-products-title">Productos</h3>
             <div class="order-items">
                 ${(Array.isArray(items)?items:[]).map(i=>`
                     <div class="order-item-row">
@@ -594,6 +758,18 @@ async function openOrder(order){
                 `).join("") || '<div class="loading">Sin ítems.</div>'}
             </div>
         `;
+
+        content.querySelector(".copy-tracking-link")?.addEventListener("click",async e=>{
+            const button=e.currentTarget;
+            const original=button.textContent;
+            try{
+                await navigator.clipboard.writeText(link);
+                button.textContent="LINK COPIADO";
+            }catch{
+                button.textContent="NO SE PUDO COPIAR";
+            }
+            setTimeout(()=>button.textContent=original,1800);
+        });
     }catch(e){
         content.className="message show error";
         content.textContent=e.message;
@@ -658,6 +834,17 @@ document.getElementById("delete-selected-orders")?.addEventListener("click",dele
 
 document.getElementById("product-search")?.addEventListener("input",renderProducts);
 document.getElementById("product-filter")?.addEventListener("change",renderProducts);
+
+const rerenderOrderFilters=()=>{
+    selectedOrders.clear();
+    renderOrders();
+};
+document.getElementById("order-search")?.addEventListener("input",rerenderOrderFilters);
+document.getElementById("order-payment-filter")?.addEventListener("change",rerenderOrderFilters);
+document.getElementById("order-prep-filter")?.addEventListener("change",rerenderOrderFilters);
+document.getElementById("order-date-from")?.addEventListener("change",rerenderOrderFilters);
+document.getElementById("order-date-to")?.addEventListener("change",rerenderOrderFilters);
+document.getElementById("export-orders")?.addEventListener("click",exportFilteredOrders);
 document.getElementById("new-product-button")?.addEventListener("click",()=>{
     const productsTab=document.querySelector('.tab[data-tab="products"]');
     document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b===productsTab));

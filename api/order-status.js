@@ -51,15 +51,22 @@ export default async function handler(req, res) {
             return res.status(502).json({ error: "No se pudo cargar el detalle del pedido" });
         }
 
-        const estado = String(order.estado || "pendiente");
-        const preparacion = String(order.preparacion_estado || "nuevo");
+        const estado = String(order.estado || "pendiente").toLowerCase();
+        const preparacion = String(order.preparacion_estado || "nuevo").toLowerCase();
+        const orderCode = `FE-${String(order.id || "").replaceAll("-", "").slice(0, 10).toUpperCase()}`;
+
+        const status =
+            estado === "pagado" ? "pagado" :
+            ["pagado_revisar_stock", "pago_revisar_monto"].includes(estado) ? "revision" :
+            ["pendiente", "pago_pendiente", "error_pago"].includes(estado) ? "pendiente" :
+            ["pago_rechazado", "pago_cancelado"].includes(estado) ? "fallido" :
+            estado === "reembolsado" ? "reembolsado" :
+            estado;
 
         return res.status(200).json({
             id: order.id,
-            status:
-                estado === "pagado" ? "pagado" :
-                estado.includes("pendiente") || estado === "pendiente" ? "pendiente" :
-                estado,
+            code: orderCode,
+            status,
             preparation_status: preparacion,
             created_at: order.created_at,
             total: Number(order.total) || 0,

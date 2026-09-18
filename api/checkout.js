@@ -12,10 +12,14 @@ function emailValido(value) {
 }
 
 function originFromRequest(req) {
+    const configured = clean(process.env.PUBLIC_SITE_URL || "", 250).replace(/\/$/, "");
+    if (/^https:\/\//i.test(configured)) return configured;
+
     const forwarded = clean(req.headers["x-forwarded-proto"] || "https", 10);
+    const proto = forwarded === "http" ? "http" : "https";
     const host = clean(req.headers.host || "", 200);
     if (!host) return "https://fer-electro.vercel.app";
-    return `${forwarded}://${host}`;
+    return `${proto}://${host}`;
 }
 
 function clientIp(req) {
@@ -87,6 +91,11 @@ export default async function handler(req, res) {
     if (req.method !== "POST") {
         res.setHeader("Allow", "POST");
         return res.status(405).json({ error: "Método no permitido" });
+    }
+
+    const contentLength = Number(req.headers["content-length"] || 0);
+    if (Number.isFinite(contentLength) && contentLength > 50_000) {
+        return res.status(413).json({ error: "La solicitud es demasiado grande." });
     }
 
     const requestOrigin = String(req.headers.origin || "").trim();
@@ -334,7 +343,9 @@ export default async function handler(req, res) {
 
         return res.status(200).json({
             order_id: orderId,
+            order_code: `FE-${String(orderId).replaceAll("-", "").slice(0, 10).toUpperCase()}`,
             tracking_token: trackingToken,
+            tracking_url: `${origin}/pedido.html?id=${encodeURIComponent(orderId)}&tracking=${encodeURIComponent(trackingToken)}`,
             init_point: mpData.init_point
         });
 

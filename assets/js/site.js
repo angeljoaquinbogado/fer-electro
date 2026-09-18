@@ -93,21 +93,21 @@ function caracteristicasFormateadas(valor) {
 function imagenSegura(valor) {
     const imagen = String(valor || "").trim();
     const legacyAssets = {
-        "logo-2.PNG": "assets/images/brand/logo-fer-electro.png",
-        "/logo-2.PNG": "assets/images/brand/logo-fer-electro.png",
-        "logo.PNG": "assets/images/brand/logo-admin.png",
-        "/logo.PNG": "assets/images/brand/logo-admin.png",
+        "logo-2.PNG": "assets/images/brand/logo-fer-electro.webp",
+        "/logo-2.PNG": "assets/images/brand/logo-fer-electro.webp",
+        "logo.PNG": "assets/images/brand/logo-admin.webp",
+        "/logo.PNG": "assets/images/brand/logo-admin.webp",
         "logo.jpg": "assets/images/brand/logo-legacy.jpg",
         "/logo.jpg": "assets/images/brand/logo-legacy.jpg",
-        "auriculares 2.PNG": "assets/images/products/auriculares-2.png",
-        "/auriculares 2.PNG": "assets/images/products/auriculares-2.png",
-        "hero-bg-fer-electro.png": "assets/images/backgrounds/hero-bg-fer-electro.png",
-        "/hero-bg-fer-electro.png": "assets/images/backgrounds/hero-bg-fer-electro.png",
-        "sobre-nosotros-bg.png": "assets/images/backgrounds/sobre-nosotros-bg.png",
-        "/sobre-nosotros-bg.png": "assets/images/backgrounds/sobre-nosotros-bg.png"
+        "auriculares 2.PNG": "assets/images/products/auriculares-2.webp",
+        "/auriculares 2.PNG": "assets/images/products/auriculares-2.webp",
+        "hero-bg-fer-electro.png": "assets/images/backgrounds/hero-bg-fer-electro.webp",
+        "/hero-bg-fer-electro.png": "assets/images/backgrounds/hero-bg-fer-electro.webp",
+        "sobre-nosotros-bg.png": "assets/images/backgrounds/sobre-nosotros-bg.webp",
+        "/sobre-nosotros-bg.png": "assets/images/backgrounds/sobre-nosotros-bg.webp"
     };
 
-    if (!imagen) return "assets/images/brand/logo-fer-electro.png";
+    if (!imagen) return "assets/images/brand/logo-fer-electro.webp";
     if (legacyAssets[imagen]) return legacyAssets[imagen];
 
     if (
@@ -121,7 +121,7 @@ function imagenSegura(valor) {
         return imagen;
     }
 
-    return "assets/images/brand/logo-fer-electro.png";
+    return "assets/images/brand/logo-fer-electro.webp";
 }
 
 function leerCarrito() {
@@ -1173,7 +1173,15 @@ function guardarReferenciaPedido(id, tracking) {
 }
 
 function formatoPedido(id) {
-    return "#" + String(id || "").slice(0, 8).toUpperCase();
+    const raw = String(id || "").replaceAll("-", "").toUpperCase();
+    return raw ? `FE-${raw.slice(0, 10)}` : "FE-—";
+}
+
+function enlaceSeguimientoPedido(id, tracking) {
+    const orderId = String(id || "").trim();
+    const token = String(tracking || "").trim();
+    if (!orderId || !token) return "";
+    return `/pedido.html?id=${encodeURIComponent(orderId)}&tracking=${encodeURIComponent(token)}`;
 }
 
 function escPedido(value) {
@@ -1189,12 +1197,15 @@ function estadoPreparacionInfo(value, paymentStatus) {
     const prep = String(value || "nuevo").toLowerCase();
     const payment = String(paymentStatus || "").toLowerCase();
 
-    if (prep === "cancelado") return { label: "Cancelado", step: -1, cancelled: true };
-    if (payment !== "pagado") return { label: "Esperando pago", step: 0, cancelled: false };
-    if (prep === "entregado") return { label: "Entregado", step: 4, cancelled: false };
-    if (prep === "enviado") return { label: "Enviado", step: 3, cancelled: false };
-    if (prep === "preparando") return { label: "Preparando", step: 2, cancelled: false };
-    return { label: "Nuevo", step: 1, cancelled: false };
+    if (prep === "cancelado") return { label: "Cancelado", step: -1, cancelled: true, review: false };
+    if (payment === "revision") return { label: "Pago en revisión", step: 1, cancelled: false, review: true };
+    if (payment === "reembolsado") return { label: "Reembolsado", step: -1, cancelled: true, review: false };
+    if (payment === "fallido") return { label: "Pago no completado", step: 0, cancelled: false, review: false };
+    if (payment !== "pagado") return { label: "Esperando pago", step: 0, cancelled: false, review: false };
+    if (prep === "entregado") return { label: "Entregado", step: 4, cancelled: false, review: false };
+    if (prep === "enviado") return { label: "Enviado", step: 3, cancelled: false, review: false };
+    if (prep === "preparando") return { label: "Preparando", step: 2, cancelled: false, review: false };
+    return { label: "Pago confirmado", step: 1, cancelled: false, review: false };
 }
 
 function renderPedidoCliente(data) {
@@ -1247,10 +1258,12 @@ function renderPedidoCliente(data) {
             <span class="customer-order-status">${escPedido(info.label)}</span>
         </div>
         ${info.cancelled
-            ? '<div class="customer-order-cancelled"><svg class="ui-icon"><use href="#i-alert"></use></svg>Este pedido figura como cancelado.</div>'
+            ? '<div class="customer-order-cancelled"><svg class="ui-icon"><use href="#i-alert"></use></svg>Este pedido no continúa en preparación.</div>'
             : `<div class="order-track">${progress}</div>`}
+        ${info.review ? '<div class="customer-order-review"><svg class="ui-icon"><use href="#i-alert"></use></svg><span><strong>Pago registrado.</strong> Estamos revisando el pedido. No vuelvas a pagar.</span></div>' : ""}
         <div class="customer-order-items">${items || '<div class="orders-loading">Sin detalle de productos.</div>'}</div>
         <div class="customer-order-total"><span>Total</span><strong>${total}</strong></div>
+        ${data._tracking ? `<a class="customer-order-link" href="${enlaceSeguimientoPedido(data.id, data._tracking)}">VER SEGUIMIENTO COMPLETO <svg class="ui-icon"><use href="#i-arrow"></use></svg></a>` : ""}
     </article>`;
 }
 
@@ -1287,7 +1300,11 @@ async function cargarMisPedidos(force = false) {
                 return { missing: true, id: ref.id };
             }
 
-            return r.ok ? { data } : { error: true };
+            if (r.ok) {
+                data._tracking = ref.tracking;
+                return { data };
+            }
+            return { error: true };
         } catch {
             return { error: true };
         }
@@ -1371,6 +1388,7 @@ function mostrarResultadoPago({
     titulo = "¡Compra confirmada!",
     mensaje = "Recibimos tu pago correctamente.",
     pedido = "",
+    tracking = "",
     ayuda = "Guardá este número. Nos comunicaremos para coordinar la entrega."
 } = {}) {
     const modal = document.getElementById("payment-result");
@@ -1382,12 +1400,22 @@ function mostrarResultadoPago({
     const pedidoEl = document.getElementById("payment-result-order-id");
     const ayudaEl = document.getElementById("payment-result-help");
     const botonCerrar = document.getElementById("payment-result-close");
+    const seguimientoEl = document.getElementById("payment-result-tracking");
+    const whatsappEl = modal.querySelector(".payment-result-whatsapp");
 
     modal.dataset.status = estado;
 
     if (tituloEl) tituloEl.textContent = titulo;
     if (mensajeEl) mensajeEl.textContent = mensaje;
-    if (pedidoEl) pedidoEl.textContent = pedido || "—";
+    if (pedidoEl) pedidoEl.textContent = pedido ? formatoPedido(pedido) : "—";
+    if (seguimientoEl) {
+        const href = enlaceSeguimientoPedido(pedido, tracking);
+        seguimientoEl.hidden = !href;
+        if (href) seguimientoEl.href = href;
+    }
+    if (whatsappEl && pedido) {
+        whatsappEl.href = `https://wa.me/${FER_WHATSAPP}?text=${encodeURIComponent(`Hola FER ELECTRO, quiero consultar por mi pedido ${formatoPedido(pedido)}.`)}`;
+    }
     if (ayudaEl) ayudaEl.textContent = ayuda;
 
     if (icono) {
@@ -1440,11 +1468,46 @@ async function comprobarRetornoPago() {
                 titulo: "¡Compra confirmada!",
                 mensaje: "Tu pago fue aprobado y el pedido quedó confirmado correctamente.",
                 pedido: orderId,
+                tracking: trackingToken,
                 ayuda: "Guardá este número de pedido. Nos comunicaremos para coordinar la entrega."
             })) {
                 mostrarToastCarrito(
                     "¡Compra confirmada!",
                     "Pago aprobado. Tu pedido quedó confirmado."
+                );
+            }
+
+        } else if (estadoReal === "revision") {
+            localStorage.removeItem(FER_CART_KEY);
+            sessionStorage.removeItem("ferUltimoPedido");
+            renderCarrito();
+
+            if (!mostrarResultadoPago({
+                estado: "pending",
+                titulo: "Pago recibido · pedido en revisión",
+                mensaje: "Mercado Pago registró el pago y estamos revisando un detalle del pedido.",
+                pedido: orderId,
+                tracking: trackingToken,
+                ayuda: "No vuelvas a pagar. Podés seguir el estado desde el enlace de seguimiento o escribirnos por WhatsApp."
+            })) {
+                mostrarToastCarrito(
+                    "Pedido en revisión",
+                    "El pago está registrado. No vuelvas a pagar este pedido."
+                );
+            }
+
+        } else if (estadoReal === "fallido" || estadoRetorno === "failure") {
+            if (!mostrarResultadoPago({
+                estado: "failure",
+                titulo: "Pago no completado",
+                mensaje: "El pago fue rechazado, cancelado o no llegó a completarse.",
+                pedido: orderId,
+                tracking: trackingToken,
+                ayuda: "Tu carrito sigue guardado. Podés volver a intentarlo sin tener que elegir los productos otra vez."
+            })) {
+                mostrarToastCarrito(
+                    "Pago no completado",
+                    "Tu carrito sigue guardado para que puedas intentar nuevamente."
                 );
             }
 
@@ -1454,25 +1517,12 @@ async function comprobarRetornoPago() {
                 titulo: "Pago pendiente",
                 mensaje: "Mercado Pago todavía está procesando tu pago.",
                 pedido: orderId,
+                tracking: trackingToken,
                 ayuda: "No vuelvas a pagar este pedido. Cuando Mercado Pago lo apruebe, registraremos la confirmación automáticamente."
             })) {
                 mostrarToastCarrito(
                     "Pago pendiente",
                     "Mercado Pago todavía está procesando el pago."
-                );
-            }
-
-        } else if (estadoRetorno === "failure") {
-            if (!mostrarResultadoPago({
-                estado: "failure",
-                titulo: "Pago no completado",
-                mensaje: "El pago fue rechazado, cancelado o no llegó a completarse.",
-                pedido: orderId,
-                ayuda: "Tu carrito sigue guardado. Podés volver a intentarlo sin tener que elegir los productos otra vez."
-            })) {
-                mostrarToastCarrito(
-                    "Pago no completado",
-                    "Tu carrito sigue guardado para que puedas intentar nuevamente."
                 );
             }
 
@@ -1482,6 +1532,7 @@ async function comprobarRetornoPago() {
                 titulo: "Verificando tu compra",
                 mensaje: "Todavía no pudimos confirmar el estado final del pago.",
                 pedido: orderId,
+                tracking: trackingToken,
                 ayuda: "Si ya pagaste, no vuelvas a realizar el pago. La confirmación puede demorar unos instantes."
             })) {
                 mostrarToastCarrito(
@@ -1499,6 +1550,7 @@ async function comprobarRetornoPago() {
             titulo: "Verificando tu compra",
             mensaje: "No pudimos consultar el estado del pago en este momento.",
             pedido: orderId,
+            tracking: trackingToken,
             ayuda: "Si ya pagaste, no vuelvas a realizar el pago. Podés contactarnos por WhatsApp si necesitás ayuda."
         });
     }

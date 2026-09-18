@@ -10,7 +10,10 @@ checkout, Mercado Pago, pedidos, descuento de stock y un panel privado para admi
 - `api/products.js` — catálogo público desde Supabase.
 - `api/checkout.js` — valida precios/stock en servidor y crea el pago.
 - `api/mercadopago-webhook.js` — verifica pagos consultando Mercado Pago y confirma pedidos.
-- `api/order-status.js` — estado mínimo del pedido para la pantalla de retorno.
+- `api/order-status.js` — estado mínimo del pedido para retorno y seguimiento privado.
+- `pedido.html` — página individual de seguimiento mediante ID + token.
+- `politicas.html` — información de compra y privacidad.
+- `database/upgrade-final.sql` — sincroniza una base existente con tracking, anti-spam y borrado admin.
 - `api/public-config.js` — solo expone configuración pública necesaria para el login del panel.
 - `supabase-setup.sql` — tablas, RLS, políticas, Storage y función de confirmación de pago.
 - `vercel.json` — headers de seguridad.
@@ -18,12 +21,14 @@ checkout, Mercado Pago, pedidos, descuento de stock y un panel privado para admi
 
 ## 1. Subir los archivos al mismo repositorio `fer-electro`
 
-Mantener también las imágenes actuales (`logo.PNG`, `logo-2.PNG`, etc.).
+Subir el proyecto completo respetando la estructura de carpetas. Las imágenes locales optimizadas están dentro de `assets/images/`.
 La carpeta `api` debe conservar ese nombre exacto en minúsculas.
 
 ## 2. Preparar Supabase
 
-En Supabase > SQL Editor, ejecutar `supabase-setup.sql`.
+Para una instalación nueva, en Supabase > SQL Editor ejecutar `database/supabase-setup.sql`.
+
+Si la base actual de FER⚡ELECTRO ya está funcionando, no hace falta recrearla: `database/upgrade-final.sql` queda como script idempotente de sincronización.
 
 Después ir a Authentication > Users y crear la cuenta del administrador con email y contraseña.
 Con el usuario creado, ejecutar SOLO este bloque en SQL Editor reemplazando el email:
@@ -50,9 +55,12 @@ En Vercel > proyecto `fer-electro` > Settings > Environment Variables, deben exi
 - `SUPABASE_PUBLISHABLE_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `MERCADOPAGO_ACCESS_TOKEN`
+- `PUBLIC_SITE_URL` (recomendado: `https://fer-electro.vercel.app`)
+- `RESEND_API_KEY` (solo si se activa email automático)
+- `EMAIL_FROM` (solo si se activa email automático)
+- `EMAIL_REPLY_TO` (opcional)
 
-Las dos primeras ya se usaban en el proyecto. Las dos últimas son privadas y deben configurarse
-solo en Vercel. No pegarlas en HTML, GitHub ni chats.
+Las claves privadas (`SUPABASE_SERVICE_ROLE_KEY`, `MERCADOPAGO_ACCESS_TOKEN` y `RESEND_API_KEY`) deben configurarse solo en Vercel. No pegarlas en HTML ni subirlas a GitHub.
 
 Después de agregar/cambiar variables, hacer un Redeploy de Production.
 
@@ -103,6 +111,8 @@ tarifas del comercio. No se inventa un costo para evitar cobrar de más o de men
 - Imágenes del panel se limitan a JPG/PNG/WebP y 5 MB.
 - Headers de seguridad y protección contra framing/sniffing.
 - La sesión del panel se guarda en `sessionStorage`, no en `localStorage`.
+- El panel permite filtrar pedidos por pago, preparación y fecha, y exportar el resultado a CSV.
+- La exportación CSV neutraliza valores que podrían interpretarse como fórmulas al abrirse en una planilla.
 
 Ningún sitio conectado a Internet puede prometer ser "inhackeable". Esta arquitectura evita
 los errores críticos más comunes (secretos en frontend, edición pública de base de datos,
@@ -114,3 +124,36 @@ fuertes, 2FA en GitHub/Vercel/Supabase/Mercado Pago y mantenerse las cuentas seg
 Si dos personas llegan a pagar el último producto prácticamente al mismo tiempo, el segundo
 pedido puede quedar como `pagado_revisar_stock`. El pago existe, pero el panel avisa que hay
 que revisar disponibilidad/reembolso. Esto evita modificar stock a valores negativos.
+
+
+## Email de confirmación
+
+El webhook puede enviar automáticamente un email cuando el pago queda confirmado.
+La integración no bloquea el pago: si el servicio de email falla o no está configurado,
+el pedido igualmente queda confirmado.
+
+Variables necesarias:
+
+- `RESEND_API_KEY`
+- `EMAIL_FROM`
+- `EMAIL_REPLY_TO` (opcional)
+
+El email incluye el número profesional del pedido y el enlace privado de seguimiento.
+
+## Seguimiento privado
+
+Cada pedido tiene un `tracking_token` UUID aleatorio. El cliente puede usar:
+
+`/pedido.html?id=ID_DEL_PEDIDO&tracking=TOKEN`
+
+La página consulta `/api/order-status` y no expone nombre, email, teléfono ni domicilio.
+
+## SEO y rendimiento
+
+- `robots.txt`
+- `sitemap.xml`
+- canonical y Open Graph
+- JSON-LD de la tienda
+- favicon y manifest
+- página 404
+- imágenes locales WebP para reducir peso

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#0d0e10">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/brand/favicon-32.png">
 <title>FER⚡ELECTRO | Administración</title>
 
 <link rel="stylesheet" href="assets/css/admin.css"/>
@@ -16,7 +17,7 @@
   <div class="login-shell">
     <div class="login-visual">
       <div class="login-brand">
-        <img src="assets/images/brand/logo-admin.png" alt="FER⚡ELECTRO" class="login-logo-img">
+        <img src="assets/images/brand/logo-admin.webp" alt="FER⚡ELECTRO" class="login-logo-img">
         <div class="login-kicker">CENTRO DE CONTROL</div>
         <h1>Tu tienda,<br>bien administrada.</h1>
         <p>Gestioná catálogo, stock y pedidos desde un panel privado pensado para trabajar rápido y sin perder de vista lo importante.</p>
@@ -50,7 +51,7 @@
   <div class="admin-layout">
     <aside class="sidebar">
       <div class="side-brand">
-        <img src="assets/images/brand/logo-admin.png" alt="FER⚡ELECTRO">
+        <img src="assets/images/brand/logo-admin.webp" alt="FER⚡ELECTRO">
         <small>ADMINISTRACIÓN</small>
       </div>
       <div class="side-label">GESTIÓN</div>
@@ -160,7 +161,7 @@
 
             <div class="card catalog-card">
               <div class="catalog-toolbar">
-                <div class="catalog-title-row"><div><h2>Catálogo</h2><p>Visualizá y administrá todos los productos.</p></div><span id="product-list-count" class="catalog-count">0 productos</span></div>
+                <div class="catalog-title-row"><div><h2>Catálogo</h2><p>Visualizá y administrá todos los productos.</p></div><div class="catalog-status-row"><span id="product-stock-alert" class="stock-alert-chip" hidden></span><span id="product-list-count" class="catalog-count">0 productos</span></div></div>
                 <div class="catalog-filters">
                   <label class="search-wrap"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="product-search" type="search" placeholder="Buscar por nombre o categoría"></label>
                   <select id="product-filter" aria-label="Filtrar productos"><option value="all">Todos</option><option value="active">Activos</option><option value="hidden">Ocultos</option><option value="low">Stock bajo</option><option value="out">Sin stock</option></select>
@@ -179,6 +180,29 @@
           </div>
           <div class="card orders-card">
             <div class="orders-toolbar"><div><h2>Pedidos</h2><p>Seguimiento de compras y preparación.</p></div><span class="privacy-chip"><svg viewBox="0 0 24 24"><path d="M6 10V7a6 6 0 0 1 12 0v3"/><rect x="4" y="10" width="16" height="11" rx="3"/></svg> Datos privados solo para administradores</span></div>
+
+            <div class="orders-filterbar">
+              <label class="search-wrap orders-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="order-search" type="search" placeholder="Buscar pedido, cliente, email o teléfono"></label>
+              <select id="order-payment-filter" aria-label="Filtrar por pago">
+                <option value="all">Todos los pagos</option>
+                <option value="pagado">Pagados</option>
+                <option value="pendiente">Pendientes</option>
+                <option value="revision">En revisión</option>
+                <option value="fallido">Rechazados / cancelados</option>
+              </select>
+              <select id="order-prep-filter" aria-label="Filtrar por preparación">
+                <option value="all">Toda preparación</option>
+                <option value="nuevo">Nuevos</option>
+                <option value="preparando">Preparando</option>
+                <option value="enviado">Enviados</option>
+                <option value="entregado">Entregados</option>
+                <option value="cancelado">Cancelados</option>
+              </select>
+              <label class="date-filter"><span>DESDE</span><input id="order-date-from" type="date" aria-label="Pedidos desde"></label>
+              <label class="date-filter"><span>HASTA</span><input id="order-date-to" type="date" aria-label="Pedidos hasta"></label>
+              <button id="export-orders" class="secondary export-orders" type="button">EXPORTAR CSV</button>
+              <span id="orders-list-count" class="catalog-count">0 pedidos</span>
+            </div>
 
             <div class="orders-bulkbar">
               <label class="orders-select-all">
