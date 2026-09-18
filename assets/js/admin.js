@@ -121,7 +121,11 @@ function resolveAdminImage(src){
         "logo.jpg":"assets/images/brand/logo-legacy.jpg",
         "/logo.jpg":"assets/images/brand/logo-legacy.jpg",
         "auriculares 2.PNG":"assets/images/products/auriculares-2.webp",
-        "/auriculares 2.PNG":"assets/images/products/auriculares-2.webp"
+        "/auriculares 2.PNG":"assets/images/products/auriculares-2.webp",
+        "assets/images/brand/logo-admin.png":"assets/images/brand/logo-admin.webp",
+        "/assets/images/brand/logo-admin.png":"assets/images/brand/logo-admin.webp",
+        "assets/images/products/auriculares-2.png":"assets/images/products/auriculares-2.webp",
+        "/assets/images/products/auriculares-2.png":"assets/images/products/auriculares-2.webp"
     };
     return legacy[value]||value||"assets/images/brand/logo-fer-electro.webp";
 }
@@ -302,7 +306,7 @@ function renderProducts(){
         const stockClass=stock===0?"stock-out":stock<=3?"stock-low":"stock-ok";
         const stockText=stock===0?"SIN STOCK":stock<=3?`${stock} · BAJO`:`${stock}`;
         tr.innerHTML=`
-            <td><div class="thumb-shell"><img class="product-thumb" src="${esc(resolveAdminImage(p.imagen))}" alt=""></div></td>
+            <td><div class="thumb-shell"><img class="product-thumb" src="${esc(resolveAdminImage(p.imagen))}" alt="" loading="lazy" decoding="async"></div></td>
             <td><strong class="product-name-cell">${esc(p.nombre)}</strong><div class="cell-sub">${esc(p.categoria||"Sin categoría")}</div></td>
             <td><strong class="price-cell">${esc(money.format(Number(p.precio)||0))}</strong></td>
             <td><span class="stock-pill ${stockClass}">${stockText}</span></td>

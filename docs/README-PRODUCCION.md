@@ -56,11 +56,11 @@ En Vercel > proyecto `fer-electro` > Settings > Environment Variables, deben exi
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `MERCADOPAGO_ACCESS_TOKEN`
 - `PUBLIC_SITE_URL` (recomendado: `https://fer-electro.vercel.app`)
-- `RESEND_API_KEY` (solo si se activa email automático)
-- `EMAIL_FROM` (solo si se activa email automático)
-- `EMAIL_REPLY_TO` (opcional)
+- `GMAIL_USER` (actualmente `ferelectroposadas@gmail.com`)
+- `GMAIL_APP_PASSWORD` (contraseña de aplicación de Google; secreta)
+- `EMAIL_REPLY_TO` (actualmente `ferelectroposadas@gmail.com`)
 
-Las claves privadas (`SUPABASE_SERVICE_ROLE_KEY`, `MERCADOPAGO_ACCESS_TOKEN` y `RESEND_API_KEY`) deben configurarse solo en Vercel. No pegarlas en HTML ni subirlas a GitHub.
+Las claves privadas (`SUPABASE_SERVICE_ROLE_KEY`, `MERCADOPAGO_ACCESS_TOKEN` y `GMAIL_APP_PASSWORD`) deben configurarse solo en Vercel. No pegarlas en HTML ni subirlas a GitHub.
 
 Después de agregar/cambiar variables, hacer un Redeploy de Production.
 
@@ -128,16 +128,16 @@ que revisar disponibilidad/reembolso. Esto evita modificar stock a valores negat
 
 ## Email de confirmación
 
-El webhook puede enviar automáticamente un email cuando el pago queda confirmado.
-La integración no bloquea el pago: si el servicio de email falla o no está configurado,
-el pedido igualmente queda confirmado.
+El webhook envía automáticamente un email cuando el pago queda confirmado.
+La integración no bloquea el pago: si Gmail falla temporalmente, el pedido igualmente queda confirmado.
 
 Variables necesarias:
 
-- `RESEND_API_KEY`
-- `EMAIL_FROM`
-- `EMAIL_REPLY_TO` (opcional)
+- `GMAIL_USER`
+- `GMAIL_APP_PASSWORD`
+- `EMAIL_REPLY_TO`
 
+La contraseña de aplicación es distinta de la contraseña normal de Gmail y debe permanecer solo en Vercel.
 El email incluye el número profesional del pedido y el enlace privado de seguimiento.
 
 ## Seguimiento privado

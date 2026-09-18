@@ -25,14 +25,21 @@
 - [x] Página 404
 - [x] Políticas operativas de compra y privacidad
 - [x] Optimización WebP de imágenes locales
-- [x] Código de email automático preparado
+- [x] Email automático de confirmación por Gmail
 
-## Falta configurar sin necesidad del tío
+## Resuelto sin necesidad del tío
 
-- [ ] Activar un proveedor de email y cargar `RESEND_API_KEY` + `EMAIL_FROM` en Vercel
-- [ ] Probar que llegue el email de confirmación a una dirección real
-- [ ] Ejecutar una revisión visual final de escritorio y celular después del último deploy
-- [ ] Probar una compra TEST completa después del último deploy
+- [x] Gmail configurado con contraseña de aplicación en Vercel
+- [x] Email de confirmación probado con una dirección real
+- [x] Revisión y corrección responsive de celular
+- [x] Revisión de legibilidad para PC / notebook
+- [x] CSS final separado por responsabilidad (base, desktop, mobile, dirección y admin)
+- [x] SEO técnico básico, sitemap, robots, favicon y 404
+
+## Pendiente antes del lanzamiento
+
+- [ ] Hacer una compra TEST completa después de este último paquete y confirmar: pago, stock, email y seguimiento
+- [ ] Revisión visual rápida del deploy final en PC y celular
 
 ## Hacer con tu tío
 

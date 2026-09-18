@@ -499,7 +499,7 @@
    En desktop la navegación superior se mantiene igual.
    En celular usamos el dock inferior y dejamos el header limpio.
 ========================================================= */
-@media (max-width: 980px){
+@media (max-width: 900px){
   #menu-toggle,
   .menu-toggle{
     display:none!important;

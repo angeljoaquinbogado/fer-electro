@@ -1,3 +1,4 @@
+Contact: mailto:ferelectroposadas@gmail.com
 Contact: https://wa.me/543764863227
 Preferred-Languages: es
 Canonical: https://fer-electro.vercel.app/.well-known/security.txt

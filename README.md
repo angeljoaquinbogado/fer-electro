@@ -49,17 +49,21 @@ Los commits a la rama `main` despliegan automáticamente en Vercel si el reposit
 - Seguimiento privado con token y número profesional `FE-XXXXXXXXXX`.
 - Panel de administración con filtros de productos y pedidos, fechas, alertas de stock y exportación CSV.
 - Protección anti-spam del checkout.
-- Email automático de confirmación preparado mediante Resend.
+- Email automático de confirmación mediante Gmail SMTP con contraseña de aplicación.
 - SEO básico, sitemap, robots, manifest, favicon y página 404.
 - Imágenes locales optimizadas a WebP para mejorar carga.
 
 ## Email automático
 
-El código ya está preparado. Para activarlo hay que configurar en Vercel:
+El webhook envía el email de confirmación después de que Mercado Pago queda aprobado.
+La integración usa Gmail SMTP y nunca guarda la contraseña normal de Google.
 
-- `RESEND_API_KEY`
-- `EMAIL_FROM`
-- `EMAIL_REPLY_TO` (opcional)
+Variables configuradas en Vercel:
+
+- `GMAIL_USER=ferelectroposadas@gmail.com`
+- `GMAIL_APP_PASSWORD` — contraseña de aplicación de Google (secreto)
+- `EMAIL_REPLY_TO=ferelectroposadas@gmail.com`
 - `PUBLIC_SITE_URL=https://fer-electro.vercel.app`
 
-Si esas variables no existen, la compra sigue funcionando normalmente; simplemente se omite el email.
+Si el envío de correo falla, el pago y el pedido igualmente quedan confirmados.
+

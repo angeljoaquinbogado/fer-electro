@@ -104,7 +104,15 @@ function imagenSegura(valor) {
         "hero-bg-fer-electro.png": "assets/images/backgrounds/hero-bg-fer-electro.webp",
         "/hero-bg-fer-electro.png": "assets/images/backgrounds/hero-bg-fer-electro.webp",
         "sobre-nosotros-bg.png": "assets/images/backgrounds/sobre-nosotros-bg.webp",
-        "/sobre-nosotros-bg.png": "assets/images/backgrounds/sobre-nosotros-bg.webp"
+        "/sobre-nosotros-bg.png": "assets/images/backgrounds/sobre-nosotros-bg.webp",
+        "assets/images/backgrounds/hero-bg-fer-electro.png": "assets/images/backgrounds/hero-bg-fer-electro.webp",
+        "/assets/images/backgrounds/hero-bg-fer-electro.png": "assets/images/backgrounds/hero-bg-fer-electro.webp",
+        "assets/images/backgrounds/sobre-nosotros-bg.png": "assets/images/backgrounds/sobre-nosotros-bg.webp",
+        "/assets/images/backgrounds/sobre-nosotros-bg.png": "assets/images/backgrounds/sobre-nosotros-bg.webp",
+        "assets/images/brand/logo-admin.png": "assets/images/brand/logo-admin.webp",
+        "/assets/images/brand/logo-admin.png": "assets/images/brand/logo-admin.webp",
+        "assets/images/products/auriculares-2.png": "assets/images/products/auriculares-2.webp",
+        "/assets/images/products/auriculares-2.png": "assets/images/products/auriculares-2.webp"
     };
 
     if (!imagen) return "assets/images/brand/logo-fer-electro.webp";
