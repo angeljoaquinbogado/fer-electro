@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="assets/css/admin.css"/>
 <link rel="stylesheet" href="assets/css/admin-desktop.css"/>
 <link rel="stylesheet" href="assets/css/admin-mobile.css"/>
+<link rel="stylesheet" href="assets/css/admin-gallery.css"/>
 </head>
 <body>
 
@@ -150,13 +151,29 @@
               </div>
 
               <div class="form-section">
-                <div class="form-section-title">IMAGEN DEL PRODUCTO</div>
-                <div id="product-preview" class="image-preview">
-                  <img id="product-preview-image" class="hidden" alt="Vista previa del producto">
-                  <div id="product-preview-empty" class="preview-empty"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-5 4 4 2-2 5 3"/></svg><span>Vista previa de la imagen</span></div>
+                <div class="form-section-title">GALERÍA DEL PRODUCTO</div>
+                <div class="gallery-admin-help">
+                  <strong>La primera imagen es la principal.</strong>
+                  Podés subir varias, cambiar el orden, marcar otra como principal o quitar las que no quieras.
                 </div>
-                <div class="field"><label for="product-image">URL / ARCHIVO EXISTENTE</label><input id="product-image" maxlength="1000" placeholder="https://... o nombre del archivo"></div>
-                <div class="field"><label for="product-image-file">SUBIR NUEVA IMAGEN</label><input id="product-image-file" type="file" accept="image/jpeg,image/png,image/webp"><div class="file-help">JPG, PNG o WebP. Máximo 5 MB. Se guarda en Supabase Storage.</div></div>
+
+                <div id="product-gallery-preview" class="product-gallery-preview" aria-live="polite">
+                  <div class="gallery-admin-empty" id="product-gallery-empty">Todavía no agregaste imágenes.</div>
+                </div>
+
+                <div class="field">
+                  <label for="product-image-file">SUBIR IMÁGENES</label>
+                  <input id="product-image-file" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+                  <div class="file-help">Podés seleccionar varias a la vez. JPG, PNG o WebP. Máximo 5 MB por imagen.</div>
+                </div>
+
+                <div class="field">
+                  <label for="product-image">AGREGAR IMAGEN POR URL</label>
+                  <div class="gallery-url-row">
+                    <input id="product-image" maxlength="1000" placeholder="https://... o ruta de imagen">
+                    <button id="product-image-add-url" class="secondary gallery-url-add" type="button">AGREGAR</button>
+                  </div>
+                </div>
               </div>
 
               <div id="product-message" class="message"></div>

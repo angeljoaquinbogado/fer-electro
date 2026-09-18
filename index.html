@@ -58,6 +58,7 @@
 <link rel="stylesheet" href="assets/css/checkout-address.css"/>
 <link rel="stylesheet" href="assets/css/desktop.css"/>
 <link rel="stylesheet" href="assets/css/mobile.css"/>
+<link rel="stylesheet" href="assets/css/product-gallery.css"/>
 </head>
 <body><a class="skip-link" href="#inicio">Saltar al contenido</a><svg aria-hidden="true" class="icon-sprite" focusable="false">
 <symbol id="i-home" viewbox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-4.5v-6h-5v6H5a1.5 1.5 0 0 1-1.5-1.5v-9Z"></path></symbol>
@@ -340,8 +341,13 @@
 <div aria-hidden="true" class="product-detail" id="producto-dinamico">
 <div class="product-detail-inner">
 <button aria-label="Cerrar" class="product-detail-close" onclick="cerrarProductoDinamico()" type="button"><svg class="ui-icon"><use href="#i-close"></use></svg></button>
+<div class="product-detail-gallery">
 <div class="product-detail-image">
+<button class="product-gallery-arrow product-gallery-prev" type="button" aria-label="Imagen anterior">‹</button>
 <img alt="" class="dynamic-product-image" src="assets/images/brand/logo-fer-electro.webp"/>
+<button class="product-gallery-arrow product-gallery-next" type="button" aria-label="Imagen siguiente">›</button>
+</div>
+<div class="product-gallery-thumbs" aria-label="Galería de imágenes del producto"></div>
 </div>
 <div class="product-detail-info">
 <div class="kicker dynamic-product-category">

@@ -4,6 +4,7 @@ let session = null;
 let productos = [];
 let pedidos = [];
 let selectedOrders = new Set();
+let productGalleryDraft = [];
 
 const money = new Intl.NumberFormat("es-AR", {
     style:"currency",
@@ -130,21 +131,134 @@ function resolveAdminImage(src){
     return legacy[value]||value||"assets/images/brand/logo-fer-electro.webp";
 }
 
-function setImagePreview(src){
-    const wrap=document.getElementById("product-preview");
-    const img=document.getElementById("product-preview-image");
-    const empty=document.getElementById("product-preview-empty");
-    if(!wrap||!img||!empty)return;
-    const value=String(src||"").trim();
-    if(!value){
-        img.removeAttribute("src");
-        img.classList.add("hidden");
-        empty.classList.remove("hidden");
+function productGalleryUrls(product){
+    const raw=Array.isArray(product?.imagenes)?product.imagenes:[];
+    const values=[...raw];
+    if(product?.imagen)values.unshift(product.imagen);
+    return [...new Set(values.map(x=>String(x||"").trim()).filter(Boolean))];
+}
+
+function releaseDraftPreviews(){
+    productGalleryDraft.forEach(item=>{
+        if(item.type==="file"&&item.preview){
+            try{URL.revokeObjectURL(item.preview);}catch{}
+        }
+    });
+}
+
+function resetProductGallery(product=null){
+    releaseDraftPreviews();
+    productGalleryDraft=productGalleryUrls(product).map((url,index)=>({
+        key:`url-${index}-${crypto.randomUUID()}`,
+        type:"url",
+        url,
+        preview:resolveAdminImage(url),
+        file:null,
+        name:"Imagen guardada"
+    }));
+    renderProductGallery();
+}
+
+function renderProductGallery(){
+    const wrap=document.getElementById("product-gallery-preview");
+    const empty=document.getElementById("product-gallery-empty");
+    if(!wrap)return;
+
+    wrap.querySelectorAll(".gallery-admin-item").forEach(el=>el.remove());
+
+    if(!productGalleryDraft.length){
+        if(empty)empty.hidden=false;
         return;
     }
-    img.src=resolveAdminImage(value);
-    img.classList.remove("hidden");
-    empty.classList.add("hidden");
+    if(empty)empty.hidden=true;
+
+    productGalleryDraft.forEach((item,index)=>{
+        const card=document.createElement("div");
+        card.className=`gallery-admin-item ${index===0?"is-primary":""}`;
+        card.dataset.key=item.key;
+        card.innerHTML=`
+            ${index===0?'<span class="gallery-admin-primary">PRINCIPAL</span>':""}
+            <div class="gallery-admin-image">
+                <img src="${esc(item.preview||item.url||"")}" alt="Imagen ${index+1} del producto">
+            </div>
+            <div class="gallery-admin-actions">
+                <button type="button" data-gallery-action="primary" ${index===0?"disabled":""}>PRINCIPAL</button>
+                <button type="button" data-gallery-action="left" ${index===0?"disabled":""}>←</button>
+                <button type="button" data-gallery-action="right" ${index===productGalleryDraft.length-1?"disabled":""}>→</button>
+                <button type="button" class="gallery-remove" data-gallery-action="remove">QUITAR</button>
+            </div>
+            <div class="gallery-admin-file-name">${esc(item.name||"Imagen")}</div>
+        `;
+
+        card.querySelectorAll("[data-gallery-action]").forEach(button=>{
+            button.addEventListener("click",()=>{
+                const action=button.dataset.galleryAction;
+                if(action==="remove"){
+                    const [removed]=productGalleryDraft.splice(index,1);
+                    if(removed?.type==="file"&&removed.preview){
+                        try{URL.revokeObjectURL(removed.preview);}catch{}
+                    }
+                }else if(action==="primary"){
+                    const [picked]=productGalleryDraft.splice(index,1);
+                    productGalleryDraft.unshift(picked);
+                }else if(action==="left"&&index>0){
+                    [productGalleryDraft[index-1],productGalleryDraft[index]]=
+                        [productGalleryDraft[index],productGalleryDraft[index-1]];
+                }else if(action==="right"&&index<productGalleryDraft.length-1){
+                    [productGalleryDraft[index+1],productGalleryDraft[index]]=
+                        [productGalleryDraft[index],productGalleryDraft[index+1]];
+                }
+                renderProductGallery();
+            });
+        });
+
+        wrap.appendChild(card);
+    });
+}
+
+function validateImageFile(file){
+    if(!file)return;
+    if(file.size>5*1024*1024)throw new Error(`${file.name}: supera 5 MB.`);
+    if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
+        throw new Error(`${file.name}: usá JPG, PNG o WebP.`);
+    }
+}
+
+function addFilesToGallery(files){
+    const list=Array.from(files||[]);
+    if(!list.length)return;
+    list.forEach(file=>{
+        validateImageFile(file);
+        productGalleryDraft.push({
+            key:`file-${crypto.randomUUID()}`,
+            type:"file",
+            url:"",
+            preview:URL.createObjectURL(file),
+            file,
+            name:file.name
+        });
+    });
+    renderProductGallery();
+}
+
+function addUrlToGallery(){
+    const input=document.getElementById("product-image");
+    const value=String(input?.value||"").trim();
+    if(!value)return;
+    if(productGalleryDraft.some(item=>String(item.url||"").trim()===value)){
+        if(input)input.value="";
+        return;
+    }
+    productGalleryDraft.push({
+        key:`url-${crypto.randomUUID()}`,
+        type:"url",
+        url:value,
+        preview:resolveAdminImage(value),
+        file:null,
+        name:"Imagen por URL"
+    });
+    if(input)input.value="";
+    renderProductGallery();
 }
 
 async function loadConfig(){
@@ -257,7 +371,7 @@ async function loadProducts(){
     const tbody=document.getElementById("products-table");
     tbody.innerHTML='<tr><td colspan="6" class="loading">Cargando productos...</td></tr>';
 
-    const r=await sb("/rest/v1/productos?select=id,nombre,descripcion,caracteristicas,precio,imagen,categoria,stock,activo&order=id.asc");
+    const r=await sb("/rest/v1/productos?select=id,nombre,descripcion,caracteristicas,precio,imagen,imagenes,categoria,stock,activo&order=id.asc");
     const d=await r.json().catch(()=>[]);
     if(!r.ok)throw new Error("No se pudieron cargar los productos.");
     productos=Array.isArray(d)?d:[];
@@ -326,7 +440,7 @@ function resetProductForm(){
     document.getElementById("product-form-title").textContent="Nuevo producto";
     document.getElementById("product-save").textContent="GUARDAR PRODUCTO";
     document.getElementById("product-cancel").classList.add("hidden");
-    setImagePreview("");
+    resetProductGallery();
     msg("product-message","");
 }
 
@@ -340,19 +454,18 @@ function editProduct(id){
     document.getElementById("product-price").value=Number(p.precio)||0;
     document.getElementById("product-stock").value=Number(p.stock)||0;
     document.getElementById("product-category").value=p.categoria||"";
-    document.getElementById("product-image").value=p.imagen||"";
+    document.getElementById("product-image").value="";
     document.getElementById("product-active").value=String(Boolean(p.activo));
     document.getElementById("product-form-title").textContent="Editar producto";
     document.getElementById("product-save").textContent="GUARDAR CAMBIOS";
     document.getElementById("product-cancel").classList.remove("hidden");
-    setImagePreview(p.imagen||"");
+    resetProductGallery(p);
     document.getElementById("product-form").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
 async function uploadImage(file){
     if(!file)return "";
-    if(file.size>5*1024*1024)throw new Error("La imagen supera 5 MB.");
-    if(!["image/jpeg","image/png","image/webp"].includes(file.type))throw new Error("Usá JPG, PNG o WebP.");
+    validateImageFile(file);
 
     await refreshSessionIfNeeded();
     const cfg=await loadConfig();
@@ -384,9 +497,25 @@ async function saveProduct(event){
 
     try{
         const id=document.getElementById("product-id").value.trim();
-        const file=document.getElementById("product-image-file").files[0];
-        let imagen=document.getElementById("product-image").value.trim();
-        if(file)imagen=await uploadImage(file);
+
+        /* Si quedó una URL escrita sin tocar AGREGAR, también la sumamos. */
+        if(String(document.getElementById("product-image").value||"").trim()){
+            addUrlToGallery();
+        }
+
+        const uploadedUrls=[];
+        for(const item of productGalleryDraft){
+            if(item.type==="file"&&item.file){
+                uploadedUrls.push(await uploadImage(item.file));
+            }else if(item.url){
+                uploadedUrls.push(String(item.url).trim());
+            }
+        }
+
+        const imagenes=[...new Set(uploadedUrls.filter(Boolean))];
+        if(!imagenes.length){
+            imagenes.push("assets/images/brand/logo-fer-electro.webp");
+        }
 
         const payload={
             nombre:document.getElementById("product-name").value.trim(),
@@ -395,7 +524,8 @@ async function saveProduct(event){
             precio:Number(document.getElementById("product-price").value),
             stock:Math.max(0,Math.floor(Number(document.getElementById("product-stock").value)||0)),
             categoria:document.getElementById("product-category").value.trim(),
-            imagen:imagen||"assets/images/brand/logo-fer-electro.webp",
+            imagen:imagenes[0],
+            imagenes,
             activo:document.getElementById("product-active").value==="true"
         };
 
@@ -858,14 +988,21 @@ document.getElementById("new-product-button")?.addEventListener("click",()=>{
     document.getElementById("product-form").scrollIntoView({behavior:"smooth",block:"start"});
     setTimeout(()=>document.getElementById("product-name")?.focus(),450);
 });
-document.getElementById("product-image")?.addEventListener("input",e=>setImagePreview(e.target.value));
+document.getElementById("product-image-add-url")?.addEventListener("click",addUrlToGallery);
+document.getElementById("product-image")?.addEventListener("keydown",e=>{
+    if(e.key==="Enter"){
+        e.preventDefault();
+        addUrlToGallery();
+    }
+});
 document.getElementById("product-image-file")?.addEventListener("change",e=>{
-    const file=e.target.files?.[0];
-    if(!file)return;
-    const url=URL.createObjectURL(file);
-    setImagePreview(url);
-    const img=document.getElementById("product-preview-image");
-    if(img)img.onload=()=>URL.revokeObjectURL(url);
+    try{
+        addFilesToGallery(e.target.files);
+        e.target.value="";
+    }catch(error){
+        showToast(error.message||"No se pudieron agregar las imágenes.","error");
+        e.target.value="";
+    }
 });
 
 document.getElementById("order-modal-close").addEventListener("click",closeOrder);

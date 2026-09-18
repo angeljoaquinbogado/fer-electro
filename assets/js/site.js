@@ -458,6 +458,63 @@ function sincronizarCarritoConCatalogo() {
     renderCarrito();
 }
 
+function imagenesProducto(producto){
+    const raw=Array.isArray(producto?.imagenes)?producto.imagenes:[];
+    const values=[...raw];
+    if(producto?.imagen)values.unshift(producto.imagen);
+    const safe=values
+        .map(imagenSegura)
+        .filter(Boolean);
+    return [...new Set(safe)];
+}
+
+function renderGaleriaProducto(modal,producto){
+    const imagenes=imagenesProducto(producto);
+    const principal=modal.querySelector(".dynamic-product-image");
+    const thumbs=modal.querySelector(".product-gallery-thumbs");
+    const prev=modal.querySelector(".product-gallery-prev");
+    const next=modal.querySelector(".product-gallery-next");
+
+    if(!principal)return;
+
+    let index=0;
+    const show=current=>{
+        if(!imagenes.length)return;
+        index=(current+imagenes.length)%imagenes.length;
+        principal.src=imagenes[index];
+        principal.alt=`${producto.nombre||"Producto"} · imagen ${index+1}`;
+        thumbs?.querySelectorAll(".product-gallery-thumb").forEach((button,i)=>{
+            button.classList.toggle("active",i===index);
+            button.setAttribute("aria-current",i===index?"true":"false");
+        });
+    };
+
+    if(thumbs){
+        thumbs.innerHTML="";
+        thumbs.hidden=imagenes.length<=1;
+        imagenes.forEach((src,i)=>{
+            const button=document.createElement("button");
+            button.type="button";
+            button.className=`product-gallery-thumb ${i===0?"active":""}`;
+            button.setAttribute("aria-label",`Ver imagen ${i+1} de ${producto.nombre||"producto"}`);
+            button.innerHTML=`<img src="${textoSeguro(src)}" alt="" loading="lazy">`;
+            button.addEventListener("click",()=>show(i));
+            thumbs.appendChild(button);
+        });
+    }
+
+    if(prev){
+        prev.hidden=imagenes.length<=1;
+        prev.onclick=()=>show(index-1);
+    }
+    if(next){
+        next.hidden=imagenes.length<=1;
+        next.onclick=()=>show(index+1);
+    }
+
+    show(0);
+}
+
 function verProducto(producto) {
     const modal = document.getElementById("producto-dinamico");
 
@@ -466,13 +523,7 @@ function verProducto(producto) {
     productoModalActual = producto;
 
     const stock = Math.max(0, Number(producto.stock) || 0);
-    const imagen = imagenSegura(producto.imagen);
-
-    const imagenElemento = modal.querySelector(".dynamic-product-image");
-    if (imagenElemento) {
-        imagenElemento.src = imagen;
-        imagenElemento.alt = producto.nombre || "Producto";
-    }
+    renderGaleriaProducto(modal, producto);
 
     const categoria = modal.querySelector(".dynamic-product-category");
     if (categoria) categoria.textContent = producto.categoria || "PRODUCTO";
