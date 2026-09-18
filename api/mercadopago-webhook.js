@@ -159,8 +159,8 @@ if (topic === "merchant_order") {
             }
 
             // El email es un extra: nunca bloquea la confirmación del pago.
-            // Si RESEND_API_KEY / EMAIL_FROM no están configurados, se omite.
-            if (rpcData?.ok) {
+            // Solo se envía en la primera confirmación para evitar correos duplicados.
+            if (rpcData?.ok && !rpcData?.already_paid) {
                 try {
                     const itemsResponse = await supabaseFetch(
                         `/rest/v1/pedido_items?pedido_id=eq.${encodeURIComponent(orderId)}&select=nombre,cantidad,precio_unitario&order=id.asc`
