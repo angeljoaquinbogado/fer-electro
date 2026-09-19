@@ -217,29 +217,149 @@ function renderProductGallery(){
     });
 }
 
+const PRODUCT_IMAGE_TYPES=["image/jpeg","image/png","image/webp"];
+const PRODUCT_IMAGE_SOURCE_MAX=20*1024*1024;
+const PRODUCT_IMAGE_UPLOAD_TARGET=4.5*1024*1024;
+const PRODUCT_IMAGE_MAX_SIDE=2200;
+
 function validateImageFile(file){
-    if(!file)return;
-    if(file.size>5*1024*1024)throw new Error(`${file.name}: supera 5 MB.`);
-    if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
-        throw new Error(`${file.name}: usá JPG, PNG o WebP.`);
+    if(!file)throw new Error("Archivo vacío.");
+    if(!PRODUCT_IMAGE_TYPES.includes(file.type)){
+        throw new Error(`${file.name}: formato no compatible. Usá JPG, PNG o WebP.`);
+    }
+    if(file.size>PRODUCT_IMAGE_SOURCE_MAX){
+        throw new Error(`${file.name}: supera 20 MB.`);
+    }
+}
+
+function canvasBlob(canvas,type,quality){
+    return new Promise(resolve=>canvas.toBlob(resolve,type,quality));
+}
+
+async function loadImageForCanvas(file){
+    if("createImageBitmap" in window){
+        try{
+            const bitmap=await createImageBitmap(file);
+            return {
+                source:bitmap,
+                width:bitmap.width,
+                height:bitmap.height,
+                close:()=>bitmap.close?.()
+            };
+        }catch{}
+    }
+
+    return await new Promise((resolve,reject)=>{
+        const url=URL.createObjectURL(file);
+        const img=new Image();
+        img.onload=()=>resolve({
+            source:img,
+            width:img.naturalWidth||img.width,
+            height:img.naturalHeight||img.height,
+            close:()=>URL.revokeObjectURL(url)
+        });
+        img.onerror=()=>{
+            URL.revokeObjectURL(url);
+            reject(new Error(`${file.name}: no se pudo leer la imagen.`));
+        };
+        img.src=url;
+    });
+}
+
+async function optimizeImageForUpload(file){
+    validateImageFile(file);
+
+    /* Los archivos chicos se suben sin recomprimir para no degradarlos. */
+    if(file.size<=PRODUCT_IMAGE_UPLOAD_TARGET)return file;
+
+    const image=await loadImageForCanvas(file);
+
+    try{
+        const largest=Math.max(image.width,image.height);
+        const scale=Math.min(1,PRODUCT_IMAGE_MAX_SIDE/largest);
+        const width=Math.max(1,Math.round(image.width*scale));
+        const height=Math.max(1,Math.round(image.height*scale));
+
+        const canvas=document.createElement("canvas");
+        canvas.width=width;
+        canvas.height=height;
+
+        const ctx=canvas.getContext("2d",{alpha:false});
+        if(!ctx)throw new Error(`${file.name}: no se pudo optimizar.`);
+
+        ctx.fillStyle="#fff";
+        ctx.fillRect(0,0,width,height);
+        ctx.drawImage(image.source,0,0,width,height);
+
+        let blob=null;
+        for(const quality of [0.88,0.78,0.68,0.58]){
+            blob=await canvasBlob(canvas,"image/webp",quality);
+            if(blob&&blob.size<=PRODUCT_IMAGE_UPLOAD_TARGET)break;
+        }
+
+        if(!blob)throw new Error(`${file.name}: no se pudo optimizar.`);
+        if(blob.size>5*1024*1024){
+            throw new Error(`${file.name}: sigue siendo demasiado pesada después de optimizarla.`);
+        }
+
+        const base=String(file.name||"producto")
+            .replace(/\.[^.]+$/,"")
+            .replace(/[^a-zA-Z0-9._-]+/g,"-")
+            .slice(0,80)||"producto";
+
+        return new File([blob],`${base}.webp`,{
+            type:"image/webp",
+            lastModified:Date.now()
+        });
+    }finally{
+        image.close?.();
     }
 }
 
 function addFilesToGallery(files){
     const list=Array.from(files||[]);
     if(!list.length)return;
-    list.forEach(file=>{
-        validateImageFile(file);
-        productGalleryDraft.push({
-            key:`file-${crypto.randomUUID()}`,
-            type:"file",
-            url:"",
-            preview:URL.createObjectURL(file),
-            file,
-            name:file.name
-        });
-    });
+
+    const rejected=[];
+    let added=0;
+
+    for(const file of list){
+        try{
+            validateImageFile(file);
+
+            const duplicate=productGalleryDraft.some(item=>
+                item.type==="file" &&
+                item.file?.name===file.name &&
+                item.file?.size===file.size &&
+                item.file?.lastModified===file.lastModified
+            );
+
+            if(duplicate)continue;
+
+            productGalleryDraft.push({
+                key:`file-${crypto.randomUUID()}`,
+                type:"file",
+                url:"",
+                preview:URL.createObjectURL(file),
+                file,
+                name:file.name
+            });
+            added++;
+        }catch(error){
+            rejected.push(error.message||`${file.name}: no se pudo agregar.`);
+        }
+    }
+
     renderProductGallery();
+
+    if(rejected.length){
+        showToast(
+            `${added?`${added} imagen${added===1?" agregada":"es agregadas"}. `:""}${rejected.join(" ")}`,
+            "error"
+        );
+    }else if(added>1){
+        showToast(`${added} imágenes agregadas a la galería.`);
+    }
 }
 
 function addUrlToGallery(){
@@ -490,11 +610,12 @@ function editProduct(id){
 
 async function uploadImage(file){
     if(!file)return "";
-    validateImageFile(file);
+
+    const uploadFile=await optimizeImageForUpload(file);
 
     await refreshSessionIfNeeded();
     const cfg=await loadConfig();
-    const cleanName=file.name.toLowerCase().replace(/[^a-z0-9._-]+/g,"-").slice(-100);
+    const cleanName=uploadFile.name.toLowerCase().replace(/[^a-z0-9._-]+/g,"-").slice(-100);
     const path=`${Date.now()}-${crypto.randomUUID()}-${cleanName}`;
 
     const r=await fetch(`${cfg.supabaseUrl}/storage/v1/object/productos/${encodeURIComponent(path)}`,{
@@ -502,10 +623,10 @@ async function uploadImage(file){
         headers:{
             apikey:cfg.supabasePublishableKey,
             Authorization:`Bearer ${session.access_token}`,
-            "Content-Type":file.type,
+            "Content-Type":uploadFile.type,
             "x-upsert":"false"
         },
-        body:file
+        body:uploadFile
     });
     if(!r.ok){
         const d=await r.json().catch(()=>({}));
