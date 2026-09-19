@@ -854,14 +854,19 @@ function renderCarrito() {
                     </p>
                     <button
                         type="button"
-                        class="gold-btn"
-                        onclick="cerrarCarrito(); document.getElementById('productos')?.scrollIntoView({behavior:'smooth'});"
+                        class="gold-btn cart-empty-products"
                     >
                         VER PRODUCTOS
                     </button>
                 </div>
             </div>
         `;
+
+        contenedor.querySelector(".cart-empty-products")?.addEventListener("click", () => {
+            cerrarCarrito();
+            document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" });
+        });
+
         return;
     }
 
@@ -2273,5 +2278,32 @@ comprobarRetornoPago();
             closeSuggestions();
         }
     });
+})();
+
+/* =========================================================
+   EVENTOS SIN JAVASCRIPT INLINE
+   Mantiene una CSP más estricta contra XSS.
+========================================================= */
+(function configurarEventosSeguros(){
+    document.getElementById("orders-trigger")?.addEventListener("click", abrirMisPedidos);
+    document.getElementById("cart-trigger")?.addEventListener("click", abrirCarrito);
+
+    document.querySelector(".product-detail-close")?.addEventListener("click", cerrarProductoDinamico);
+
+    document.querySelector(".mobile-dock-orders")?.addEventListener("click", abrirMisPedidos);
+    document.querySelector(".mobile-dock-cart")?.addEventListener("click", abrirCarrito);
+
+    document.querySelector(".checkout-close")?.addEventListener("click", cerrarCheckout);
+    document.querySelector(".checkout-whatsapp")?.addEventListener("click", finalizarPorWhatsApp);
+
+    document.getElementById("orders-overlay")?.addEventListener("click", cerrarMisPedidos);
+    document.querySelector(".orders-close")?.addEventListener("click", cerrarMisPedidos);
+    document.getElementById("orders-refresh")?.addEventListener("click", () => cargarMisPedidos(true));
+
+    document.getElementById("cart-overlay")?.addEventListener("click", cerrarCarrito);
+    document.querySelector(".cart-close")?.addEventListener("click", cerrarCarrito);
+    document.getElementById("cart-checkout")?.addEventListener("click", abrirCheckout);
+    document.getElementById("cart-continue-shopping")?.addEventListener("click", cerrarCarrito);
+    document.getElementById("cart-clear")?.addEventListener("click", vaciarCarrito);
 })();
 

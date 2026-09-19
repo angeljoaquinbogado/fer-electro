@@ -1,3 +1,5 @@
+import { consumeRateLimit, enforceRateLimit } from "../lib/security.js";
+
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 async function sb(path) {
@@ -21,6 +23,23 @@ export default async function handler(req, res) {
     if (req.method !== "GET") {
         res.setHeader("Allow", "GET");
         return res.status(405).json({ error: "Método no permitido" });
+    }
+
+    try {
+        const rate = await consumeRateLimit(req, {
+            scope: "order-status",
+            limit: 60,
+            windowSeconds: 600
+        });
+
+        if (enforceRateLimit(
+            res,
+            rate,
+            "Demasiadas consultas de seguimiento. Esperá un momento y volvé a intentar."
+        )) return;
+    } catch (error) {
+        console.error("Order status rate limit error:", error?.message || error);
+        return res.status(503).json({ error: "No se pudo consultar el pedido" });
     }
 
     const id = String(req.query?.id || "").trim();

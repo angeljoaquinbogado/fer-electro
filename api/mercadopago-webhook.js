@@ -1,4 +1,10 @@
 import { sendOrderConfirmationEmail } from "../lib/order-email.js";
+import {
+    consumeRateLimit,
+    enforceRateLimit,
+    verifyMercadoPagoSignature,
+    bodyTooLarge
+} from "../lib/security.js";
 
 async function supabaseFetch(path, options = {}) {
     const url = process.env.SUPABASE_URL;
@@ -50,7 +56,19 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: "Configuración incompleta" });
     }
 
+    if (bodyTooLarge(req, 64 * 1024)) {
+        return res.status(413).json({ error: "Solicitud demasiado grande" });
+    }
+
     try {
+        const rate = await consumeRateLimit(req, {
+            scope: "mercadopago-webhook",
+            limit: 100,
+            windowSeconds: 60
+        });
+
+        if (enforceRateLimit(res, rate, "Demasiadas notificaciones.")) return;
+
         const topic = String(
     req.query?.topic ||
     req.query?.type ||
@@ -76,6 +94,18 @@ if (topic === "merchant_order") {
             return res.status(200).json({ ok: true, ignored: true });
         }
 
+        const signature = verifyMercadoPagoSignature(req, paymentId);
+
+        if (signature.required && !signature.configured) {
+            console.error("Mercado Pago webhook signature is required but not configured");
+            return res.status(503).json({ error: "Firma del webhook no configurada" });
+        }
+
+        if (signature.configured && !signature.valid) {
+            console.warn("Mercado Pago webhook rejected: invalid signature");
+            return res.status(401).json({ error: "Firma inválida" });
+        }
+
         // Nunca confiamos en el cuerpo del webhook: consultamos el pago directamente
         // a Mercado Pago con el token privado del comercio.
         const mpResponse = await fetch(
@@ -91,7 +121,10 @@ if (topic === "merchant_order") {
         const payment = await mpResponse.json().catch(() => ({}));
 
         if (!mpResponse.ok) {
-            console.error("MP payment lookup failed:", payment);
+            console.error("MP payment lookup failed", {
+                status: mpResponse.status,
+                paymentId
+            });
             return res.status(502).json({ error: "No se pudo verificar el pago" });
         }
 
@@ -106,7 +139,7 @@ if (topic === "merchant_order") {
         }
 
         const orderResponse = await supabaseFetch(
-            `/rest/v1/pedidos?id=eq.${encodeURIComponent(orderId)}&select=id,total,estado,cliente_nombre,cliente_email,tracking_token`
+            `/rest/v1/pedidos?id=eq.${encodeURIComponent(orderId)}&select=id,total,estado,mp_payment_id,cliente_nombre,cliente_email,tracking_token`
         );
 
         const orders = await orderResponse.json().catch(() => []);
@@ -123,13 +156,26 @@ if (topic === "merchant_order") {
 
         if (status === "approved") {
             if (Math.abs(paidAmount - expectedAmount) > 0.01) {
-                await supabaseFetch(`/rest/v1/pedidos?id=eq.${encodeURIComponent(orderId)}`, {
-                    method: "PATCH",
-                    body: JSON.stringify({
-                        estado: "pago_revisar_monto",
-                        mp_payment_id: String(payment.id)
-                    })
-                });
+                const stateResponse = await supabaseFetch(
+                    "/rest/v1/rpc/registrar_estado_pago",
+                    {
+                        method: "POST",
+                        body: JSON.stringify({
+                            p_pedido_id: orderId,
+                            p_payment_id: String(payment.id),
+                            p_estado: "pago_revisar_monto"
+                        })
+                    }
+                );
+                const stateData = await stateResponse.json().catch(() => null);
+
+                if (!stateResponse.ok) {
+                    console.error("registrar_estado_pago failed", {
+                        status: stateResponse.status,
+                        orderId
+                    });
+                    return res.status(500).json({ error: "No se pudo actualizar el pedido" });
+                }
 
                 console.error("Payment amount mismatch", {
                     orderId,
@@ -137,7 +183,11 @@ if (topic === "merchant_order") {
                     paidAmount
                 });
 
-                return res.status(200).json({ ok: true, review: true });
+                return res.status(200).json({
+                    ok: true,
+                    review: true,
+                    result: stateData
+                });
             }
 
             const rpcResponse = await supabaseFetch(
@@ -193,17 +243,38 @@ if (topic === "merchant_order") {
             charged_back: "contracargo"
         };
 
-        const nuevoEstado = estadoMap[status] || "pendiente";
+        const nuevoEstado = estadoMap[status];
 
-        await supabaseFetch(`/rest/v1/pedidos?id=eq.${encodeURIComponent(orderId)}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-                estado: nuevoEstado,
-                mp_payment_id: String(payment.id || "")
-            })
-        });
+        if (!nuevoEstado) {
+            return res.status(200).json({
+                ok: true,
+                ignored: true,
+                reason: "payment_status_not_mapped"
+            });
+        }
 
-        return res.status(200).json({ ok: true });
+        const stateResponse = await supabaseFetch(
+            "/rest/v1/rpc/registrar_estado_pago",
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    p_pedido_id: orderId,
+                    p_payment_id: String(payment.id || ""),
+                    p_estado: nuevoEstado
+                })
+            }
+        );
+        const stateData = await stateResponse.json().catch(() => null);
+
+        if (!stateResponse.ok) {
+            console.error("registrar_estado_pago failed", {
+                status: stateResponse.status,
+                orderId
+            });
+            return res.status(500).json({ error: "No se pudo actualizar el pedido" });
+        }
+
+        return res.status(200).json({ ok: true, result: stateData });
 
     } catch (error) {
         console.error("Webhook error:", error);

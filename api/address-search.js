@@ -1,3 +1,5 @@
+import { consumeRateLimit, enforceRateLimit } from "../lib/security.js";
+
 const GEOREF_URL = "https://apis.datos.gob.ar/georef/api/direcciones";
 
 function clean(value, max = 180) {
@@ -15,6 +17,23 @@ export default async function handler(req, res) {
     if (req.method !== "GET") {
         res.setHeader("Allow", "GET");
         return res.status(405).json({ error: "Método no permitido." });
+    }
+
+    try {
+        const rate = await consumeRateLimit(req, {
+            scope: "address-search",
+            limit: 90,
+            windowSeconds: 600
+        });
+
+        if (enforceRateLimit(
+            res,
+            rate,
+            "Hiciste demasiadas búsquedas de dirección. Esperá un momento y probá de nuevo."
+        )) return;
+    } catch (error) {
+        console.error("Address rate limit error:", error?.message || error);
+        return res.status(503).json({ suggestions: [], unavailable: true });
     }
 
     const q = clean(req.query?.q, 120);
