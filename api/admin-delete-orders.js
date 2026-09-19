@@ -1,3 +1,5 @@
+import { consumeRateLimit, enforceRateLimit, bodyTooLarge } from "../lib/security.js";
+
 const UUID_RE=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 async function parseJson(response,fallback){
@@ -11,6 +13,22 @@ export default async function handler(req,res){
     if(req.method!=="POST"){
         res.setHeader("Allow","POST");
         return res.status(405).json({error:"Método no permitido"});
+    }
+
+    if(bodyTooLarge(req,32*1024)){
+        return res.status(413).json({error:"La solicitud es demasiado grande."});
+    }
+
+    try{
+        const rate=await consumeRateLimit(req,{
+            scope:"admin-delete-orders",
+            limit:12,
+            windowSeconds:60
+        });
+        if(enforceRateLimit(res,rate,"Demasiadas operaciones administrativas. Esperá un momento."))return;
+    }catch(error){
+        console.error("Admin delete rate limit error:",error?.message||error);
+        return res.status(503).json({error:"No se pudo validar la operación."});
     }
 
     const supabaseUrl=process.env.SUPABASE_URL;

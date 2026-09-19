@@ -5,6 +5,7 @@ let productos = [];
 let pedidos = [];
 let selectedOrders = new Set();
 let productGalleryDraft = [];
+let refreshPromise = null;
 
 const money = new Intl.NumberFormat("es-AR", {
     style:"currency",
@@ -291,20 +292,29 @@ function readSession(){
 async function refreshSessionIfNeeded(){
     if(!session)throw new Error("Sesión no iniciada.");
     if((session.expires_at||0)-Date.now()>60000)return session;
+    if(refreshPromise)return refreshPromise;
 
-    const cfg=await loadConfig();
-    const r=await fetch(`${cfg.supabaseUrl}/auth/v1/token?grant_type=refresh_token`,{
-        method:"POST",
-        headers:{
-            apikey:cfg.supabasePublishableKey,
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({refresh_token:session.refresh_token})
-    });
-    const d=await r.json().catch(()=>({}));
-    if(!r.ok)throw new Error("La sesión venció. Volvé a ingresar.");
-    saveSession(d);
-    return session;
+    refreshPromise=(async()=>{
+        const cfg=await loadConfig();
+        const currentRefreshToken=session?.refresh_token;
+        if(!currentRefreshToken)throw new Error("La sesión venció. Volvé a ingresar.");
+
+        const r=await fetch(`${cfg.supabaseUrl}/auth/v1/token?grant_type=refresh_token`,{
+            method:"POST",
+            headers:{
+                apikey:cfg.supabasePublishableKey,
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({refresh_token:currentRefreshToken})
+        });
+        const d=await r.json().catch(()=>({}));
+        if(!r.ok)throw new Error("La sesión venció. Volvé a ingresar.");
+        saveSession(d);
+        return session;
+    })();
+
+    try{return await refreshPromise;}
+    finally{refreshPromise=null;}
 }
 
 async function sb(path, options={}){
@@ -321,7 +331,7 @@ async function sb(path, options={}){
     }
     const r=await fetch(`${cfg.supabaseUrl}${path}`,{...options,headers});
     if(r.status===401){
-        logout();
+        void logout(false);
         throw new Error("La sesión venció.");
     }
     return r;
@@ -348,14 +358,29 @@ async function login(email,password){
     saveSession(d);
 
     if(!await verifyAdmin()){
-        logout(false);
+        await logout(false);
         throw new Error("Esta cuenta no está autorizada como administrador.");
     }
 }
 
-function logout(reload=true){
+async function logout(reload=true){
+    const previous=session;
     session=null;
     sessionStorage.removeItem(SESSION_KEY);
+
+    if(previous?.access_token){
+        try{
+            const cfg=await loadConfig();
+            await fetch(`${cfg.supabaseUrl}/auth/v1/logout`,{
+                method:"POST",
+                headers:{
+                    apikey:cfg.supabasePublishableKey,
+                    Authorization:`Bearer ${previous.access_token}`
+                }
+            });
+        }catch{}
+    }
+
     if(reload)location.reload();
 }
 

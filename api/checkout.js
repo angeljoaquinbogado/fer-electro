@@ -2,6 +2,7 @@ import { consumeRateLimit, enforceRateLimit, bodyTooLarge } from "../lib/securit
 
 const MAX_ITEMS = 40;
 const MAX_QTY = 99;
+const DELIVERY_METHODS = new Set(["envio", "coordinar"]);
 
 function clean(value, max = 200) {
     return String(value ?? "").trim().slice(0, max);
@@ -121,6 +122,10 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: "Revisá los datos de contacto y entrega." });
         }
 
+        if (!DELIVERY_METHODS.has(cliente.entrega || "envio")) {
+            return res.status(400).json({ error: "El método de entrega no es válido." });
+        }
+
         if (itemsRaw.length < 1 || itemsRaw.length > MAX_ITEMS) {
             return res.status(400).json({ error: "El carrito no es válido." });
         }
@@ -135,7 +140,11 @@ export default async function handler(req, res) {
                 return res.status(400).json({ error: "Hay una cantidad de producto inválida." });
             }
 
-            cantidades.set(id, (cantidades.get(id) || 0) + cantidad);
+            const acumulada = (cantidades.get(id) || 0) + cantidad;
+            if (acumulada > MAX_QTY) {
+                return res.status(400).json({ error: "La cantidad total de un producto es inválida." });
+            }
+            cantidades.set(id, acumulada);
         }
 
         const catalogResponse = await supabaseFetch(

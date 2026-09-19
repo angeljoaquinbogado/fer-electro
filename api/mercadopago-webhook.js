@@ -1,4 +1,6 @@
 import { sendOrderConfirmationEmail } from "../lib/order-email.js";
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 import {
     consumeRateLimit,
     enforceRateLimit,
@@ -128,14 +130,17 @@ if (topic === "merchant_order") {
             return res.status(502).json({ error: "No se pudo verificar el pago" });
         }
 
-        const orderId = String(
-            payment.external_reference ||
-            payment.metadata?.pedido_id ||
-            ""
-        ).trim();
+        const externalOrderId = String(payment.external_reference || "").trim();
+        const metadataOrderId = String(payment.metadata?.pedido_id || "").trim();
 
-        if (!orderId) {
-            return res.status(200).json({ ok: true, ignored: true });
+        if (externalOrderId && metadataOrderId && externalOrderId !== metadataOrderId) {
+            console.warn("Payment order reference mismatch", { paymentId: String(payment.id || "") });
+            return res.status(200).json({ ok: true, ignored: true, reason: "order_reference_mismatch" });
+        }
+
+        const orderId = externalOrderId || metadataOrderId;
+        if (!UUID_RE.test(orderId)) {
+            return res.status(200).json({ ok: true, ignored: true, reason: "invalid_order_reference" });
         }
 
         const orderResponse = await supabaseFetch(
@@ -155,7 +160,8 @@ if (topic === "merchant_order") {
         const status = String(payment.status || "").toLowerCase();
 
         if (status === "approved") {
-            if (Math.abs(paidAmount - expectedAmount) > 0.01) {
+            const currency = String(payment.currency_id || "").toUpperCase();
+            if ((currency && currency !== "ARS") || Math.abs(paidAmount - expectedAmount) > 0.01) {
                 const stateResponse = await supabaseFetch(
                     "/rest/v1/rpc/registrar_estado_pago",
                     {
@@ -177,10 +183,11 @@ if (topic === "merchant_order") {
                     return res.status(500).json({ error: "No se pudo actualizar el pedido" });
                 }
 
-                console.error("Payment amount mismatch", {
+                console.error("Payment amount/currency mismatch", {
                     orderId,
                     expectedAmount,
-                    paidAmount
+                    paidAmount,
+                    currency
                 });
 
                 return res.status(200).json({
@@ -208,26 +215,71 @@ if (topic === "merchant_order") {
                 return res.status(500).json({ error: "No se pudo confirmar el pedido" });
             }
 
-            // El email es un extra: nunca bloquea la confirmación del pago.
-            // Solo se envía en la primera confirmación para evitar correos duplicados.
-            if (rpcData?.ok && !rpcData?.already_paid) {
-                try {
-                    const itemsResponse = await supabaseFetch(
-                        `/rest/v1/pedido_items?pedido_id=eq.${encodeURIComponent(orderId)}&select=nombre,cantidad,precio_unitario&order=id.asc`
-                    );
-                    const items = await itemsResponse.json().catch(() => []);
+            // El envío se reclama de forma atómica para evitar emails duplicados
+            // cuando Mercado Pago entrega dos webhooks casi al mismo tiempo.
+            if (rpcData?.ok) {
+                const claimResponse = await supabaseFetch(
+                    "/rest/v1/rpc/claim_email_confirmacion",
+                    {
+                        method: "POST",
+                        body: JSON.stringify({ p_pedido_id: orderId })
+                    }
+                );
+                const claimData = await claimResponse.json().catch(() => null);
 
-                    if (itemsResponse.ok && Array.isArray(items)) {
-                        await sendOrderConfirmationEmail({
+                if (!claimResponse.ok) {
+                    console.error("claim_email_confirmacion failed", {
+                        status: claimResponse.status,
+                        orderId
+                    });
+                } else if (claimData?.claimed) {
+                    try {
+                        const itemsResponse = await supabaseFetch(
+                            `/rest/v1/pedido_items?pedido_id=eq.${encodeURIComponent(orderId)}&select=nombre,cantidad,precio_unitario&order=id.asc`
+                        );
+                        const items = await itemsResponse.json().catch(() => []);
+
+                        if (!itemsResponse.ok || !Array.isArray(items)) {
+                            throw new Error("No se pudo cargar el detalle para el email");
+                        }
+
+                        const emailResult = await sendOrderConfirmationEmail({
                             order,
                             items,
                             origin: publicOrigin(req)
                         });
-                    } else {
-                        console.error("Order email items lookup failed:", orderId);
+
+                        await supabaseFetch(
+                            "/rest/v1/rpc/finalizar_email_confirmacion",
+                            {
+                                method: "POST",
+                                body: JSON.stringify({
+                                    p_pedido_id: orderId,
+                                    p_enviado: Boolean(emailResult?.sent)
+                                })
+                            }
+                        );
+
+                        if (!emailResult?.sent && !emailResult?.skipped) {
+                            throw new Error("El proveedor de email no confirmó el envío");
+                        }
+                    } catch (emailError) {
+                        await supabaseFetch(
+                            "/rest/v1/rpc/finalizar_email_confirmacion",
+                            {
+                                method: "POST",
+                                body: JSON.stringify({
+                                    p_pedido_id: orderId,
+                                    p_enviado: false
+                                })
+                            }
+                        ).catch(() => null);
+
+                        console.error("Order confirmation email failed:", emailError?.message || emailError);
+                        return res.status(500).json({
+                            error: "Pedido confirmado; email pendiente de reintento"
+                        });
                     }
-                } catch (emailError) {
-                    console.error("Order confirmation email failed:", emailError?.message || emailError);
                 }
             }
 
